@@ -1,0 +1,12 @@
+-- fib.fr
+-- Main entry for micro-benchmarks in the Frege programming language
+--
+-- vim: ft=haskell sw=4 ts=4
+--
+
+module Fib where
+
+fib_naive n =
+	if n <= 2 then 1 else fib_naive (n-2) + fib_naive (n-1)
+
+

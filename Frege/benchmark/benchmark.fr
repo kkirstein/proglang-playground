@@ -1,0 +1,10 @@
+-- benchmark.fr
+-- Main entry for micro-benchmarks in the Frege programming language
+--
+-- vim: ft=haskell sw=4 ts=4
+--
+
+module Benchmark where
+
+main _ = println "Hello World!"
+
