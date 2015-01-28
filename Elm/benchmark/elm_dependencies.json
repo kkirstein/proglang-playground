@@ -1,0 +1,13 @@
+{
+    "version": "0.1",
+    "summary": "A set of micro benchmarks for the Elm programming language",
+    "description": "This web-GUI includes benchmarks, like Fibonacci or perfect numbers as a starting exercise for the Elm programming language.",
+    "license": "BSD3",
+    "exposed-modules": [],
+    "elm-version": "0.13.0",
+    "dependencies": {
+        "evancz/elm-html": "0.3",
+		"michaelbjames/elm-benchmark": "0.3.0"
+    },
+    "repository": "https://github.com/kkirstein/elm-playground.git"
+}

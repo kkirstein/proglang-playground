@@ -1,0 +1,27 @@
+-- vim: ft=elm sw=4 ts=4 et
+-- 
+-- Benchmark.elm
+-- main entry-point for Elm micro-benchmarks
+-- using the elm-benchmark library
+--
+
+--module BenchmarkGUI where
+
+import Benchmark (..)
+import Fib
+import PerfectNumber
+
+
+---- model ----
+--benchmarks : [Benchmark]
+benchmarks = 
+    [ logic "Naive Fibonacci" Fib.fib_naive [10..35]
+    , logic "Recursive Fibonacci" Fib.fib [10..35]
+    , logic "Perfect Numbers" PerfectNumber.perfectnumbers [10, 100, 500, 1000]
+    ]
+
+
+---- input ----
+
+main : Signal Element
+main = run benchmarks

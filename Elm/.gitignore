@@ -1,0 +1,14 @@
+# backup files
+*~
+*.swp
+
+# dependencies
+*/elm_dependencies/*
+
+# generated files
+build
+cache
+
+# other generated files
+*repl-temp-*
+
