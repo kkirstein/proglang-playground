@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim: ft=xml sw=2 ts=2
+		 -->
+<project>
+	<meta title="Hello World" package="" version="1.0.0" company="" />
+
+	<app main="Main" file="hello_world" path="./bin" />
+
+	<window background="#FFFFFF" fps="60" />
+	<window width="800" height="600" unless="mobile" />
+	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
+
+	<!-- classpath, haxe libs -->
+	<source path="." />
+	<haxelib name="openfl" />
+	<haxelib name="actuate" />
+	<haxelib name="hscript" />
+	<haxelib name="haxeui" />
+
+	<!--
+	<assets path="C:\\HaxeToolkit\\haxe\\lib\\haxeui\\1,6,10\\assets" />
+		-->
+</project>
+

@@ -1,0 +1,9 @@
+# compile Benchmark module
+-cp src
+-main benchmark.Main
+
+-x bin/benchmark
+
+# run in interpreted mode
+#--interp
+
