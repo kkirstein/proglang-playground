@@ -3,6 +3,11 @@ proglang-playground
 
 A playground for various programming languages.
 
+# Clojure
+
+Clojure is a LISP-style language for the Java Virtuell Machine (JVM).
+
+
 # Elm
 
 Elm is a Haskell-style programming language for web development. It compiles to JavaScript and features Functional Reactive Programming for GUIs.
