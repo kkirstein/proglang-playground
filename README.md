@@ -7,6 +7,9 @@ A playground for various programming languages.
 
 Clojure is a LISP-style language for the Java Virtuell Machine (JVM).
 
+# ClojureScript
+
+ClojureScript is a Clojure dialect (mainly a subset) for web development, as it compiles to JavaScript.
 
 # Elm
 
