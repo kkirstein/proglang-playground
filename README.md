@@ -5,7 +5,7 @@ A playground for various programming languages.
 
 # Clojure
 
-Clojure is a LISP-style language for the Java Virtuell Machine (JVM).
+Clojure is a LISP-style language for the Java Virtual Machine (JVM).
 
 # ClojureScript
 
@@ -15,13 +15,17 @@ ClojureScript is a Clojure dialect (mainly a subset) for web development, as it 
 
 A standardized version of LISP, containing an object system (CLOS) and many libraries.
 
+# Elixir
+
+A functional programmig language for the Erlang virtual machine. It features macros, strong concurrency features (Erlang!) and an expressive syntax ala Ruby.
+
 # Elm
 
 Elm is a Haskell-style programming language for web development. It compiles to JavaScript and features Functional Reactive Programming for GUIs.
 
 # Frege
 
-Frege is a Haskell implementation for the Java Virtuell Machine (JVM).
+Frege is a Haskell implementation for the Java Virtual Machine (JVM).
 
 # Haxe
 
