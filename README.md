@@ -11,6 +11,10 @@ Clojure is a LISP-style language for the Java Virtuell Machine (JVM).
 
 ClojureScript is a Clojure dialect (mainly a subset) for web development, as it compiles to JavaScript.
 
+# Common Lisp
+
+A standardized version of LISP, containing an object system (CLOS) and many libraries.
+
 # Elm
 
 Elm is a Haskell-style programming language for web development. It compiles to JavaScript and features Functional Reactive Programming for GUIs.
