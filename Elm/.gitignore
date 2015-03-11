@@ -3,8 +3,8 @@
 *.swp
 
 # dependencies
-*/elm_dependencies/*
-*/elm-stuff/*
+elm-stuff
+elm.js
 
 # generated files
 build
