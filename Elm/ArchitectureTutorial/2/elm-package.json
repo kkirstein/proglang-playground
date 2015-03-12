@@ -1,0 +1,16 @@
+{
+	"version": "1.0.0",
+	"summary": "Section 2 of the Elm Architecture Tutorial",
+	"repository": "https://github.com/USER/PROJECT.git",
+	"license": "MIT",
+	"source-directories": [
+		"."
+		],
+	"exposed-modules": [],
+	"dependencies": {
+		"elm-lang/core": "1.1.0 <= v < 2.0.0",
+		"evancz/elm-html": "1.1.0 <= v < 2.0.0",
+		"evancz/local-channel": "1.0.0 <= v < 2.0.0"
+	}
+}
+
