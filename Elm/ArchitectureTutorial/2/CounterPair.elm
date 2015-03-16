@@ -12,6 +12,7 @@ import Html.Events (..)
 import LocalChannel as LC
 import Signal
 
+import Counter
 
 -- MODEL
 
@@ -33,8 +34,8 @@ init top bottom =
 
 type Action
   = Reset
-  | Increment
-  | Decrement
+  | Top Counter.Action
+  | Bottom Counter.Action
 
 
 update : Action -> Model -> Model
@@ -54,12 +55,12 @@ update action model =
 
 -- VIEW
 
-view : LocalChannel Action -> Model -> Html
-view channel model =
+view : Model -> Html
+view model =
   div []
   [ Counter.view (LC.create Top actionChannel) model.topCounter
-  , Counter.view (LC.creat Bottom actionChannel) model bottomChannel
-  , button [ onClick (Signal.send actioChannel Reset) ] [ text "RESET" ]
+  , Counter.view (LC.create Bottom actionChannel) model.bottomCounter
+  , button [ onClick (Signal.send actionChannel Reset) ] [ text "RESET" ]
   ]
 
 

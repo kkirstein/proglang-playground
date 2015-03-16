@@ -9,7 +9,7 @@ module Counter (Model, init, Action, update, view) where
 import Html (..)
 import Html.Attributes (..)
 import Html.Events (..)
-import LocalChannel
+import LocalChannel as LC
 
 
 -- MODEL
@@ -33,12 +33,12 @@ update action model =
 
 -- VIEW
 
-view : LocalChannel Action -> Model -> Html
+view : LC.LocalChannel Action -> Model -> Html
 view channel model =
   div []
-  [ button [ onClick (send channel Decrement) ] [ text "-" ]
+  [ button [ onClick (LC.send channel Decrement) ] [ text "-" ]
   , div [ countStyle ] [ text (toString model) ]
-  , button [ onClick (send channel Increment) ] [ text "+" ]
+  , button [ onClick (LC.send channel Increment) ] [ text "+" ]
   ]
 
 countStyle : Attribute
