@@ -8,14 +8,14 @@
 
 import qualified Data.Sequence as Seq
 import qualified Data.Foldable as F
+import qualified Data.ByteString as BS
 
-import Safe
+import qualified Safe
 
 import System.Environment
 import System.Exit
 import System.IO
 
-import qualified Data.ByteString as BS
 
 -- printTail outputs given number of lines
 printTail :: Int -> FilePath -> IO ()
@@ -70,7 +70,7 @@ parseArgs args =
   else
     case args of
       ("-n" : nStr : rest) ->
-        case readMay nStr of
+        case Safe.readMay nStr of
           Just n | n >= 0 -> return (TailOpts { to_files = rest, to_lines = n })
           _ -> abort "Argument to -n must be a non-negative int."
       [] -> return (TailOpts { to_files = ["-"], to_lines = defaultLines })
