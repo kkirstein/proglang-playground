@@ -27,6 +27,10 @@ Elm is a Haskell-style programming language for web development. It compiles to 
 
 Frege is a Haskell implementation for the Java Virtual Machine (JVM).
 
+# Haskell
+
+Haskell is a pure functional programming language with a very powerful static type system.
+
 # Haxe
 
 Haxe is a programming language mainly for the web that compiles to JavaScript, Flash, Neko (a VM for web server) or to native code (via C).
