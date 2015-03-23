@@ -16,3 +16,6 @@ dist/
 cabal.sandbox.config
 caba.config
 
+# HTF test runner
+.HTF/
+
