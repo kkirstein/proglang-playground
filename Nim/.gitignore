@@ -1,0 +1,11 @@
+# backup files
+*~
+*.swp
+
+# temporary build files by Nim & Nimble
+nimcache/
+
+# generated files
+*.exe
+*.dll
+
