@@ -9,7 +9,8 @@ from bigints import toString
 
 import fib
 import perfect_numbers
-
+import mandelbrot
+from mandelbrot_colormap import Color
 
 var
     tic : float
@@ -45,10 +46,36 @@ echo("----------------")
 tic = cpuTime()
 echo("perfect_numbers(10000) = ", perfect_numbers(10000), "\tElapsed: ", cpuTime()-tic, "s")
 
+# Mandelbrot sets
+# ===============
+echo("Mandelbrot sets:")
+echo("----------------")
+
+tic = cpuTime()
+var image_small : array[180*120, Color]
+discard mandelbrot(180, 120, -0.5, 0.0, 4.0/180, image_small)
+echo("mandelbrot set (180 x 120)\tElapsed: ", cpuTime()-tic, "s")
+
+tic = cpuTime()
+discard write_pgm("image_small.pgm", image_small, 180, 120)
+echo("image (180 x 120) written to file\tElapsed: ", cpuTime()-tic, "s")
+
+tic = cpuTime()
+var image_large : array[640*480, Color]
+discard mandelbrot(640, 480, -0.5, 0.0, 4.0/640, image_large)
+echo("mandelbrot set (640 x 480)\tElapsed: ", cpuTime()-tic, "s")
+
+tic = cpuTime()
+discard write_pgm("image_large.pgm", image_large, 640, 480)
+echo("image (640 x 480) written to file\tElapsed: ", cpuTime()-tic, "s")
+
 
 echo("---------------------")
 echo()
 echo("Done!")
+
+echo("Press ENTER to continue..")
+discard stdin.readLine()
 
 
 
