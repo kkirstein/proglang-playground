@@ -49,6 +49,8 @@ echo("perfect_numbers(10000) = ", perfect_numbers(10000), "\tElapsed: ", cpuTime
 tic = cpuTime()
 echo("perfect_numbers_2(10000) = ", perfect_numbers_2(10000), "\tElapsed: ", cpuTime()-tic, "s")
 
+echo()
+
 # Mandelbrot sets
 # ===============
 echo("Mandelbrot sets:")
@@ -72,6 +74,7 @@ tic = cpuTime()
 discard write_pgm("image_large.pgm", image_large, 640, 480)
 echo("image (640 x 480) written to file\tElapsed: ", cpuTime()-tic, "s")
 
+echo()
 
 echo("---------------------")
 echo()
