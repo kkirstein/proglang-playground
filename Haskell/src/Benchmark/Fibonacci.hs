@@ -1,10 +1,13 @@
 -- Fibonacci.hs
 -- Caluclate Fibonacci numbers in Haskell
 --
--- vim: ft=haskell sw=2 ts= et
+-- vim: ft=haskell sw=2 ts=2 et
 --
 
-module Fibonacci where
+module Fibonacci
+	( fibNaive
+	, fib )
+	where
 
 
 -- naive approach
