@@ -10,6 +10,7 @@ module Main where
 import System.CPUTime
 
 import Fibonacci as Fib
+import PerfectNumber as Pn
 
 -- a helper fun for timing measurement
 timeIt :: (Fractional c) => (a -> IO b) -> a -> IO c
@@ -53,5 +54,16 @@ main =
      putStrLn $ "Elapsed: " ++ show (toMSec tic toc) ++ "msec."
 
      putStrLn ""
+     putStrLn "Perfect numbers:"
+     putStrLn "----------------"
+     tic <- getCPUTime
+     putStrLn $ "perfectNumbers(10000) = " ++ show (perfectNumbers 10000)
+     toc <- getCPUTime
+     putStrLn $ "Elapsed: " ++ show (toMSec tic toc) ++ "msec."
+
+     putStrLn ""
      putStrLn "Done!"
+     putStrLn "Press <ENTER> to continue.."
+     getLine
+     return ()
 
