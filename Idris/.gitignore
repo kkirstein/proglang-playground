@@ -1,0 +1,13 @@
+# backup files
+*~
+*.swp
+
+# generated files
+dist/
+#*.o
+
+# cabal
+.cabal-sandbox/
+cabal.sandbox.config
+caba.config
+

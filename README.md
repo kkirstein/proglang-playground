@@ -37,6 +37,10 @@ Haxe is a programming language mainly for the web that compiles to JavaScript, F
 
 Haxe is statically typed and supports algebraic data types ala Haskell.
 
+# Idris
+
+[Idris](http://www.idris-lang.org/) is a Haskell-style programming language with [dependent types](http://en.wikipedia.org/wiki/Dependent_type). It compiles to either machine code (via C) or to JavaScript.
+
 # Lua
 
 Lua is a small dynamically typed "scripting" language. Due to its size it is very well suited to be embedded into applications. It also features a very easy interface to native (C) code. LuaJIT is an alternative implementation with increased performance by LIT-compilation.
