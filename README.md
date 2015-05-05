@@ -3,6 +3,10 @@ proglang-playground
 
 A playground for various programming languages.
 
+# ATS
+
+[ATS](http://www.ats-lang.org) is a statically-typed programming language that support functional and imperative styles. Its type system supports dependent types and enables theorem proofing of its implementations.
+
 # Clojure
 
 Clojure is a LISP-style language for the Java Virtual Machine (JVM).

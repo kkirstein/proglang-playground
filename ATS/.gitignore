@@ -1,0 +1,11 @@
+# backup files
+*~
+*.swp
+
+# generated files
+*.exe
+*.dll
+*.o
+*_dats.c
+*_sats.c
+
