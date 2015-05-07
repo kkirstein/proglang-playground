@@ -6,6 +6,7 @@
 
 var fib = require("./fib");
 var pn = require("./perfect_numbers")
+var mandel = require("./mandelbrot")
 
 console.log("Fibonacci numbers:");
 console.log("------------------");
@@ -34,6 +35,11 @@ res = pn.perfect_numbers(10000);
 toc = new Date();
 console.log("perfect_numbers(10000) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
 
+
+console.log("Mandelbrot set:");
+console.log("--------------");
+
+mandel.debug();
 
 console.log("------------------");
 console.log("Done!");

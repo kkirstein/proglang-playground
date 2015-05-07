@@ -1,0 +1,9 @@
+# backup files
+*~
+*.swp
+
+# generated files
+
+# npm
+node_modules/
+
