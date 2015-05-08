@@ -4,6 +4,8 @@
 // vim: ft=javascript sw=4 ts=4
 //
 
+'use strict';
+
 var fib = require("./fib");
 var pn = require("./perfect_numbers")
 var mandel = require("./mandelbrot")
@@ -39,7 +41,10 @@ console.log("perfect_numbers(10000) = ", res, "\tElapsed: ", (toc.getTime()-tic.
 console.log("Mandelbrot set:");
 console.log("--------------");
 
-mandel.debug();
+tic = new Date();
+let image = mandel.mandelbrot(640, 480, -0.5, 0.0, 4.0/640);
+toc = new Date();
+console.log("Mandelbrot set(640 x 480) calculated!", "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
 
 console.log("------------------");
 console.log("Done!");
