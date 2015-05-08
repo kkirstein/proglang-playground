@@ -10,12 +10,12 @@ module PerfectNumber where
 -- Predicate for pefect numbers
 isPerfect :: Integral a => a -> Bool
 isPerfect n =
-  isPerfect' n 1 0
+  isPerfect' 1 0
   where
-    isPerfect' n i sum
-      | i == n = (sum == n)
-      | n `mod` i == 0 = isPerfect' n (i+1) (sum+i)
-      | otherwise = isPerfect' n (i+1) sum
+    isPerfect' i s
+      | i == n = s==n
+      | n `mod` i == 0 = isPerfect' (i+1) (s+i)
+      | otherwise = isPerfect' (i+1) s
 
 -- Generate perfect number up to given limit
 perfectNumbers :: Integral a => a -> [a]

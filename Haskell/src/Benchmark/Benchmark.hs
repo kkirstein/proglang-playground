@@ -13,12 +13,12 @@ import Fibonacci as Fib
 import PerfectNumber as Pn
 
 -- a helper fun for timing measurement
-timeIt :: (Fractional c) => (a -> IO b) -> a -> IO c
-timeIt action arg =
-  do startTime <- getCPUTime
-     action arg
-     finishTime <- getCPUTime
-     return $ fromIntegral (finishTime - startTime) / 1000000000000
+--timeIt :: (Fractional c) => (a -> b) -> a -> IO (b, c)
+--timeIt action arg =
+--  do startTime <- getCPUTime
+--     res <- action arg
+--     finishTime <- getCPUTime
+--     return $ (res, fromIntegral (finishTime - startTime) / 1000000000000)
  
 toMSec :: (Integral a, Fractional c) => a -> a -> c
 toMSec tic toc =
@@ -64,6 +64,6 @@ main =
      putStrLn ""
      putStrLn "Done!"
      putStrLn "Press <ENTER> to continue.."
-     getLine
+     _ <- getLine
      return ()
 

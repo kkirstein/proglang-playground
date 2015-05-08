@@ -19,7 +19,8 @@ fibNaive n
 fib :: Integer -> Integer
 fib n = fib' 0 1 n
   where
+    fib' :: Integer -> Integer -> Integer -> Integer
     fib' a _ 0 = a
-    fib' a b n = fib' b (a+b) (n-1)
+    fib' a b n' = fib' b (a+b) (n'-1)
 
       
