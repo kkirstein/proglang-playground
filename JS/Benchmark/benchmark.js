@@ -7,8 +7,12 @@
 'use strict';
 
 var fib = require("./fib");
-var pn = require("./perfect_numbers")
-var mandel = require("./mandelbrot")
+var pn = require("./perfect_numbers");
+var mandel = require("./mandelbrot");
+
+console.log("JavaScript benchmarks");
+console.log("=====================");
+console.log();
 
 console.log("Fibonacci numbers:");
 console.log("------------------");
@@ -27,7 +31,7 @@ tic = new Date();
 res = fib.fib(1000);
 toc = new Date();
 console.log("fib(1000) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
-
+console.log();
 
 console.log("Perfect numbers:");
 console.log("----------------");
@@ -36,6 +40,7 @@ tic = new Date();
 res = pn.perfect_numbers(10000);
 toc = new Date();
 console.log("perfect_numbers(10000) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+console.log();
 
 
 console.log("Mandelbrot set:");
@@ -44,7 +49,13 @@ console.log("--------------");
 tic = new Date();
 let image = mandel.mandelbrot(640, 480, -0.5, 0.0, 4.0/640);
 toc = new Date();
-console.log("Mandelbrot set(640 x 480) calculated!", "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+console.log("Mandelbrot set (640x480) calculated!", "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+
+tic = new Date();
+mandel.writePGM("./mandelbrot.pgm", image);
+toc = new Date();
+console.log("Mandelbrot set (640x480) written!", "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+console.log();
 
 console.log("------------------");
 console.log("Done!");

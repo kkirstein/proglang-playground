@@ -7,3 +7,6 @@
 # npm
 node_modules/
 
+# test output files
+mandelbrot.pgm
+

@@ -6,6 +6,7 @@
 
 'use strict';
 
+var fs = require("fs");
 var Complex = require("Complex");
 var cm = require("./colormap");
 
@@ -25,7 +26,7 @@ function pixel(x, y) {
 }
 
 function value2RGB(val) {
-	return cm.Colormap[val] || [0, 0, 0];
+	return (val < n_max) ? cm.Colormap[val] : [0, 0, 0];
 }
 
 // calculate Mandelbrot set for given coordinates
@@ -34,16 +35,38 @@ exports.mandelbrot = function (x_max, y_max, x_center, y_center, pixel_size) {
 	const x_offset = x_center - 0.5 * pixel_size * (x_max + 1);
 	const y_offset = y_center + 0.5 * pixel_size * (y_max + 1);
 
-	let image = Array(x_max*y_max);
+	let data = Array(x_max*y_max);
 
-	for (var y=1; y<y_max; y++) {
-		for (var x=1; x<x_max; x++) {
-			image[y*x_max + x -1] = value2RGB(pixel(x_offset + x*pixel_size, y_offset - y*pixel_size));
+	for (var y=0; y<y_max; y++) {
+		for (var x=0; x<x_max; x++) {
+			data[y*x_max + x] = value2RGB(pixel(x_offset + x*pixel_size, y_offset - y*pixel_size));
 		}
 	}
 
-	return image;
+	return {
+		width: x_max,
+		height: y_max,
+		pixel: data };
 }
+
+// write image to PGM file
+exports.writePGM = function (file_name, image, cb) {
+
+	let fid = fs.createWriteStream(file_name);
+
+	// write header to file
+	let header_str = "P3" + "\n" + image.width + "\n" + image.height + "\n" + "255" + "\n";
+	fid.write(header_str);
+
+	let data_str = image.pixel.map(function (pix) {
+		return pix.join(" ");
+	}).join("\n");
+	fid.write(data_str);
+
+	fid.end();
+	return true;
+}
+
 
 exports.debug = function() {
 	let image = mandelbrot(640, 480, -0.5, 0.0, 4.0/640);
