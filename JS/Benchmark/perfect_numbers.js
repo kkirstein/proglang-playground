@@ -12,6 +12,8 @@ function isperfect(n) {
 	return (sum == n);
 }
 
+// exports
+exports.isperfect = isperfect;
 exports.perfect_numbers = function (n) {
 	var res = [];
 	for (var i = 1; i < n; i++) {
