@@ -4,16 +4,20 @@
 // vim: ft=javascript sw=4 ts=4
 //
 
+var BigInt = require('BigInt');
 
-exports.fib_naive = function (n) {
+// naive & efficient (BigInt) implementation
+function fib_naive (n) {
 	return (n < 2)? n : arguments.callee(n-1) + arguments.callee(n-2);
-};
+}
 
-exports.fib = function (n) {
+function fib (n) {
 	return function(n, a, b) {
-		return (n === 0)? a : arguments.callee(n-1, b, a+b);
-	}(n, 0, 1);
-};
+		return (n === 0)? a : arguments.callee(n-1, b, BigInt.add(a, b));
+	}(n, new BigInt.int2bigInt(0, 32), new BigInt.int2bigInt(1, 32));
+}
 
-
+// exports
+exports.fib_naive = fib_naive;
+exports.fib = fib;
 

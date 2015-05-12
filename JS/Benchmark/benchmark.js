@@ -7,6 +7,7 @@
 'use strict';
 
 var fib = require("./fib");
+var BigInt = require('BigInt');
 var pn = require("./perfect_numbers");
 var mandel = require("./mandelbrot");
 
@@ -25,12 +26,12 @@ console.log("fib_naive(35) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()
 tic = new Date();
 res = fib.fib(35);
 toc = new Date();
-console.log("fib(35) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+console.log("fib(35) = ", BigInt.bigInt2str(res, 10), "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
 
 tic = new Date();
 res = fib.fib(1000);
 toc = new Date();
-console.log("fib(1000) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+console.log("fib(1000) = ", BigInt.bigInt2str(res, 10), "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
 console.log();
 
 console.log("Perfect numbers:");

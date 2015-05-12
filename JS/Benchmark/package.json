@@ -4,6 +4,7 @@
   "description": "A collection of (micro-) benchmarks for Javascript (node or io)",
   "author": "Kay-Uwe Kirstein",
   "dependencies": {
+    "BigInt": "^5.5.3",
     "Complex": "^3.0.0"
   },
   "devDependencies": {
@@ -11,7 +12,7 @@
     "mocha": "^2.2.4"
   },
   "jshintConfig": {
-		"esnext": true,
-		"node": true
+    "esnext": true,
+    "node": true
   }
 }
