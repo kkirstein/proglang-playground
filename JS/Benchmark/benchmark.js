@@ -41,6 +41,18 @@ tic = new Date();
 res = pn.perfect_numbers(10000);
 toc = new Date();
 console.log("perfect_numbers(10000) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+tic = new Date();
+res = [];
+// the following version seems not to be completely lazy:
+//for (let n of pn.sequence()) {
+//   	if (n < 1000) res.push(n); else break;
+//}
+var gen = pn.sequence();
+for (let i=0; i<4; i++) {
+   	res.push(gen.next().value);
+}
+toc = new Date();
+console.log("4 perfect numbers (Generator) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
 console.log();
 
 

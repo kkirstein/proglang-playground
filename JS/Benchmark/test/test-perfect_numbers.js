@@ -14,6 +14,7 @@ describe('PerfectNumbers module', function () {
 	it('should export predicate and generator functions', function () {
 		expect(pn.isperfect).to.be.a('function');
 		expect(pn.perfect_numbers).to.be.a('function');
+		expect(pn.sequence).to.be.a('function');
 	});
 
 	it('should return correct numbers (1..10)', function () {
@@ -36,5 +37,20 @@ describe('PerfectNumbers module', function () {
 		expect(res[2]).to.equal(496);
 	});
 
+	it('sequence should return an generator', function () {
+		expect(pn.sequence).to.be.a('function');
+		var gen = pn.sequence().next();
+		//expect(gen).to.be.an('Generator');
+		expect(gen).to.have.property('value');
+		expect(gen).to.have.property('done');
+	});
+
+	it('generator should give sequence of perfect numbers', function () {
+		var gen = pn.sequence();
+		expect(gen.next().value).to.be(6);
+		expect(gen.next().value).to.be(28);
+		expect(gen.next().value).to.be(496);
+		expect(gen.next().value).to.be(8128);
+	});
 });
 
