@@ -30,27 +30,38 @@ function value2RGB(val) {
 }
 
 // calculate Mandelbrot set for given coordinates
-exports.mandelbrot = function (x_max, y_max, x_center, y_center, pixel_size) {
-
+function mandelbrot (x_max, y_max, x_center, y_center, pixel_size) {
 	const x_offset = x_center - 0.5 * pixel_size * (x_max + 1);
 	const y_offset = y_center + 0.5 * pixel_size * (y_max + 1);
 
-	let data = Array(x_max*y_max);
-
+	let data = new Array(x_max*y_max);
 	for (var y=0; y<y_max; y++) {
 		for (var x=0; x<x_max; x++) {
 			data[y*x_max + x] = value2RGB(pixel(x_offset + x*pixel_size, y_offset - y*pixel_size));
 		}
 	}
 
-	return {
-		width: x_max,
-		height: y_max,
-		pixel: data };
+	return { width: x_max, height: y_max, pixel: data };
 }
 
+// async version using Promise
+function mandelbrot_async (x_max, y_max, x_center, y_center, pixel_size) {
+	return new Promise( function (resolve, reject) {
+		const x_offset = x_center - 0.5 * pixel_size * (x_max + 1);
+		const y_offset = y_center + 0.5 * pixel_size * (y_max + 1);
+		let data = new Array(x_max*y_max);
+		for (var y=0; y<y_max; y++) {
+			for (var x=0; x<x_max; x++) {
+				data[y*x_max + x] = value2RGB(pixel(x_offset + x*pixel_size, y_offset - y*pixel_size));
+			}
+		}
+		resolve({ width: x_max, height: y_max, pixel: data });
+	});
+}
+ 
+
 // write image to PGM file
-exports.writePGM = function (file_name, image, cb) {
+function writePGM (file_name, image, cb) {
 
 	let fid = fs.createWriteStream(file_name);
 
@@ -67,8 +78,9 @@ exports.writePGM = function (file_name, image, cb) {
 	return true;
 }
 
+// exports
+exports.mandelbrot = mandelbrot;
+exports.mandelbrot_async = mandelbrot_async;
+exports.writePGM = writePGM;
 
-exports.debug = function() {
-	let image = mandelbrot(640, 480, -0.5, 0.0, 4.0/640);
-}
 

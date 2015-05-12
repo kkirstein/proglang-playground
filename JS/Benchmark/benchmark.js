@@ -59,17 +59,26 @@ console.log();
 console.log("Mandelbrot set:");
 console.log("--------------");
 
-tic = new Date();
+var tic11 = new Date();
 let image = mandel.mandelbrot(640, 480, -0.5, 0.0, 4.0/640);
-toc = new Date();
-console.log("Mandelbrot set (640x480) calculated!", "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+var toc11 = new Date();
+console.log("Mandelbrot set (640x480) calculated!", "\tElapsed: ", (toc11.getTime()-tic11.getTime()), "ms.");
 
-tic = new Date();
+var tic12 = new Date();
+var promise = mandel.mandelbrot_async(640, 480, -0.5, 0.0, 4.0/640);
+promise.then(function (res) {
+	var toc12 = new Date();
+	console.log("Mandelbrot set (640x480) calculated (async)!", "\tElapsed: ", (toc12.getTime()-tic12.getTime()), "ms.");
+});
+
+var tic13 = new Date();
 mandel.writePGM("./mandelbrot.pgm", image);
-toc = new Date();
-console.log("Mandelbrot set (640x480) written!", "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+var toc13 = new Date();
+console.log("Mandelbrot set (640x480) written!", "\tElapsed: ", (toc13.getTime()-tic13.getTime()), "ms.");
 console.log();
 
+// wait for all pending promises
+// TODO
 console.log("------------------");
 console.log("Done!");
 
