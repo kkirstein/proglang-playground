@@ -54,3 +54,7 @@ Lua is a small dynamically typed "scripting" language. Due to its size it is ver
 Nim (formerly Nimrod) is an imperative programming language that compiles to native code via C. It is designed for better safety than C to prevent errors especially for multithreaded programs.
 
 
+# Rust
+
+[Rust](https://www.rust-lang.org) is a statically typed programming language with good support for multithreading. It features a concept of variable ownership to prevent data races, deadlocks, etc.
+
