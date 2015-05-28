@@ -11,3 +11,9 @@ apt-get update
 
 apt-get install ponyc
 
+# install rust compiler
+#curl -sf -L https://static.rust-lang.org/rustup.sh | sh
+curl --insecure -L https://static.rust-lang.org/rustup.sh -O
+# this must be called interactively
+#sh rustup.sh --disable-sudo
+
