@@ -1,0 +1,14 @@
+# backup files
+*~
+*.swp
+
+# cargo package & build manager
+Cargo.lock
+
+# generated files
+target/
+*.exe
+*.dll
+
+*.pgm
+
