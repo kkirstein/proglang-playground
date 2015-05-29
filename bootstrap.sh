@@ -11,6 +11,9 @@ apt-get update
 
 apt-get install ponyc
 
+# install ruby dev environment
+apt-get -y install ruby-dev
+
 # install rust compiler
 #curl -sf -L https://static.rust-lang.org/rustup.sh | sh
 curl --insecure -L https://static.rust-lang.org/rustup.sh -O
