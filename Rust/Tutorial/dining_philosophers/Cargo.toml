@@ -1,4 +1,5 @@
 [package]
 name = "dining_philosophers"
 version = "0.1.0"
-authors = ["vagrant"]
+authors = ["Kay-Uwe Kirstein <kayuwe.kirstein@uster.com>"]
+
