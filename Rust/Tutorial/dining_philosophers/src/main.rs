@@ -30,11 +30,19 @@ impl Philosopher {
         let _left = table.forks[self.left].lock().unwrap();
         let _right = table.forks[self.right].lock().unwrap();
 
-        println!("{} is eating.", self.name);
+        println!("{} has started eating.", self.name);
 
         thread::sleep_ms(1000);
 
-        println!("{} is done eating.", self.name);
+        println!("{} has finished eating.", self.name);
+    }
+
+    fn mult_eat(&self, table: &Table, pause: u32, repeat: u32) {
+        for x in 0..repeat {
+            thread::sleep_ms(pause);
+            println!("{} went to table for {}. time.", self.name, (x+1));
+            self.eat(table);
+        }
     }
 }
 
@@ -63,7 +71,8 @@ fn main() {
         let table = table.clone();
 
         thread::spawn(move || {
-            p.eat(&table);
+            //p.eat(&table);
+            p.mult_eat(&table, 2000, 3);
         })
     }).collect();
 
