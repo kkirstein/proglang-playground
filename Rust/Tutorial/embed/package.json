@@ -1,0 +1,17 @@
+{
+  "name": "embed",
+  "version": "1.0.0",
+  "description": "Rust tutorial: embed a rust lib in node",
+  "main": "embed.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ffi"
+  ],
+  "author": "Kay-Uwe Kirstein",
+  "license": "MIT",
+  "jshintConfig": {
+	  "node": true
+  }
+}
