@@ -5,6 +5,7 @@
 //
 
 use "time"
+use "collections"
 
 actor Main
   new create(env: Env) =>
@@ -49,6 +50,7 @@ actor Main
 // so, far I don't know about packages, so put everything here:
 
 // Fibonacci numbers
+// =================
 primitive Fibonacci
   fun fib_naive(n: U64) : U64 =>
     if n < 2 then n
@@ -71,4 +73,21 @@ class FibNaive
   fun apply(n: U64) : U64 =>
     Fibonacci.fib_naive(n)
 
+
+// Perfect numbers
+// ===============
+primitive PerfectNumber
+  fun is_perfect(n: U32) : Bool =>
+    _is_perfect(n, 1, 0)
+
+  fun _is_perfect(n: U32, i: U32, sum: U32) : Bool =>
+    if (i == n) then (sum == n)
+    elseif (n % i) == 0 then _is_perfect(n, i+1, sum+i)
+    else _is_perfect(n, i+1, sum)
+    end
+
+  fun perfect_numbers(env: Env, n: U32) : None =>
+    for x in Range(1, n) do
+      if is_perfect(x) then env.out.print(x) end
+    end
 
