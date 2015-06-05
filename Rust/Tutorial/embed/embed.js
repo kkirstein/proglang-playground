@@ -6,9 +6,11 @@
 
 'use strict';
 
-var ffi = require('ff');
+var ffi = require('ffi');
 
-var lib = ffi.Library('target/release/libembed', {
+// for Windows: embed.dll
+// for Linux: libembed
+var lib = ffi.Library('target/release/embed.dll', {
 	'process': [ 'void', [] ]
 });
 
