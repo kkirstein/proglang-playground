@@ -1,0 +1,9 @@
+[package]
+name = "benchmark"
+version = "0.1.0"
+authors = ["Kay-Uwe Kirstein <kayuwe.kirstein@uster.com>"]
+
+[dependencies]
+#time = "0.1"
+#ramp = "0.1"
+
