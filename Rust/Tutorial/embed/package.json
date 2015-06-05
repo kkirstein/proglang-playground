@@ -12,6 +12,9 @@
   "author": "Kay-Uwe Kirstein",
   "license": "MIT",
   "jshintConfig": {
-	  "node": true
+    "node": true
+  },
+  "dependencies": {
+    "ffi": "^1.3.1"
   }
 }
