@@ -1,0 +1,11 @@
+{
+  "name": "simplefileeditor",
+  "version": "1.0.0",
+  "description": "A simple file editor as web-based application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kay-Uwe Kirstein",
+  "license": "MIT"
+}
