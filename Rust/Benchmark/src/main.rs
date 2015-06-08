@@ -50,8 +50,8 @@ fn main() {
     let (res, elap) = time_it(|| perfect_number::perfect_numbers(10000));
     println!("pn(10000) = {:?}\tElapsed: {}ms", res, elap);
 
-    let (res, elap) = time_it(|| perfect_number::perfect_numbers_2(10000));
-    println!("pn_2(10000) = {:?}\tElapsed: {}ms", res, elap);
+    let (res, elap) = time_it(|| perfect_number::perfect_number_iter(4));
+    println!("pn_iter(4) = {:?}\tElapsed: {}ms", res, elap);
 
     println!("");
 
