@@ -5,8 +5,23 @@
 // vim: ft=rust sw=4 ts=4
 //
 
+extern crate time;
+
+use time::precise_time_ns;
+
 // declare submodules
 mod fibonacci;
+mod perfect_number;
+
+
+// a helper function to time closures
+fn time_it<F, T>(fun: F) -> (T, u64) where F: Fn() -> T {
+    let tic = precise_time_ns();
+    let res = fun();
+    let toc = precise_time_ns();
+
+    (res, (toc-tic)/1000000)
+}
 
 fn main() {
 
@@ -18,11 +33,11 @@ fn main() {
     println!("Fibonacci numbers:");
     println!("------------------");
 
-    let fib_naive_35 = fibonacci::fib_naive(35);
-    println!("fib_naive(35) = {}", fib_naive_35);
+    let (res, elap) = time_it(|| fibonacci::fib_naive(35));
+    println!("fib_naive(35) = {}\tElapsed: {}ms", res, elap);
 
-    let fib_35 = fibonacci::fib(35);
-    println!("fib(35) = {}", fib_35);
+    let (res, elap) = time_it(|| fibonacci::fib(35));
+    println!("fib(35) = {}\tElapsed: {}ms", res, elap);
 
 //    let fib_1000 = fibonacci::fib(1000);
 //    println!("fib(1000) = {}", fib_1000);
@@ -31,6 +46,12 @@ fn main() {
 
     println!("Perfect numbers:");
     println!("----------------");
+
+    let (res, elap) = time_it(|| perfect_number::perfect_numbers(10000));
+    println!("pn(10000) = {:?}\tElapsed: {}ms", res, elap);
+
+    let (res, elap) = time_it(|| perfect_number::perfect_numbers_2(10000));
+    println!("pn_2(10000) = {:?}\tElapsed: {}ms", res, elap);
 
     println!("");
 
