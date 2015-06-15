@@ -6,6 +6,7 @@
 //
 
 extern crate time;
+extern crate num;
 
 use time::precise_time_ns;
 
@@ -39,8 +40,8 @@ fn main() {
     let (res, elap) = time_it(|| fibonacci::fib(35));
     println!("fib(35) = {}\tElapsed: {}ms", res, elap);
 
-//    let fib_1000 = fibonacci::fib(1000);
-//    println!("fib(1000) = {}", fib_1000);
+    let (res, elap) = time_it(|| fibonacci::fib(1000));
+    println!("fib(1000) = {}\tElapsed: {}ms", res, elap);
 
     println!("");
 
