@@ -10,7 +10,8 @@ var ffi = require('ffi');
 
 // for Windows: embed.dll
 // for Linux: libembed
-var lib = ffi.Library('target/release/embed.dll', {
+//var lib = ffi.Library('target/release/embed.dll', {
+var lib = ffi.Library('target/release/libembed', {
 	'process': [ 'void', [] ]
 });
 
