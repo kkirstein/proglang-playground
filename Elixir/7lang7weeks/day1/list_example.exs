@@ -1,4 +1,4 @@
-# print.exs
+# list_example.exs
 # Elixir script to demonstrate linked lists
 #
 # vim: ft=elixir sw=2 ts=2
@@ -32,5 +32,18 @@ defmodule ListExample do
 
   def my_max([h|_] = l), do: recur( &(&1>&2), {l, h})
   def my_min([h|_] = l), do: recur( &(&1<&2), {l, h})
+
+  # count words (atoms) of a given list
+  def word_count(l), do: word_count_recur(l, [])
+
+  defp word_count_recur([], c), do: c
+  defp word_count_recur([h|t], c) do
+    if is_number c[h] do
+      word_count_recur t, [{h, c[h]+1} | c]
+    else
+      word_count_recur t, [{h, 1} | c]
+    end
+  end
+
 end
 
