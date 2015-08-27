@@ -24,16 +24,13 @@ defmodule ListExample do
   def my_length([]), do: 0
   def my_length([_|t]), do: 1 + length(t)
 
-  defp my_max_aux({[], acc}), do: acc
-  defp my_max_aux({[a|tail], acc}) do
-    if a > acc do my_max_aux {tail, a} else my_max_aux {tail, acc} end
+  # recursive implementation for min/max detection
+  defp recur(_, {[], acc}), do: acc
+  defp recur(fun, {[h|tail], acc}) do
+    if fun.(h, acc) do recur fun, {tail, h} else recur fun, {tail, acc} end
   end
-  def my_max([h|_] = l), do: my_max_aux({l, h})
 
-  defp my_min_aux({[], acc}), do: acc
-  defp my_min_aux({[a|tail], acc}) do
-    if a < acc do my_min_aux {tail, a} else my_min_aux {tail, acc} end
-  end
-  def my_min([h|_] = l), do: my_min_aux({l, h})
+  def my_max([h|_] = l), do: recur( &(&1>&2), {l, h})
+  def my_min([h|_] = l), do: recur( &(&1<&2), {l, h})
 end
 
