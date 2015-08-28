@@ -38,7 +38,7 @@ defmodule ListExample do
 
   defp word_count([], c), do: c
   defp word_count([h|t], c) do
-    word_count t, Keyword.update(c, h, 1, &(&1 + 1))
+    word_count t, Keyword.update(c, h, 1, &(&1+1))
   end
 
 end
