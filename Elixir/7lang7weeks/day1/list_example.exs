@@ -34,15 +34,11 @@ defmodule ListExample do
   def my_min([h|_] = l), do: recur( &(&1<&2), {l, h})
 
   # count words (atoms) of a given list
-  def word_count(l), do: word_count_recur(l, [])
+  def word_count(l), do: word_count(l, [])
 
-  defp word_count_recur([], c), do: c
-  defp word_count_recur([h|t], c) do
-    if is_number c[h] do
-      word_count_recur t, [{h, c[h]+1} | c]
-    else
-      word_count_recur t, [{h, 1} | c]
-    end
+  defp word_count([], c), do: c
+  defp word_count([h|t], c) do
+    word_count t, Keyword.update(c, h, 1, &(&1 + 1))
   end
 
 end
