@@ -6,7 +6,7 @@
 
 defmodule StateMachine.Behavior do
   @doc """
-  Fire updates the context to the new state and activates
+  Updates the context to the new state and activates
   the associated functions from event.calls
   """
   def fire(context, event) do
