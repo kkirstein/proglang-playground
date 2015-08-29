@@ -4,8 +4,6 @@
 # run (micro) benchmarks
 #
 
-import Benchmark.Fibonacci
-
 defmodule Benchmark do
 
   def run do
@@ -21,7 +19,12 @@ defmodule Benchmark do
     IO.puts "fib(35) = #{res}, Elapsed: #{elap/1000}ms"
     {elap, res} = :timer.tc(&Benchmark.Fibonacci.fib/1, [1000])
     IO.puts "fib(1000) = #{res}, Elapsed: #{elap/1000}ms"
+    IO.puts ""
 
+    IO.puts "Perfect numbers"
+    IO.puts "---------------"
+    {elap, res} = :timer.tc(&Benchmark.PerfectNumber.perfect_numbers/1, [10000])
+    IO.puts "perfect_numbers(10000) = #{inspect res}, Elapsed: #{elap/1000}ms"
 
     IO.puts ""
     IO.puts "Done."
