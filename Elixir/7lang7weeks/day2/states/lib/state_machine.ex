@@ -47,14 +47,14 @@ defmodule StateMachine do
   @doc """
   Add callback defs for all events
   """
-  def event_callbacks(names) do
+  defp event_callbacks(names) do
     Enum.map names, &event_callback/1
   end
 
   @doc """
   Add callback def for given event name and
   """
-  def event_callback(name) do
+  defp event_callback(name) do
     callback = name
     quote do
       def unquote(name)(context) do
