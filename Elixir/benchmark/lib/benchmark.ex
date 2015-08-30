@@ -25,6 +25,8 @@ defmodule Benchmark do
     IO.puts "---------------"
     {elap, res} = :timer.tc(&Benchmark.PerfectNumber.perfect_numbers/1, [10000])
     IO.puts "perfect_numbers(10000) = #{inspect res}, Elapsed: #{elap/1000}ms"
+    {elap, res} = :timer.tc(&Benchmark.PerfectNumber.perfect_numbers_async/1, [10000])
+    IO.puts "perfect_numbers_async(10000) = #{inspect res}, Elapsed: #{elap/1000}ms"
 
     IO.puts ""
     IO.puts "Done."
