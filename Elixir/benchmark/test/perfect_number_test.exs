@@ -14,10 +14,14 @@ defmodule PerfectNumberTest do
     assert Benchmark.PerfectNumber.is_perfect?(28)
   end
 
-
   test "perfect number list generator" do
     assert Benchmark.PerfectNumber.perfect_numbers(1) == []
     assert Benchmark.PerfectNumber.perfect_numbers(1000) == [6, 28, 496]
+  end
+
+  test "perfect number asynchronous list generator" do
+    assert Benchmark.PerfectNumber.perfect_numbers_async(1) == []
+    assert Benchmark.PerfectNumber.perfect_numbers_async(1000) == [6, 28, 496]
   end
 end
 

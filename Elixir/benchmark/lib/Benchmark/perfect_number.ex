@@ -30,10 +30,8 @@ defmodule Benchmark.PerfectNumber do
   end
 
   def perfect_numbers_async(limit) do
-    tt = Enum.map(1..limit, fn(x) -> Task.async(fn -> is_perfect?(x) end) end)
-    ans = Enum.map(tt, fn(x) -> Task.await(x) end)
-    # TODO: retrieve true positions from answer
-    #for x <- 1..limit, Enum.fetch(ans, x-1), do: x
+    tt = Enum.map(1..limit, fn(x) -> Task.async(fn -> {is_perfect?(x), x} end) end)
+    Keyword.get_values Enum.map(tt, fn(x) -> Task.await(x) end), true
   end
 
 end
