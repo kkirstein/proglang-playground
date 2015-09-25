@@ -16,3 +16,6 @@ dpkg -i erlang-solutions_1.0_all.deb
 apt-get update 
 apt-get -y install elixir
 
+# git version management
+apt-get -y install git
+
