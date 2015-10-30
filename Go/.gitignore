@@ -3,4 +3,5 @@
 
 # go build files
 */bin/
+*/pkg/
 
