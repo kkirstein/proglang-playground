@@ -1,10 +1,12 @@
-defmodule KV.Mixfile do
+defmodule Benchmark.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :kv,
+    [app: :benchmark,
      version: "0.0.1",
      elixir: "~> 1.0",
+     build_embedded: Mix.env == :prod,
+     start_permanent: Mix.env == :prod,
      deps: deps]
   end
 
@@ -12,8 +14,7 @@ defmodule KV.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [],
-      mod: {KV, []}]
+    [applications: [:logger]]
   end
 
   # Dependencies can be Hex packages:
@@ -26,6 +27,6 @@ defmodule KV.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [{:pipe, "~> 0.0.2"}]
   end
 end
