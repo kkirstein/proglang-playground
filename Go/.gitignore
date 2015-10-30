@@ -1,0 +1,6 @@
+# vagrant files
+.vagrant
+
+# go build files
+*/bin/
+

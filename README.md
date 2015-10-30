@@ -27,6 +27,10 @@ A functional programmig language for the Erlang virtual machine. It features mac
 
 Elm is a Haskell-style programming language for web development. It compiles to JavaScript and features Functional Reactive Programming for GUIs.
 
+# Go
+
+Go is a mainly imperative programming language with a static type system. Go has a strong emphasis on concurrency via channels, aka goroutines.
+
 # Frege
 
 Frege is a Haskell implementation for the Java Virtual Machine (JVM).
