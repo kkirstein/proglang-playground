@@ -22,3 +22,18 @@ if [ ! `which ccl` ]; then
 fi
 echo done
 
+# configure quicklisp
+echo Installing QUICKLISP
+echo ====================
+curl --silent --insecure http://beta.quicklisp.org/quicklisp.lisp -O /vagrant/qicklisp.lisp
+if [ ! -f /home/vagrant/.config/common-lisp/source-registry.conf.d/asdf2.conf ]; then
+	mkdir -p /home/vagrant/.config/common-lisp/source-registry.conf.d
+	echo '(:tree "/vagrant")' > /home/vagrant/.config/common-lisp/source-registry.conf.d/asdf2.conf
+fi
+echo "QUICKLISP Installed:"
+echo "Install with:    (quicklisp-quickstart:install)"
+echo "Setup CL:        (ql:add-to.init-file)"
+echo "Search packages: (ql:apropos \"package\")"
+echo "Load package:    (ql:quickload \"package\")"
+
+
