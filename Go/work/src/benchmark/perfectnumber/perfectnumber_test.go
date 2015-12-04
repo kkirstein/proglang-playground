@@ -5,36 +5,69 @@
 
 package perfectnumber
 
-import "testing"
+import (
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+)
 
-func TestIsPerfect(t *testing.T) {
-	switch {
-	case IsPerfect(1):
-		t.Error("1 is no perfect number")
-	case IsPerfect(2):
-		t.Error("2 is no perfect number")
-	case IsPerfect(3):
-		t.Error("3 is no perfect number")
-	case IsPerfect(4):
-		t.Error("4 is no perfect number")
-	case IsPerfect(5):
-		t.Error("5 is no perfect number")
-	case !IsPerfect(6):
-		t.Error("6 is perfect number")
-	case IsPerfect(7):
-		t.Error("7 is no perfect number")
-	}
-}
+var _ = Describe("perfectnumber", func() {
 
-func TestPerfectNumbers(t *testing.T) {
-	pn := PerfectNumbers(1000)
-	exp := []int{6, 28, 496}
-	if len(pn) != len(exp) {
-		t.Error("Wrong number of perfect numbers")
-	}
-	for i, v := range pn {
-		if v != exp[i] {
-			t.Errorf("Wrong perfect number, expected %d, actual: %d", exp[i], v)
-		}
-	}
-}
+	Context("IsPerfect", func() {
+
+		It("should confirm perfect numbers", func() {
+			Expect(IsPerfect(6)).To(BeTrue())
+			Expect(IsPerfect(28)).To(BeTrue())
+		})
+
+		It("should deny invalid perfect numbers", func() {
+			Expect(IsPerfect(1)).To(BeFalse())
+			Expect(IsPerfect(2)).To(BeFalse())
+			Expect(IsPerfect(3)).To(BeFalse())
+			Expect(IsPerfect(4)).To(BeFalse())
+			Expect(IsPerfect(5)).To(BeFalse())
+			Expect(IsPerfect(7)).To(BeFalse())
+		})
+	})
+
+	Context("IsPerfectAsync", func() {
+
+		It("should confirm perfect numbers", func() {
+			var res bool
+			pn := IsPerfectAsync(6)
+			Eventually(pn).Should(Receive(&res))
+			Eventually(pn).Should(BeClosed())
+			Expect(res).To(BeTrue())
+		})
+
+		It("should deny invalid perfect numbers", func() {
+			var res bool
+			pn := IsPerfectAsync(5)
+			Eventually(pn).Should(Receive(&res))
+			Eventually(pn).Should(BeClosed())
+			Expect(res).To(BeFalse())
+		})
+	})
+
+	Context("PerfectNumbers", func() {
+
+		It("should return a list of valid perfect numbers", func() {
+			pn := PerfectNumbers(1000)
+			Expect(pn).To(HaveLen(3))
+			Expect(pn).To(Equal([]int{6, 28, 496}))
+		})
+	})
+
+	Context("PerfectNumbersAsync", func() {
+
+		It("should return a channel of valid perfect numbers", func() {
+			pn := PerfectNumbersAsync(1000)
+			expected := []int{6, 28, 496}
+			for _, exp := range expected {
+				var act int
+				Eventually(pn).Should(Receive(&act))
+				Expect(act).To(Equal(exp))
+			}
+			Eventually(pn).Should(BeClosed())
+		})
+	})
+})

@@ -45,6 +45,13 @@ func main() {
 	res3 := perfectnumber.PerfectNumbers(10000)
 	toc = time.Now()
 	fmt.Printf("PerfectNumbers(10000) = %v\tElapsed time: %fs\n", res3, toc.Sub(tic).Seconds())
+	tic = time.Now()
+	res4 := []int{}
+	for pn := range perfectnumber.PerfectNumbersAsync(10000) {
+		res4 = append(res4, pn)
+	}
+	toc = time.Now()
+	fmt.Printf("PerfectNumbersAsync(10000) = %v\tElapsed time: %fs\n", res4, toc.Sub(tic).Seconds())
 	fmt.Println()
 
 }
