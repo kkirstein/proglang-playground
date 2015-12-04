@@ -65,7 +65,7 @@ Nim (formerly Nimrod) is an imperative programming language that compiles to nat
 
 [Rust](https://www.rust-lang.org) is a statically typed programming language with good support for multithreading. It features a concept of variable ownership to prevent data races, deadlocks, etc.
 
-# Rust
+# Swift
 
-[Rust](https://www.rust-lang.org) is a statically typed programming language with good support for multithreading. It features a concept of variable ownership to prevent data races, deadlocks, etc.
+[Swift](https://swift.org) is Apples successor of Objective-C and a statically-typed programming language with object-oriented and functional features.
 
