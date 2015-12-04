@@ -9,6 +9,7 @@ package main
 
 import (
 	"benchmark/fib"
+	"benchmark/mandelbrot"
 	"benchmark/perfectnumber"
 	"fmt"
 	"time"
@@ -35,7 +36,7 @@ func main() {
 	tic = time.Now()
 	res2 := fib.Fib(1000).String()
 	toc = time.Now()
-	fmt.Printf("Fib(1000)      = %s\tElapsed time: %fs\n", res2, toc.Sub(tic).Seconds())
+	fmt.Printf("Fib(1000)    = %s\tElapsed time: %fs\n", res2, toc.Sub(tic).Seconds())
 
 	fmt.Println()
 	fmt.Println("Perfect numbers")
@@ -54,4 +55,26 @@ func main() {
 	fmt.Printf("PerfectNumbersAsync(10000) = %v\tElapsed time: %fs\n", res4, toc.Sub(tic).Seconds())
 	fmt.Println()
 
+	fmt.Println("Mandelbrot set")
+	fmt.Println("==============")
+	tic = time.Now()
+	res5 := mandelbrot.Mandelbrot(640, 480, -0.5, 0.0, 4.0/640)
+	toc = time.Now()
+	fmt.Printf("Mandelbrot(640 x 480)\tElapsed time: %fs\n", toc.Sub(tic).Seconds())
+
+	tic = time.Now()
+	res6 := mandelbrot.Mandelbrot(1920, 1200, -0.5, 0.0, 4.0/1920)
+	toc = time.Now()
+	fmt.Printf("Mandelbrot(1920 x 1200)\tElapsed time: %fs\n", toc.Sub(tic).Seconds())
+
+	tic = time.Now()
+	err1 := mandelbrot.WritePng("mandelbrot_640x480.png", res5)
+	toc = time.Now()
+	fmt.Printf("Mandelbrot(640 x 480) written to file. Error: %v\tElapsed time: %fs\n", err1, toc.Sub(tic).Seconds())
+
+	tic = time.Now()
+	err2 := mandelbrot.WritePng("mandelbrot_1920x1200.png", res6)
+	toc = time.Now()
+	fmt.Printf("Mandelbrot(1920 x 1200) written to file. Error: %v\tElapsed time: %fs\n", err2, toc.Sub(tic).Seconds())
+	fmt.Println()
 }
