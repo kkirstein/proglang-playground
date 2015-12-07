@@ -3,9 +3,11 @@
 // vim: ft=go sw=4 ts=4
 //
 
-package perfectnumber
+package perfectnumber_test
 
 import (
+	. "benchmark/perfectnumber"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
