@@ -58,22 +58,31 @@ func main() {
 	fmt.Println("Mandelbrot set")
 	fmt.Println("==============")
 	tic = time.Now()
-	res5 := mandelbrot.Mandelbrot(640, 480, -0.5, 0.0, 4.0/640)
+	img1 := mandelbrot.Mandelbrot(640, 480, -0.5, 0.0, 4.0/640)
 	toc = time.Now()
-	fmt.Printf("Mandelbrot(640 x 480)\tElapsed time: %fs\n", toc.Sub(tic).Seconds())
+	fmt.Printf("Mandelbrot(%d x %d)\tElapsed time: %fs\n",
+		img1.Rect.Max.X, img1.Rect.Max.Y, toc.Sub(tic).Seconds())
 
 	tic = time.Now()
-	res6 := mandelbrot.Mandelbrot(1920, 1200, -0.5, 0.0, 4.0/1920)
+	img2 := mandelbrot.Mandelbrot(1920, 1200, -0.5, 0.0, 4.0/1920)
 	toc = time.Now()
-	fmt.Printf("Mandelbrot(1920 x 1200)\tElapsed time: %fs\n", toc.Sub(tic).Seconds())
+	fmt.Printf("Mandelbrot(%d x %d)\tElapsed time: %fs\n",
+		img2.Rect.Max.X, img2.Rect.Max.Y, toc.Sub(tic).Seconds())
 
 	tic = time.Now()
-	err1 := mandelbrot.WritePng("mandelbrot_640x480.png", res5)
+	mbAsync := mandelbrot.MandelbrotAsync(1920, 1200, -0.5, 0.0, 4.0/1920)
+	img3 := <-mbAsync
+	toc = time.Now()
+	fmt.Printf("Mandelbrot(%d x %d)\tElapsed time: %fs\n",
+		img3.Rect.Max.X, img3.Rect.Max.Y, toc.Sub(tic).Seconds())
+
+	tic = time.Now()
+	err1 := mandelbrot.WritePng("mandelbrot_640x480.png", img1)
 	toc = time.Now()
 	fmt.Printf("Mandelbrot(640 x 480) written to file. Error: %v\tElapsed time: %fs\n", err1, toc.Sub(tic).Seconds())
 
 	tic = time.Now()
-	err2 := mandelbrot.WritePng("mandelbrot_1920x1200.png", res6)
+	err2 := mandelbrot.WritePng("mandelbrot_1920x1200.png", img2)
 	toc = time.Now()
 	fmt.Printf("Mandelbrot(1920 x 1200) written to file. Error: %v\tElapsed time: %fs\n", err2, toc.Sub(tic).Seconds())
 	fmt.Println()
