@@ -17,8 +17,13 @@ apt-get -y install git
 # nothing to do here...
 
 # install perl6
-git clone https://github.com/tadzik/rakudobrew /home/vagrant/.rakudobrew
-export PATH=/home/.rakudobrew/bin:$PATH
+if [ -d /home/vagrant/.rakudobrew ]; then
+	cd /home/vagrant/.rakudobrew && git pull
+else
+	git clone https://github.com/tadzik/rakudobrew /home/vagrant/.rakudobrew
+fi
+
+export PATH=/home/vagrant/.rakudobrew/bin:$PATH
 
 rakudobrew build moar 2015.12
 rakudobrew build panda
