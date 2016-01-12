@@ -57,6 +57,10 @@ Lua is a small dynamically typed "scripting" language. Due to its size it is ver
 
 Nim (formerly Nimrod) is an imperative programming language that compiles to native code via C. It is designed for better safety than C to prevent errors especially for multithreaded programs.
 
+# Perl
+
+[Perl](http://www.perl.org) is a general purpose scripting language with a large set of supporting libraries. It is very well suited for an kind of text processing thanks to its powerful regular expression engine. [Perl6](http://perl6.org) is a modern dialect of Perl, recently released.
+
 # Pony
 
 [Pony](http://www.ponylang.org) is a statically typed programming language with built-in support for actors, like they are known from Scala of Erlang. In contrast, pony compiles to native code without using a dedicated runtime engine.
