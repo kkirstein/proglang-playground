@@ -1,0 +1,13 @@
+# vim files
+*~
+*.swp
+
+# ocp-build
+.ocp/
+_build/
+_obuild/
+
+# compiler output
+*.cmi
+*.cmo
+
