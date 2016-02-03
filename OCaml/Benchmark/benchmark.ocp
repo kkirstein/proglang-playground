@@ -1,5 +1,6 @@
 begin program "benchmark"
-	files = [ "fibonacci.ml" "perfect_number.ml" "benchmark.ml" ]
+	files = [ "fibonacci.ml" "perfect_number.ml" "mandelbrot.ml"
+		"benchmark.ml" ]
 	requires = [ "nums" ]
 end
 
