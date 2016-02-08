@@ -38,6 +38,9 @@ let () =
 
   print_endline "Mandelbrot set";
   print_endline "==============";
+  Printf.printf "mandelbrot(640x480) (Elapsed time %fs)\n" (time_it Mandelbrot.mandelbrot 640 480 0.0 0.0 4.0);
+
+
 
   print_newline ();
 

@@ -4,13 +4,6 @@
  * A package to Mandelbrot sets
  *)
 
-(* struct for pixel color *)
-type pixel_color = { r : int; g : int; b : int }
-
-(* image data container *)
-type image = { width : int; height : int; data : pixel_color array }
-
-
 (* calculate pixel value *)
 let pixel_value x y n_max r_max =
   let z0 = {Complex.re = x; Complex.im = y} in
@@ -22,18 +15,12 @@ let pixel_value x y n_max r_max =
 ;;
 
 (* select color for given pixel value *)
-let color_black = { r = 0; g = 0; b = 0 }
-let color_white = { r = 255; g = 255; b = 255 }
 let color_of_value value = 
-  if value > 0 then color_white else color_black
+  if value > 0 then Image.color_white else Image.color_black
 ;;
 
-(* generate image data *)
-let image ?color:(color=color_black) width height = 
-  { width=width; height=height; data=Array.make (width*height) color }
-;;
 
-let pixel_iter f img =
+let pixel_iter f (img : Image.image) =
   let rec loop x y =
     if x < (img.width-1) then (ignore(f x y img); loop (x+1) y)
     else (if y < (img.height-1) then (ignore(f x y img); loop 0 (y+1))
@@ -41,4 +28,21 @@ let pixel_iter f img =
   in
   loop 0 0
 ;;
+
+
+let mandelbrot width height center_x center_y pixel_size =
+  let mandel = Image.make width height
+  and x_offset = center_x -. 0.5 *. pixel_size *. (float_of_int width)
+  and y_offset = center_y +. 0.5 *. pixel_size *. (float_of_int height)
+  in
+  let pixel_fun x y img = (
+    let x_val = (float_of_int x) *. pixel_size +. x_offset
+    and y_val = (float_of_int y) *. pixel_size -. y_offset
+    in
+    let color = pixel_value x_val y_val 255 2.0 |> color_of_value
+    in ignore(Image.set_color img x y color); ())
+  in
+  pixel_iter pixel_fun mandel
+;;
+
 
