@@ -20,14 +20,16 @@ let color_of_value value =
 ;;
 
 
+(*
 let pixel_iter f (img : Image.image) =
   let rec loop x y =
     if x < (img.width-1) then (ignore(f x y img); loop (x+1) y)
     else (if y < (img.height-1) then (ignore(f x y img); loop 0 (y+1))
-      else ())
+      else img)
   in
   loop 0 0
 ;;
+*)
 
 
 let mandelbrot width height center_x center_y pixel_size =
@@ -35,14 +37,13 @@ let mandelbrot width height center_x center_y pixel_size =
   and x_offset = center_x -. 0.5 *. pixel_size *. (float_of_int width)
   and y_offset = center_y +. 0.5 *. pixel_size *. (float_of_int height)
   in
-  let pixel_fun x y img = (
+  let pixel_fun x y = 
     let x_val = (float_of_int x) *. pixel_size +. x_offset
     and y_val = (float_of_int y) *. pixel_size -. y_offset
     in
-    let color = pixel_value x_val y_val 255 2.0 |> color_of_value
-    in ignore(Image.set_color img x y color); ())
+    pixel_value x_val y_val 255 2.0 |> color_of_value
   in
-  pixel_iter pixel_fun mandel
+  Image.map pixel_fun mandel
 ;;
 
 
