@@ -16,22 +16,15 @@ let pixel_value x y n_max r_max =
 
 (* select color for given pixel value *)
 let color_of_value value = 
+  if value > Array.length Color_map.plan9 then Image.color_black
+  else Color_map.plan9.(value)
+;;
+
+let bw_of_value value = 
   if value > 0 then Image.color_white else Image.color_black
 ;;
 
-
-(*
-let pixel_iter f (img : Image.image) =
-  let rec loop x y =
-    if x < (img.width-1) then (ignore(f x y img); loop (x+1) y)
-    else (if y < (img.height-1) then (ignore(f x y img); loop 0 (y+1))
-      else img)
-  in
-  loop 0 0
-;;
-*)
-
-
+(* generate mandelbrot set *)
 let mandelbrot width height center_x center_y pixel_size =
   let mandel = Image.make width height
   and x_offset = center_x -. 0.5 *. pixel_size *. (float_of_int width)

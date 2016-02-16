@@ -12,7 +12,6 @@ val color_white : pixel_color
 
 
 type image = private { width : int; height : int; data : pixel_color array }
-
 (** Data container for image data *)
 
 val make : ?color:pixel_color -> int -> int -> image

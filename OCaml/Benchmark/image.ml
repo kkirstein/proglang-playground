@@ -1,6 +1,6 @@
 (* vim: set ft=ocaml sw=2 ts=2: *)
 
-(* image.mli
+(* image.ml
  * A package for image data containers
  *)
 
