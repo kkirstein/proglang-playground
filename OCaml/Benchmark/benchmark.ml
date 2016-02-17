@@ -38,9 +38,8 @@ let () =
 
   print_endline "Mandelbrot set";
   print_endline "==============";
-  Printf.printf "mandelbrot(640x480) (Elapsed time %fs)\n" (time_it
-  (Mandelbrot.mandelbrot 640 480 (-0.5) 0.0) (4.0/.480.));
-  (* Printf.printf "mandelbrot(640x480) written (Elapsed time %fs)\n" (time_it (Image.write_pnm (Mandelbrot.mandelbrot 640 480 0.0 0.0 4.0) "mandelbrot_640_480.pgm")); *)
+  Printf.printf "mandelbrot(640x480) (Elapsed time %fs)\n" (time_it (Mandelbrot.mandelbrot 640 480 (-0.5) 0.0) (4.0/.640.));
+  Printf.printf "mandelbrot(1920x1200) (Elapsed time %fs)\n" (time_it (Mandelbrot.mandelbrot 1920 1200 (-0.5) 0.0) (4.0/.1200.));
   Image.write_ppm (Mandelbrot.mandelbrot 640 480 (-0.5) 0.0 (4.0/.480.)) "mandelbrot_640_480.ppm";
 
 
