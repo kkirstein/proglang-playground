@@ -27,15 +27,24 @@ let set_color img x y color =
 ;;
 
 (* map function to all pixels *)
+(*
 let map f img =
   let rec loop x y =
     if x < (img.width-1) then (ignore(f x y |> set_color img x y); loop (x+1) y)
     else (if y < (img.height-1) then (ignore(f x y |> set_color img x y); loop 0 (y+1))
-      else img)
+      else (ignore(f x y |> set_color img x y); img))
   in
   loop 0 0
 ;;
-
+*)
+let map f img =
+  for y = 0 to (img.height-1) do
+    for x = 0 to (img.width-1) do
+      f x y |> set_color img x y
+    done
+  done;
+  img
+;;
 
 (* write image to pnm file *)
 let write_ppm img file_name =
