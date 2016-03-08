@@ -1,4 +1,6 @@
 # vagrant files
 .vagrant
 
+# generated images
+*.pgm
 
