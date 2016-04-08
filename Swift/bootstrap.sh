@@ -13,12 +13,12 @@ dpkg-reconfigure -f noninteractive tzdata
 # install swift
 echo Downloading Swift
 echo =================
-version=2.2-SNAPSHOT-2015-12-01-b
+version=2.2-RELEASE
 platform=ubuntu14.04
 if [ ! -f swift-${version}-${platform}.tar.gz ]; then
-	curl --silent --insecure https://swift.org/builds/ubuntu1404/swift-${version}/swift-${version}-${platform}.tar.gz -O
+	curl --silent --insecure https://swift.org/builds/swift-2.2-release/ubuntu1404/swift-${version}/swift-${version}-${platform}.tar.gz -O
 fi
-curl --silent --insecure https://swift.org/builds/ubuntu1404/swift-${version}/swift-${version}-${platform}.tar.gz.sig -O
+curl --silent --insecure https://swift.org/builds/swift-2.2-release/ubuntu1404/swift-${version}/swift-${version}-${platform}.tar.gz.sig -O
 
 echo Verifying signatures
 echo ====================
@@ -30,7 +30,7 @@ gpg --keyserver hkp://pool.sks-keyservers.net --refresh-keys Swift
 gpg --verify swift-${version}-${platform}.tar.gz.sig
 
 echo Installing Swift
-echo ================
+echo =============== 
 apt-get -y install clang
 tar -C /usr/local -xzf swift-${version}-${platform}.tar.gz
 
