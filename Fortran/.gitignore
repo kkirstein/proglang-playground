@@ -1,0 +1,13 @@
+# vim files
+*~
+*.swp
+
+
+# compiler output
+*.o
+*.a
+*.exe
+
+# generated images
+*.ppm
+
