@@ -13,12 +13,14 @@ dpkg-reconfigure -f noninteractive tzdata
 # install swift
 echo Downloading Swift
 echo =================
-version=2.2-RELEASE
+branch=development
+version=DEVELOPMENT-SNAPSHOT-2016-03-24-a
+#version=2.2.1-SNAPSHOT-2016-03-28-a
 platform=ubuntu14.04
 if [ ! -f swift-${version}-${platform}.tar.gz ]; then
-	curl --silent --insecure https://swift.org/builds/swift-2.2-release/ubuntu1404/swift-${version}/swift-${version}-${platform}.tar.gz -O
+	curl --silent --insecure https://swift.org/builds/${branch}/ubuntu1404/swift-${version}/swift-${version}-${platform}.tar.gz -O
 fi
-curl --silent --insecure https://swift.org/builds/swift-2.2-release/ubuntu1404/swift-${version}/swift-${version}-${platform}.tar.gz.sig -O
+curl --silent --insecure https://swift.org/builds/${branch}/ubuntu1404/swift-${version}/swift-${version}-${platform}.tar.gz.sig -O
 
 echo Verifying signatures
 echo ====================
