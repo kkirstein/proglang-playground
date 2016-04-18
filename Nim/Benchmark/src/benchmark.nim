@@ -46,8 +46,8 @@ echo("----------------")
 tic = cpuTime()
 echo("perfect_numbers(10000) = ", perfect_numbers(10000), "\tElapsed: ", cpuTime()-tic, "s")
 
-tic = cpuTime()
-echo("perfect_numbers_2(10000) = ", perfect_numbers_2(10000), "\tElapsed: ", cpuTime()-tic, "s")
+#tic = cpuTime()
+#echo("perfect_numbers_2(10000) = ", perfect_numbers_2(10000), "\tElapsed: ", cpuTime()-tic, "s")
 
 echo()
 

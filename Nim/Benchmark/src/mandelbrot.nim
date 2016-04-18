@@ -1,4 +1,4 @@
-# mandelbrot_colormap.nim
+# mandelbrot.nim
 # color map for mandelbrot sets
 #
 # vim: ft=nim sw=4 ts=4 et
@@ -19,7 +19,7 @@ proc pixel* (x, y : float) : Color =
 
     for n in 0 .. <n_max:
         z = z * z + z0
-        if z.abs() > r_max: return color_map[n+1]
+        if z.abs() > r_max: return color_map[n]
 
     return Black
 

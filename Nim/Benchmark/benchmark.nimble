@@ -10,4 +10,4 @@ srcDir: "src"
 
 
 [Deps]
-requires: "nim >= 0.10.0, bigints"
+requires: "nim >= 0.13.0, bigints"
