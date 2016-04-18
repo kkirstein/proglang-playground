@@ -45,24 +45,10 @@
 
               write (*,*) "Perfect numbers"
               write (*,*) "==============="
-              flag = is_perfect(1)
-              write (*,*) "is_perfect(1) = ", flag
-              flag = is_perfect(2)
-              write (*,*) "is_perfect(2) = ", flag
-              flag = is_perfect(3)
-              write (*,*) "is_perfect(3) = ", flag
-              flag = is_perfect(4)
-              write (*,*) "is_perfect(4) = ", flag
-              flag = is_perfect(5)
-              write (*,*) "is_perfect(5) = ", flag
               flag = is_perfect(6)
               write (*,*) "is_perfect(6) = ", flag
-              flag = is_perfect(7)
-              write (*,*) "is_perfect(7) = ", flag
-              flag = is_perfect(8)
-              write (*,*) "is_perfect(8) = ", flag
-              flag = is_perfect(23)
-              write (*,*) "is_perfect(23) = ", flag
+              flag = is_perfect(28)
+              write (*,*) "is_perfect(28) = ", flag
 
               write (*,*) "todo.."
 
