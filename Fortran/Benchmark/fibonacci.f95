@@ -1,14 +1,49 @@
-! benchmark.f
-! A selectoin of micro-benchmarks for Fortran
+! fibonacci.f95
+! Calculate Fibonacci numbers
 !
 ! vim: set ft=fortran sw=8 ts=8 :
 
-      integer function fib_naive ( n )
+      module fibonacci
+              implicit none
+              save
 
-      implicit none
+              integer, parameter :: pr = selected_int_kind(18)
 
-      integer :: n
+      contains
 
+              recursive integer function fib_naive (n) result (res)
 
-      end function fib_naive
+                      implicit none
+
+                      integer :: n
+
+                      if (n < 2) then
+                              res = n
+                      else
+                              res = fib_naive (n-2) + fib_naive (n-1)
+                      end if
+
+              end function fib_naive
+
+              integer (kind=pr) function fib_iter (n)
+
+                      implicit none
+
+                      integer :: n, i
+                      integer (kind=pr) :: a, b, tmp
+
+                      a = 0_pr
+                      b = 1_pr
+
+                      do i = 1, n
+                      tmp = b
+                      b = a + b
+                      a = tmp 
+                      end do
+
+                      fib_iter = a
+
+              end function fib_iter
+
+      end module fibonacci
 

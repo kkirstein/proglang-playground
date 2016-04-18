@@ -5,28 +5,76 @@
 
       program benchmark
 
-      implicit none
+              use fibonacci
+              use perfect_number
+
+              implicit none
+
+      integer, parameter :: pr2 = selected_int_kind(18)
+
+              integer :: tic, toc, rate
+              integer :: res_int
+              integer (kind=pr2) :: res_int_pr
+
+              logical :: flag
+
+              call system_clock(count_rate = rate)
+
+              write (*,*) "Fibonacci numbers"
+              write (*,*) "================="
+              call system_clock(tic)
+              res_int = fib_naive(35)
+              call system_clock(toc)
+              write (*,*) "fib_naive(35) = ", res_int, &
+                & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
+
+              call system_clock(tic)
+              res_int_pr = fib_iter(35)
+              call system_clock(toc)
+              write (*,*) "fib_iter(35) = ", res_int_pr, &
+                & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
+
+              call system_clock(tic)
+              res_int_pr = fib_iter(1000)
+              call system_clock(toc)
+              write (*,*) "fib_iter(1000) = ", res_int_pr, &
+                & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
+
+              write (*,*) ""
 
 
-      write (*,*) "Fibonacci numbers"
-      write (*,*) "================="
-      write (*,*) "todo.."
+              write (*,*) "Perfect numbers"
+              write (*,*) "==============="
+              flag = is_perfect(1)
+              write (*,*) "is_perfect(1) = ", flag
+              flag = is_perfect(2)
+              write (*,*) "is_perfect(2) = ", flag
+              flag = is_perfect(3)
+              write (*,*) "is_perfect(3) = ", flag
+              flag = is_perfect(4)
+              write (*,*) "is_perfect(4) = ", flag
+              flag = is_perfect(5)
+              write (*,*) "is_perfect(5) = ", flag
+              flag = is_perfect(6)
+              write (*,*) "is_perfect(6) = ", flag
+              flag = is_perfect(7)
+              write (*,*) "is_perfect(7) = ", flag
+              flag = is_perfect(8)
+              write (*,*) "is_perfect(8) = ", flag
+              flag = is_perfect(23)
+              write (*,*) "is_perfect(23) = ", flag
 
-      write (*,*) ""
+              write (*,*) "todo.."
 
-      write (*,*) "Perfect numbers"
-      write (*,*) "==============="
-      write (*,*) "todo.."
+              write (*,*) ""
 
-      write (*,*) ""
+              write (*,*) "Mandelbrot set"
+              write (*,*) "=============="
+              write (*,*) "todo.."
 
-      write (*,*) "Mandelbrot set"
-      write (*,*) "=============="
-      write (*,*) "todo.."
+              write (*,*) ""
 
-      write (*,*) ""
-
-      write (*,*) " done!"
+              write (*,*) " done!"
 
 
       end program benchmark
