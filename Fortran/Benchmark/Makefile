@@ -2,7 +2,7 @@
 #
 
 FORTRAN  = /usr/bin/x86_64-w64-mingw32-gfortran
-OPTS     = -O3 -Wall
+OPTS     = -O3 -Wall -fopenmp
 
 
 # Targets

@@ -24,17 +24,26 @@
 
               end function is_perfect
 
+
               subroutine perfect_numbers (n, res)
 
               implicit none
               integer, intent( in ) :: n
-              integer, dimension(:), allocatable, intent( out ) :: res
+              logical, dimension(:), allocatable, intent( out ) :: res
 
               integer :: s, i
 
-              allocate(res(1:10), stat=s)
+              allocate(res(1:n), stat=s)
 
-              forall( i = 1:10 ) res(i) = i
+              ! !$omp parallel workshare
+              ! forall( i = 1:n ) res(i) = is_perfect(i)
+              ! !$omp end parallel workshare
+
+              !$omp distribute parallel do private(i)
+              do i = 1, n
+                      res(i) = is_perfect(i)
+              end do
+              !$omp end distribute parallel do
 
               end subroutine perfect_numbers
 

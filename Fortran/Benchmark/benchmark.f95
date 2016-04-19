@@ -15,6 +15,7 @@
               integer :: tic, toc, rate
               integer :: res_int
               integer (kind=pr2) :: res_int_pr
+              logical, dimension(:), allocatable :: res_pn
 
               logical :: flag
 
@@ -50,6 +51,11 @@
               flag = is_perfect(28)
               write (*,*) "is_perfect(28) = ", flag
 
+              call system_clock(tic)
+              call perfect_numbers(10000, res_pn)
+              call system_clock(toc)
+              write (*,*) "perfect_numbers(10000) = ", res_pn, &
+                & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
               write (*,*) "todo.."
 
               write (*,*) ""
