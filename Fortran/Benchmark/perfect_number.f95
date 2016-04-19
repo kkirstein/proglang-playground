@@ -1,51 +1,64 @@
 ! perfect_number.f95
 ! Calculate Perfect numbers
 !
-! vim: set ft=fortran sw=8 ts=8 :
+! vim: set ft=fortran sw=2 ts=2 :
 
       module perfect_number
 
-              integer, parameter :: pr = selected_int_kind(18)
+        integer, parameter :: pr = selected_int_kind(18)
 
       contains
 
-              pure logical function is_perfect (n)
+        pure logical function is_perfect (n)
 
-                      implicit none
-                      integer, intent( in ) :: n
-                      integer :: i, s
+          implicit none
+          integer, intent( in ) :: n
+          integer :: i, s
 
-                      s = 0
-                      do i = 1, (n-1)
-                              if (modulo(n, i) == 0) s = s + i
-                      end do
+          s = 0
+          do i = 1, (n-1)
+            if (modulo(n, i) == 0) s = s + i
+          end do
 
-                      is_perfect = (s == n)
+          is_perfect = (s == n)
 
-              end function is_perfect
+        end function is_perfect
 
 
-              subroutine perfect_numbers (n, res)
+        subroutine perfect_numbers (n, res)
+          implicit none
 
-              implicit none
-              integer, intent( in ) :: n
-              logical, dimension(:), allocatable, intent( out ) :: res
+          integer, intent( in ) :: n
+          integer, dimension(:), allocatable, intent( out ) :: res
 
-              integer :: s, i
+          logical, dimension(:), allocatable :: flags
+          integer :: s, i, c, idx
 
-              allocate(res(1:n), stat=s)
+          ! flag perfect numbers
+          allocate(flags(1:n), stat=s)
+          flags = .false.
+          c = 0
 
-              ! !$omp parallel workshare
-              ! forall( i = 1:n ) res(i) = is_perfect(i)
-              ! !$omp end parallel workshare
+          !$omp distribute parallel do private(i)
+          do i = 1, n
+            if (is_perfect(i)) then
+              flags(i) = .true.
+              c = c + 1
+            end if
+          end do
+          !$omp end distribute parallel do
 
-              !$omp distribute parallel do private(i)
-              do i = 1, n
-                      res(i) = is_perfect(i)
-              end do
-              !$omp end distribute parallel do
+          ! copy perfect numbers to output array
+          allocate(res(1:c), stat=s)
+          idx = 1
+          do i = 1, n
+            if (flags(i)) then
+              res(idx) = i
+              idx = idx + 1
+            end if
+          end do
 
-              end subroutine perfect_numbers
+        end subroutine perfect_numbers
 
       end module perfect_number
 
