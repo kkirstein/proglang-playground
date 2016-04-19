@@ -4,8 +4,8 @@
 ! vim: set ft=fortran sw=2 ts=2 :
 
       module perfect_number
-
-        integer, parameter :: pr = selected_int_kind(18)
+        implicit none
+        save
 
       contains
 
@@ -17,7 +17,7 @@
 
           s = 0
           do i = 1, (n-1)
-            if (modulo(n, i) == 0) s = s + i
+          if (modulo(n, i) == 0) s = s + i
           end do
 
           is_perfect = (s == n)
@@ -41,10 +41,10 @@
 
           !$omp distribute parallel do private(i)
           do i = 1, n
-            if (is_perfect(i)) then
-              flags(i) = .true.
-              c = c + 1
-            end if
+          if (is_perfect(i)) then
+            flags(i) = .true.
+            c = c + 1
+          end if
           end do
           !$omp end distribute parallel do
 
@@ -52,10 +52,10 @@
           allocate(res(1:c), stat=s)
           idx = 1
           do i = 1, n
-            if (flags(i)) then
-              res(idx) = i
-              idx = idx + 1
-            end if
+          if (flags(i)) then
+            res(idx) = i
+            idx = idx + 1
+          end if
           end do
 
         end subroutine perfect_numbers

@@ -10,11 +10,11 @@
 
         implicit none
 
-        integer, parameter :: pr2 = selected_int_kind(18)
+        !integer, parameter :: pr = selected_int_kind(18)
 
         integer :: tic, toc, rate
         integer :: res_int
-        integer (kind=pr2) :: res_int_pr
+        integer (kind=pr) :: res_int_pr
         integer, dimension(:), allocatable :: res_pn
 
         call system_clock(count_rate = rate)
@@ -51,6 +51,7 @@
           & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
         write (*,*) ""
+
 
         write (*,*) "Mandelbrot set"
         write (*,*) "=============="
