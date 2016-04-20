@@ -39,14 +39,14 @@
           flags = .false.
           c = 0
 
-          !$omp distribute parallel do private(i)
+          !$omp parallel do private(i), schedule(dynamic)
           do i = 1, n
           if (is_perfect(i)) then
             flags(i) = .true.
             c = c + 1
           end if
           end do
-          !$omp end distribute parallel do
+          !$omp end parallel do
 
           ! copy perfect numbers to output array
           allocate(res(1:c), stat=s)
