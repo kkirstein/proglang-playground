@@ -10,9 +10,9 @@ module mandelbrot
   real, parameter :: r_max = 2.0
 
 contains
-  ! TODO: function defs
 
-  integer function pixel_value (z, n_max)
+  ! calculate loop count for a (complex) pixel
+  pure integer function pixel_value (z, n_max)
     implicit none
 
     complex, intent( in ) :: z
@@ -39,6 +39,45 @@ contains
     pixel_value = 0
 
   end function pixel_value
+
+  ! convert pixel value to RGB
+  pure function to_rgb (n)
+  use color_map
+  implicit none
+
+  integer, dimension(3) :: to_rgb
+  integer, intent( in ) :: n
+
+  to_rgb = cm(:,n)
+
+  end function to_rgb
+
+  ! generate mandelbrot set
+  function image(width, height, x_center, y_center, pixel_size)
+  implicit none
+
+  integer, dimension(:,:,:), allocatable :: image
+  integer, intent( in ) :: width, height
+  real, intent( in ) :: x_center, y_center
+  real, intent( in ) :: pixel_size
+
+  integer :: stat, x, y
+  complex :: offset, coord
+
+  allocate(image(3, width, height), stat=stat)
+  if (stat /= 0) write (*,*) "Error allocating data: ", stat
+
+  offset = cmplx(x_center - 0.5*pixel_size*width, &
+    y_center + 0.5*pixel_size*height)
+
+  do x = 1, width
+    do y = 1, height
+      coord = offset + cmplx(x*pixel_size, y *pixel_size)
+      image(:,x,y) = to_rgb(pixel_value(coord, 256))
+    end do
+  end do
+
+  end function image
 
 
 end module mandelbrot

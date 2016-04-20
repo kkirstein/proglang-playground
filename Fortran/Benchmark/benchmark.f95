@@ -7,15 +7,19 @@
 
         use fibonacci
         use perfect_number
+        use color_map
+        use mandelbrot
 
         implicit none
 
-        !integer, parameter :: pr = selected_int_kind(18)
+        integer, parameter :: width = 1920
+        integer, parameter :: height = 1600
 
         integer :: tic, toc, rate
         integer :: res_int
         integer (kind=pr) :: res_int_pr
         integer, dimension(:), allocatable :: res_pn
+        integer, dimension(:,:,:), allocatable :: res_img
 
         call system_clock(count_rate = rate)
 
@@ -55,7 +59,14 @@
 
         write (*,*) "Mandelbrot set"
         write (*,*) "=============="
-        write (*,*) "todo.."
+        write (*,*) cm(:,1)
+        write (*,*) cm(:,2)
+        write (*,*) cm(:,256)
+        call system_clock(tic)
+        res_img = image(width, height, -0.5, 0.0, 4.0/width)
+        call system_clock(toc)
+        write (*,*) "mandelbrot_set", &
+          & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
         write (*,*) ""
 

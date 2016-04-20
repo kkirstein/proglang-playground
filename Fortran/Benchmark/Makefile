@@ -11,7 +11,7 @@ BENCHMARK = benchmark.exe
 
 all: $(BENCHMARK)
 
-ALLOBJ = mandelbrot.o perfect_number.o fibonacci.o benchmark.o
+ALLOBJ = color_map.o mandelbrot.o perfect_number.o fibonacci.o benchmark.o
 
 $(BENCHMARK): $(ALLOBJ)
 	$(FORTRAN) $(OPTS) -o $@ $^
