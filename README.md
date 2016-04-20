@@ -31,6 +31,10 @@ Elm is a Haskell-style programming language for web development. It compiles to 
 
 Go is a mainly imperative programming language with a static type system. Go has a strong emphasis on concurrency via channels, aka goroutines.
 
+# Fortran
+
+Fortran is an imperative programming language, well establised for scientific computing and other number-crunching tasks.
+
 # Frege
 
 Frege is a Haskell implementation for the Java Virtual Machine (JVM).
@@ -57,7 +61,7 @@ Lua is a small dynamically typed "scripting" language. Due to its size it is ver
 
 Nim (formerly Nimrod) is an imperative programming language that compiles to native code via C. It is designed for better safety than C to prevent errors especially for multithreaded programs.
 
-# OCAml
+# OCaml
 
 [OCaml](http://www.ocaml.org) is a functional programming language that also supports imperative and object-oriented style. It is statically typed and derived from the [ML](https://en.wikipedia.org/wiki/ML_%28programming_language%29) language.
 
