@@ -7,7 +7,7 @@
 
         use fibonacci
         use perfect_number
-        use color_map
+        !use color_map
         use mandelbrot
 
         implicit none
@@ -28,19 +28,19 @@
         call system_clock(tic)
         res_int = fib_naive(35)
         call system_clock(toc)
-        write (*,*) "fib_naive(35) = ", res_int, &
+        write (*,111) "fib_naive(35) = ", res_int, &
           & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
         call system_clock(tic)
         res_int_pr = fib_iter(35)
         call system_clock(toc)
-        write (*,*) "fib_iter(35) = ", res_int_pr, &
+        write (*,111) "fib_iter(35) = ", res_int_pr, &
           & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
         call system_clock(tic)
         res_int_pr = fib_iter(1000)
         call system_clock(toc)
-        write (*,*) "fib_iter(1000) = ", res_int_pr, &
+        write (*,111) "fib_iter(1000) = ", res_int_pr, &
           & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
         write (*,*) ""
@@ -51,7 +51,7 @@
         call system_clock(tic)
         call perfect_numbers(10000, res_pn)
         call system_clock(toc)
-        write (*,*) "perfect_numbers(10000) = ", res_pn, &
+        write (*,222) "perfect_numbers(10000) = ", res_pn, &
           & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
         write (*,*) ""
@@ -59,9 +59,6 @@
 
         write (*,*) "Mandelbrot set"
         write (*,*) "=============="
-        write (*,*) cm(:,1)
-        write (*,*) cm(:,2)
-        write (*,*) cm(:,256)
         call system_clock(tic)
         res_img = image(width, height, -0.5, 0.0, 4.0/width)
         call system_clock(toc)
@@ -72,6 +69,8 @@
 
         write (*,*) " done!"
 
+        111 format (A25, I20, A, F0.3, A)
+        222 format (A25, I5, I5, I5, I5, A, F0.3, A)
 
       end program benchmark
 
