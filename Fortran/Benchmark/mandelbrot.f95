@@ -85,12 +85,36 @@ contains
 
   ! write imaeg data as ppm-file
   subroutine write_ppm (width, height, image, file_name)
+    use ISO_FORTRAN_ENV, only: ERROR_UNIT
     implicit none
 
     integer, intent( in ) :: width
     integer, intent( in ) :: height
     integer, dimension(:,:,:), intent( in ) :: image
-    character( 80 ) :: file_name
+    character(:), allocatable, intent( in ) :: file_name
+
+    integer :: stat
+
+    ! open ppm file for write
+    open(99, file=file_name, action='write', iostat=stat)
+    if (stat /= 0) then
+      write (ERROR_UNIT,*) "Could not open file ", file_name
+      stop -1
+    end if
+
+    ! header
+    write(99,111) "P3"
+    write(99,222) width, height, 256
+
+    ! pixel data
+    ! TODO
+
+    ! close ppm file
+    close(99)
+
+    111 format (A)
+    222 format (I4, 1X, I4, 1X, I3)
+    333 format (I3, 1X, I3, 1X, I3)
 
   end subroutine write_ppm
 

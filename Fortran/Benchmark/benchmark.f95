@@ -65,6 +65,8 @@
         write (*,333) "mandelbrot_set", &
           & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
+        call write_ppm(width, height, res_img, "mandelbrot.ppm")
+
         write (*,*) ""
 
         write (*,*) " done!"
