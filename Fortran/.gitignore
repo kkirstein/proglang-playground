@@ -8,6 +8,7 @@
 *.o
 *.a
 *.exe
+*.dll
 
 # generated images
 *.ppm
