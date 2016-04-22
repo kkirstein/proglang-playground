@@ -62,7 +62,7 @@
         call system_clock(tic)
         res_img = image(width, height, -0.5, 0.0, 4.0/width)
         call system_clock(toc)
-        write (*,*) "mandelbrot_set", &
+        write (*,333) "mandelbrot_set", &
           & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
         write (*,*) ""
@@ -71,6 +71,7 @@
 
         111 format (A25, I20, A, F0.3, A)
         222 format (A25, I5, I5, I5, I5, A, F0.3, A)
+        333 format (A25, 20X, A, F0.3, A)
 
       end program benchmark
 
