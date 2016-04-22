@@ -29,11 +29,11 @@ contains
     z1 = 0
 
     do n = 0, n_end
-      if (abs(z) > r_max) then
-        pixel_value = n
-        return
-      end if
-      z1 = z1**2 + z
+    if (abs(z) > r_max) then
+      pixel_value = n
+      return
+    end if
+    z1 = z1**2 + z
     end do
 
     pixel_value = 0
@@ -42,43 +42,57 @@ contains
 
   ! convert pixel value to RGB
   pure function to_rgb (n)
-  use color_map
-  implicit none
+    use color_map
+    implicit none
 
-  integer, dimension(3) :: to_rgb
-  integer, intent( in ) :: n
+    integer, dimension(3) :: to_rgb
+    integer, intent( in ) :: n
 
-  to_rgb = cm(:,n)
+    to_rgb = cm(:,n)
 
   end function to_rgb
 
   ! generate mandelbrot set
   function image(width, height, x_center, y_center, pixel_size)
-  implicit none
+    use ISO_FORTRAN_ENV, only: ERROR_UNIT
+    implicit none
 
-  integer, dimension(:,:,:), allocatable :: image
-  integer, intent( in ) :: width, height
-  real, intent( in ) :: x_center, y_center
-  real, intent( in ) :: pixel_size
+    integer, dimension(:,:,:), allocatable :: image
+    integer, intent( in ) :: width, height
+    real, intent( in ) :: x_center, y_center
+    real, intent( in ) :: pixel_size
 
-  integer :: stat, x, y
-  complex :: offset, coord
+    integer :: stat, x, y
+    complex :: offset, coord
 
-  allocate(image(3, width, height), stat=stat)
-  if (stat /= 0) write (*,*) "Error allocating data: ", stat
+    allocate(image(3, width, height), stat=stat)
+    if (stat /= 0) then
+      write (ERROR_UNIT,*) "Error allocating data: ", stat
+      stop -1
+    end if
 
-  offset = cmplx(x_center - 0.5*pixel_size*width, &
-    y_center + 0.5*pixel_size*height)
+    offset = cmplx(x_center - 0.5*pixel_size*width, &
+      y_center + 0.5*pixel_size*height)
 
-  do x = 1, width
+    do x = 1, width
     do y = 1, height
-      coord = offset + cmplx(x*pixel_size, y *pixel_size)
-      image(:,x,y) = to_rgb(pixel_value(coord, 256))
+    coord = offset + cmplx(x*pixel_size, y *pixel_size)
+    image(:,x,y) = to_rgb(pixel_value(coord, 256))
     end do
-  end do
+    end do
 
   end function image
 
+  ! write imaeg data as ppm-file
+  subroutine write_ppm (width, height, image, file_name)
+    implicit none
+
+    integer, intent( in ) :: width
+    integer, intent( in ) :: height
+    integer, dimension(:,:,:), intent( in ) :: image
+    character( 80 ) :: file_name
+
+  end subroutine write_ppm
 
 end module mandelbrot
 

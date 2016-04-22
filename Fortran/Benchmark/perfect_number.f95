@@ -26,6 +26,7 @@
 
 
         subroutine perfect_numbers (n, res)
+          use ISO_FORTRAN_ENV, only: ERROR_UNIT
           implicit none
 
           integer, intent( in ) :: n
@@ -36,6 +37,10 @@
 
           ! flag perfect numbers
           allocate(flags(1:n), stat=s)
+          if (s /= 0) then
+            write (ERROR_UNIT,*) "Error allocating data"
+            stop -1
+          end if
           flags = .false.
           c = 0
 
@@ -50,6 +55,10 @@
 
           ! copy perfect numbers to output array
           allocate(res(1:c), stat=s)
+          if (s /= 0) then
+            write (ERROR_UNIT,*) "Error allocating data"
+            stop -1
+          end if
           idx = 1
           do i = 1, n
           if (flags(i)) then
