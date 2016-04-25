@@ -94,6 +94,7 @@ contains
     character(:), allocatable, intent( in ) :: file_name
 
     integer :: stat
+    integer :: x, y
 
     ! open ppm file for write
     open(99, file=file_name, action='write', iostat=stat)
@@ -107,10 +108,14 @@ contains
     write(99,222) width, height, 256
 
     ! pixel data
-    ! TODO
+    do x = 1, width
+    do y = 1, height
+    write (99,333) image(:,x,y)
+    end do
+    end do
 
     ! close ppm file
-    close(99)
+    close (99)
 
     111 format (A)
     222 format (I4, 1X, I4, 1X, I3)

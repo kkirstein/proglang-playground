@@ -21,6 +21,8 @@
         integer, dimension(:), allocatable :: res_pn
         integer, dimension(:,:,:), allocatable :: res_img
 
+        character(:), allocatable :: file_name
+
         call system_clock(count_rate = rate)
 
         write (*,*) "Fibonacci numbers"
@@ -65,7 +67,8 @@
         write (*,333) "mandelbrot_set", &
           & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
-        call write_ppm(width, height, res_img, "mandelbrot.ppm")
+        file_name = "mandelbrot.ppm"
+        call write_ppm(width, height, res_img, file_name)
 
         write (*,*) ""
 
