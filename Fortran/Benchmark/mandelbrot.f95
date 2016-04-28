@@ -48,7 +48,7 @@ contains
     integer, dimension(3) :: to_rgb
     integer, intent( in ) :: n
 
-    to_rgb = cm(:,n)
+    to_rgb = cm(:,n+1)
 
   end function to_rgb
 
@@ -76,7 +76,7 @@ contains
 
     do x = 1, width
     do y = 1, height
-    coord = offset + cmplx(x*pixel_size, y *pixel_size)
+    coord = offset + cmplx(x*pixel_size, -y*pixel_size)
     image(:,x,y) = to_rgb(pixel_value(coord, 256))
     end do
     end do
