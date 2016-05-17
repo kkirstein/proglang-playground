@@ -7,9 +7,13 @@
     "BigInt": "^5.5.3",
     "Complex": "^3.0.0"
   },
+  "scripts": {
+	  "run": "node benchmark.js",
+			"test": ".\\node_modules\\.bin\\mocha test"
+  },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^2.2.4"
+    "mocha": "^2.4.5"
   },
   "jshintConfig": {
     "esnext": true,
