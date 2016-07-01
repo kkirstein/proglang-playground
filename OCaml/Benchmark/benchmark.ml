@@ -5,8 +5,6 @@
  * programming language
  *)
 
-open Fibonacci
-
 (* time_it
  * A helper function to measure function execution times
  *)
