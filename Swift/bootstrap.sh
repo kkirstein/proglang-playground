@@ -14,7 +14,7 @@ dpkg-reconfigure -f noninteractive tzdata
 echo Downloading Swift
 echo =================
 branch=development
-version=DEVELOPMENT-SNAPSHOT-2016-03-24-a
+version=DEVELOPMENT-SNAPSHOT-2016-05-31-a
 #version=2.2.1-SNAPSHOT-2016-03-28-a
 platform=ubuntu14.04
 if [ ! -f swift-${version}-${platform}.tar.gz ]; then
