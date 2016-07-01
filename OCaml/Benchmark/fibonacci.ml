@@ -15,6 +15,3 @@ let fib n =
     if n = 0 then a else fib_aux (n-1) b (Big_int.add_big_int a b)
   in
   fib_aux n Big_int.zero_big_int Big_int.unit_big_int
-
-
-
