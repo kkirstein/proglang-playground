@@ -4,3 +4,17 @@
  *
  * see: http://www.heise.de/developer/artikel/Dependency-Injection-in-der-funktionalen-Programmierung-3115570.html
  *)
+
+open Kv_dsl
+;;
+
+(* interpreter for KV store with Hastbl backend *)
+let rec run_with_hashtable ht p =
+  match p with
+  | Put (k, v, next) -> begin
+    Hashtbl.add ht k v;
+    run_with_hashtable ht next
+  end
+  | Get (k, cont) -> run_with_hashtable ht (cont (Hashtbl.find ht k))
+  | Done v -> v
+;;
