@@ -1,0 +1,8 @@
+# vim files
+*~
+*.swp
+
+# ocamlbuild
+_build/
+*.native
+*.byte

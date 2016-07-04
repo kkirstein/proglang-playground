@@ -2,10 +2,10 @@
 # Makefile for Machine Learning tools
 #
 
-OCB_FLAGS = -use-ocamlfind 
+OCB_FLAGS = -use-ocamlfind
 OCB = ocamlbuild $(OCB_FLAGS)
 
-main = benchmark
+main = kv_test
 
 all: native byte # profile debug
 
@@ -15,7 +15,7 @@ clean:
 	rm -f $(main).native
 	rm -f $(main).byte
 
-native: 
+native:
 	rm -f $(main).native
 	$(OCB) $(main).native
 
