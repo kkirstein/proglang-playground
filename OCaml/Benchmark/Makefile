@@ -2,10 +2,14 @@
 # Makefile for Machine Learning tools
 #
 
-OCB_FLAGS = -use-ocamlfind 
-OCB = ocamlbuild $(OCB_FLAGS)
+OCB_FLAGS = -use-ocamlfind
+OCB_FLAGS_TEST = -use-ocamlfind -no-links
+OCB = ocamlbuild
 
 main = benchmark
+main_test = benchmark_test
+test_sources = lib/color_map.ml lib/fibonacci.ml \
+	lib/image.ml lib/mandelbrot.ml lib/Perfect_number.ml
 
 all: native byte # profile debug
 
@@ -14,22 +18,32 @@ clean:
 	rm -rf _build
 	rm -f $(main).native
 	rm -f $(main).byte
+	rm -f $(main_test).ml
 
-native: 
+
+native:
 	rm -f $(main).native
-	$(OCB) $(main).native
+	$(OCB) $(OCB_FLAGS) $(main).native
 
 byte:
 	rm -f $(main).byte
-	$(OCB) $(main).byte
+	$(OCB) $(OCB_FLAGS) $(main).byte
 
 profile:
-	$(OCB) -tag profile $(main).native
+	$(OCB) $(OCB_FLAGS) -tag profile $(main).native
 
 debug:
-	$(OCB) -tag debug $(main).byte
+	$(OCB) $(OCB_FLAGS) -tag debug $(main).byte
 
-test: native
+run: native
 	./$(main).native
+
+# iTeML tests
+$(main_test).ml: $(test_sources)
+	qtest -o $@ extract $^
+
+test: $(main_test).ml
+	$(OCB) $(OCB_FLAGS_TEST) $(main_test).native
+	_build/$(main_test).native
 
 .PHONY: 	all clean byte native profile debug test
