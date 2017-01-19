@@ -73,6 +73,10 @@ Nim (formerly Nimrod) is an imperative programming language that compiles to nat
 
 [Pony](http://www.ponylang.org) is a statically typed programming language with built-in support for actors, like they are known from Scala of Erlang. In contrast, pony compiles to native code without using a dedicated runtime engine.
 
+# Python
+
+Python is an interpreted general purpose programming language. Due to its wide spread, bindings to many popular libraries and frameworks are available, especially in the field of scientific computing
+
 # Rust
 
 [Rust](https://www.rust-lang.org) is a statically typed programming language with good support for multithreading. It features a concept of variable ownership to prevent data races, deadlocks, etc.
