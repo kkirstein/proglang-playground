@@ -77,6 +77,10 @@ Nim (formerly Nimrod) is an imperative programming language that compiles to nat
 
 Python is an interpreted general purpose programming language. Due to its wide spread, bindings to many popular libraries and frameworks are available, especially in the field of scientific computing
 
+# Racket
+
+[Racket](http://racket-lang.org/) is a Scheme dialect with emphasis on teaching computer science. It features the definition and usage of new programming language variants. Its infrastructure contains a large number of packages for different application areas. DrRacket is a multi-platform developement environment. This might enable the usage of Racket also for other disciplines besides education.
+
 # Rust
 
 [Rust](https://www.rust-lang.org) is a statically typed programming language with good support for multithreading. It features a concept of variable ownership to prevent data races, deadlocks, etc.
