@@ -1,6 +1,7 @@
 #lang racket
 
 (require "fibonacci.rkt")
+(require "perfect-numbers.rkt")
 
 
 (define (benchmark)
@@ -15,6 +16,8 @@
   (newline)
   (displayln "Perfect numbers")
   (displayln "===============")
+  (displayln (string-append "perfect-numbers(10000) = "
+                            (string-join (map number->string (time (perfect-numbers 10000))))))
   (newline)
   (displayln "Mandelbrot sets")
   (displayln "===============")
