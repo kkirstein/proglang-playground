@@ -1,0 +1,6 @@
+# ignore backup files
+*.bak
+*~
+
+# ignore generated code
+compiled
