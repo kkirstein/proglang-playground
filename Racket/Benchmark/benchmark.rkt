@@ -5,28 +5,29 @@
 
 
 (define (benchmark)
-  (displayln "Fibonacci numbers")
-  (displayln "=================")
-  (displayln (string-append "fib-naive(35) = "
-                            (number->string (time (fib-naive 35)))))
-  (displayln (string-append "fib(35) = "
-                            (number->string (time (fib 35)))))
-  (displayln (string-append "fib(1000) = "
-                            (number->string (time (fib 1000)))))
-  (newline)
-  (displayln "Perfect numbers")
-  (displayln "===============")
-  (displayln (string-append "perfect-numbers(10000) = "
-                            (string-join (map number->string (time (perfect-numbers 10000))))))
-  ;  (displayln (string-append "perfect-numbers-2(10000) = "
-  ;                            (string-join (map number->string (time (perfect-numbers-2 10000))))))
-  (newline)
-  (displayln "Mandelbrot sets")
-  (displayln "===============")
-  (newline)
+  (begin
+    (displayln "Fibonacci numbers")
+    (displayln "=================")
+    (displayln (string-append "fib-naive(35) = "
+                              (number->string (time (fib-naive 35)))))
+    (displayln (string-append "fib(35) = "
+                              (number->string (time (fib 35)))))
+    (displayln (string-append "fib(1000) = "
+                              (number->string (time (fib 1000)))))
+    (newline)
+    (displayln "Perfect numbers")
+    (displayln "===============")
+    (displayln (string-append "perfect-numbers(10000) = "
+                              (string-join (map number->string (time (perfect-numbers 10000))))))
+    (displayln (string-append "perfect-numbers-2(10000) = "
+                              (string-join (map number->string (time (perfect-numbers-2 10000))))))
+    (newline)
+    (displayln "Mandelbrot sets")
+    (displayln "===============")
+    (newline)
 
-  (displayln "Press any key to continue..")
-  (read-char))
+    (displayln "Press any key to continue..")
+    (read-char)))
 
 
 ; main entry point

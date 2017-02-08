@@ -3,7 +3,7 @@
 ; perfect-numbers.rkt
 ; Calculate perfect numbers in Racket
 
-(provide perfect? perfect-numbers)
+(provide perfect? perfect-numbers perfect-numbers-2)
 
 
 ; predicate to check for perfect number
@@ -30,8 +30,9 @@
       (if (perfect? n)
           (cons n (perfect-numbers (- n 1)))
           (perfect-numbers (- n 1)))))
-;(define (perfect-numbers-2 n)
-;  (if (zero? n) '()
-;      (if (perfect?-2 n)
-;          (cons n (perfect-numbers (- n 1)))
-;          (perfect-numbers (- n 1)))))
+
+(define (perfect-numbers-2 n)
+  (let ([f (for/list ([i (in-range 1 n)]) (future (λ () (perfect? i))))]
+        [loop (λ (futs) '())])
+    f))
+
