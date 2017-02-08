@@ -22,3 +22,7 @@
   (displayln "Mandelbrot sets")
   (displayln "===============")
   (newline))
+
+
+; main entry point
+(benchmark)
