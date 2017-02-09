@@ -11,8 +11,8 @@
   (letrec ([loop (λ (i sum)
                    (cond
                      [(= i n) (= sum i)]
-                     [(zero? (modulo n i)) (loop (+ 1 i) (+ sum i))]
-                     [else (loop (+ 1 i) sum)]))])
+                     [(zero? (modulo n i)) (loop (add1 i) (+ sum i))]
+                     [else (loop (add1 i) sum)]))])
     (loop 1 0)))
                      
 
@@ -20,8 +20,8 @@
 (define (perfect-numbers n)
   (if (zero? n) '()
       (if (perfect? n)
-          (cons n (perfect-numbers (- n 1)))
-          (perfect-numbers (- n 1)))))
+          (cons n (perfect-numbers (sub1 n)))
+          (perfect-numbers (sub1 n)))))
 
 ; use futures to speed-up things
 (define (perfect-numbers-futures n)
@@ -29,7 +29,7 @@
            [loop (λ (futs idx)
                    (cond
                      [(null? futs) '()]
-                     [(touch (car futs)) (cons idx (loop (cdr futs) (+ 1 idx)))]
+                     [(touch (car futs)) (cons idx (loop (cdr futs) (add1 idx)))]
                      [else (loop (cdr futs) (+ 1 idx))]))])
     (loop f 1)))
 

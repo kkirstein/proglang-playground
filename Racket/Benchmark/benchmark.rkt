@@ -1,7 +1,6 @@
 #lang racket
 
-(require "fibonacci.rkt")
-(require "perfect-numbers.rkt")
+(require "fibonacci.rkt" "perfect-numbers.rkt" "mandelbrot.rkt")
 
 
 (define (benchmark)
@@ -24,6 +23,8 @@
     (newline)
     (displayln "Mandelbrot sets")
     (displayln "===============")
+    (displayln (string-append "mandelbrot set (640x480) "
+                              (if (time (mandelbrot 640 480)) "ok" "failed")))
     (newline)
 
     (displayln "Press any key to continue..")
