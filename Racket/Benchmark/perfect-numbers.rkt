@@ -3,20 +3,12 @@
 ; perfect-numbers.rkt
 ; Calculate perfect numbers in Racket
 
-(provide perfect? perfect-numbers perfect-numbers-2)
+(provide perfect? perfect-numbers perfect-numbers-futures)
 
 
 ; predicate to check for perfect number
-;(define (perfect? n)
-;  (letrec ([loop (lambda (i sum)
-;                   (if (= i n) (= sum n)
-;                       (if (zero? (modulo n i))
-;                           (loop (+ 1 i) (+ sum i))
-;                           (loop (+ 1 i) sum))))])
-;    (loop 1 0)))
-
 (define (perfect? n)
-  (letrec ([loop (lambda (i sum)
+  (letrec ([loop (λ (i sum)
                    (cond
                      [(= i n) (= sum i)]
                      [(zero? (modulo n i)) (loop (+ 1 i) (+ sum i))]
@@ -31,8 +23,13 @@
           (cons n (perfect-numbers (- n 1)))
           (perfect-numbers (- n 1)))))
 
-(define (perfect-numbers-2 n)
-  (let ([f (for/list ([i (in-range 1 n)]) (future (λ () (perfect? i))))]
-        [loop (λ (futs) '())])
-    f))
+; use futures to speed-up things
+(define (perfect-numbers-futures n)
+  (letrec ([f (for/list ([i (in-range 1 n)]) (future (λ () (perfect? i))))]
+           [loop (λ (futs idx)
+                   (cond
+                     [(null? futs) '()]
+                     [(touch (car futs)) (cons idx (loop (cdr futs) (+ 1 idx)))]
+                     [else (loop (cdr futs) (+ 1 idx))]))])
+    (loop f 1)))
 

@@ -19,8 +19,8 @@
     (displayln "===============")
     (displayln (string-append "perfect-numbers(10000) = "
                               (string-join (map number->string (time (perfect-numbers 10000))))))
-    (displayln (string-append "perfect-numbers-2(10000) = "
-                              (string-join (map number->string (time (perfect-numbers-2 10000))))))
+    (displayln (string-append "perfect-numbers-futures(10000) = "
+                              (string-join (map number->string (time (perfect-numbers-futures 10000))))))
     (newline)
     (displayln "Mandelbrot sets")
     (displayln "===============")
