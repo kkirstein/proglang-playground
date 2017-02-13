@@ -25,8 +25,6 @@
     (displayln "===============")
     (displayln (string-append "mandelbrot set (640x480) "
                               (if (time (mandelbrot 640 480)) "ok" "failed")))
-    (displayln (string-append "mandelbrot (2) set (640x480) "
-                              (if (time (mandelbrot-2 640 480)) "ok" "failed")))
     (newline)
 
     (displayln "Press any key to continue..")
