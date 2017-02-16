@@ -85,6 +85,10 @@ Python is an interpreted general purpose programming language. Due to its wide s
 
 [Rust](https://www.rust-lang.org) is a statically typed programming language with good support for multithreading. It features a concept of variable ownership to prevent data races, deadlocks, etc.
 
+# Scheme
+
+Scheme is a LISP-style programming language, mainly used for teaching. It is standardized (currently as R7RS) and contains a standard library for doing basic tasks like file-IO, etc. There are various implementations for Scheme, mostly compatible to the R7RS standard.
+
 # Swift
 
 [Swift](https://swift.org) is Apples successor of Objective-C and a statically-typed programming language with object-oriented and functional features.
