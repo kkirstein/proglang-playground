@@ -3,7 +3,8 @@
   :url "http://example.com/FIXME"
   :license {:name "BSD"
             :url ""}
-  :dependencies [[org.clojure/clojure "1.6.0"]]
+  :dependencies [[org.clojure/clojure "1.8.0"]]
   :main ^:skip-aot benchmark.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  :certificates ["ZscalerRootCertificate-2048-SHA256.crt.pem"])
