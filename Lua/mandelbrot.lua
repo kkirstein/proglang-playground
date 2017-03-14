@@ -8,6 +8,9 @@ local complex = require("complex")
 local color_max = "255"
 local out_file = "mandelbrot.pgm"
 
+-- image
+img = {}
+
 -- internal functions
 local r_max = 2.0
 local n_max = 100
@@ -27,6 +30,27 @@ end
 
 function pixel(x, y, x_offset, y_offset, pixel_size)
 	return bool2color(isinside(complex.new(x_offset + x*pixel_size, y_offset - y*pixel_size) ))
+end
+
+-- generate Mandelbrot set and return as table
+function mandelbrot(x_max, y_max, x_center, y_center, pixel_size)
+	local img = {}
+	img.width = x_max
+	img.height = y_max
+	local img_data = {}
+
+	local x_offset = x_center - 0.5*pixel_size*(x_max+1)
+	local y_offset = y_center + 0.5*pixel_size*(y_max+1)
+
+	for j = 1,y_max do
+		for i = 1,x_max do
+			--img_data[(j-1)*x_max + i] = pixel(i, j, x_offset, y_offset, pixel_size)
+			img_data[#(img_data)+1] = pixel(i, j, x_offset, y_offset, pixel_size)
+		end
+	end
+
+	img.data = img_data
+	return img
 end
 
 -- the main entry function (writes image to file)

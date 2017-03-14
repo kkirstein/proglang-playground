@@ -3,6 +3,10 @@
 --
 -- vim: ft=lua sw=4 ts=4
 
+-- load packages from local path
+package.path = package.path .. "?;?.lua"
+
+
 -- helper function to measure time
 function timeit(fn)
 	local tic = os.clock()
@@ -32,7 +36,7 @@ print("-----------------------------------")
 -- benchmark mandelbrot set
 -- ------------------------
 require("mandelbrot")
-print("Calculate mandelbrot set for 180x120 pixel:\n")
-timeit(function() return plot(180, 120, -0.5, 0.0, 4.0/180); end)
+print("Calculate mandelbrot set for 1920x1200 pixel:\n")
+timeit(function() return mandelbrot(1920, 1200, -0.5, 0.0, 4.0/1920); end)
 print("-----------------------------------")
 
