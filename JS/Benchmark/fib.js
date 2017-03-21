@@ -11,6 +11,13 @@ function fib_naive (n) {
 	return (n < 2)? n : arguments.callee(n-1) + arguments.callee(n-2);
 }
 
+function fib_naive_async (n) {
+	return new Promise(function (resolve, reject) {
+		let result = fib_naive(n);
+		resolve(result);
+	})
+}
+
 function fib (n) {
 	return function(n, a, b) {
 		return (n === 0)? a : arguments.callee(n-1, b, BigInt.add(a, b));
@@ -19,5 +26,5 @@ function fib (n) {
 
 // exports
 exports.fib_naive = fib_naive;
+exports.fib_naive_async = fib_naive_async;
 exports.fib = fib;
-

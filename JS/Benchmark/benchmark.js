@@ -6,10 +6,10 @@
 
 'use strict';
 
-var fib = require("./fib");
-var BigInt = require('BigInt');
-var pn = require("./perfect_numbers");
-var mandel = require("./mandelbrot");
+const fib = require("./fib");
+const BigInt = require('BigInt');
+const pn = require("./perfect_numbers");
+const mandel = require("./mandelbrot");
 
 console.log("JavaScript benchmarks");
 console.log("=====================");
@@ -22,6 +22,13 @@ var tic = new Date();
 var res = fib.fib_naive(35);
 var toc = new Date();
 console.log("fib_naive(35) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+
+var tic = new Date();
+var fib_promise = fib.fib_naive_async(35);
+fib_promise.then((res) => {
+  var toc = new Date();
+  console.log("fib_naive_async(35) = ", res, "\tElapsed: ", (toc.getTime()-tic.getTime()), "ms.");
+});
 
 tic = new Date();
 res = fib.fib(35);
@@ -81,4 +88,3 @@ console.log();
 // TODO
 console.log("------------------");
 console.log("Done!");
-
