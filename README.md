@@ -53,6 +53,10 @@ Haxe is statically typed and supports algebraic data types ala Haskell.
 
 [Idris](http://www.idris-lang.org/) is a Haskell-style programming language with [dependent types](http://en.wikipedia.org/wiki/Dependent_type). It compiles to either machine code (via C) or to JavaScript.
 
+# Kotlin
+
+[Kotlin](http://kotlinlang.org) is a statically-typed object-oriented programming language, targetting the Java Virtual Machine (JVM) and now also compiles to JavaScript. Its main goal is to reduce the complexity (aka boilerplate) and avoid some pitfalls, like null pointers, of the Java programming language.
+
 # Lua
 
 Lua is a small dynamically typed "scripting" language. Due to its size it is very well suited to be embedded into applications. It also features a very easy interface to native (C) code. LuaJIT is an alternative implementation with increased performance by LIT-compilation.
