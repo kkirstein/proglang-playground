@@ -4,3 +4,8 @@
  */
 
 package benchmark
+
+// main entry point
+fun main(args: Array<String>) {
+  println("Hello World!")
+}
