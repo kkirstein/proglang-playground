@@ -6,5 +6,5 @@
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :main ^:skip-aot benchmark.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}}
-  :certificates ["ZscalerRootCertificate-2048-SHA256.crt.pem"])
+  :profiles {:uberjar {:aot :all}})
+  ;:certificates ["ZscalerRootCertificate-2048-SHA256.crt"])

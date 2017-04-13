@@ -12,3 +12,5 @@ pom.xml.asc
 *.class
 /.lein-*
 /.nrepl-port
+/ZscalerRootCertificate-2048-SHA256.crt
+/ZscalerRootCertificate-2048-SHA256.crt.pem
