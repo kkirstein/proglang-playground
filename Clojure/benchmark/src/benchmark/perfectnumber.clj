@@ -13,5 +13,6 @@
 
 (defn perfect-numbers [n]
   "Returns all perfect numbers upto n"
-  (doall (filter perfect? (range 1 n))))
-
+  (let [preds (pmap perfect? (range 1 n))]
+    (doall (filter true? preds))))
+  ;(doall (filter perfect? (range 1 n))))
