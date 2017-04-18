@@ -4,3 +4,12 @@
  */
 
 package fib
+
+// naive implementation
+fun fib_naive(n: Int) : Int {
+  if (n < 2) {
+    return n
+  } else {
+    return (fib_naive(n-1) + fib_naive(n-2))
+  }
+}
