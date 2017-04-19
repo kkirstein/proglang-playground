@@ -1,5 +1,5 @@
 ! benchmark.f
-! A selectoin of micro-benchmarks for Fortran
+! A selection of micro-benchmarks for Fortran
 !
 ! vim: set ft=fortran sw=2 ts=2 :
 
@@ -79,4 +79,3 @@
         333 format (A25, 20X, A, F0.3, A)
 
       end program benchmark
-

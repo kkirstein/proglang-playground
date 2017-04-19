@@ -18,7 +18,7 @@ else
 endif
 
 
-FFLAGS	= -O3 -Wall -fopenmp -fPIC
+FFLAGS	= -O3 -Wall -fopenmp
 
 
 # Targets
@@ -28,11 +28,11 @@ shared = benchmark$(SHARED_EXT)
 
 all: $(exe) $(shared)
 
-LIBOBJ = color_map.o mandelbrot.o perfect_number.o fibonacci.o 
+LIBOBJ = color_map.o mandelbrot.o perfect_number.o fibonacci.o
 ALLOBJ = $(LIBOBJ) benchmark.o
 
 $(shared): $(LIBOBJ)
-	$(FC) $(FFLAGS) $(SHARED_FLAGS) -o $@ $^ 
+	$(FC) $(FFLAGS) $(SHARED_FLAGS) -o $@ $^
 
 $(exe): $(ALLOBJ)
 	$(FC) $(FFLAGS) -o $@ $^
@@ -40,6 +40,8 @@ $(exe): $(ALLOBJ)
 clean:
 	rm -f *.o
 	rm -f *.mod
+	rm -f $(exe)
+	rm -f $(shared)
 
 cleanall: clean
 	rm -f $(exe) $(shared) $(shared).a
@@ -52,4 +54,3 @@ cleanall: clean
 
 %.o: %.f
 	$(FC) $(FFLAGS) -c $< -o $@
-
