@@ -29,11 +29,11 @@ contains
     z1 = 0
 
     do n = 0, n_end
-    if (abs(z) > r_max) then
-      pixel_value = n
-      return
-    end if
-    z1 = z1**2 + z
+      if (abs(z) > r_max) then
+        pixel_value = n
+        return
+      end if
+      z1 = z1**2 + z
     end do
 
     pixel_value = 0
@@ -72,18 +72,18 @@ contains
     end if
 
     offset = cmplx(x_center - 0.5*pixel_size*width, &
-      y_center + 0.5*pixel_size*height)
+    y_center + 0.5*pixel_size*height)
 
     do x = 1, width
-    do y = 1, height
-    coord = offset + cmplx(x*pixel_size, -y*pixel_size)
-    image(:,x,y) = to_rgb(pixel_value(coord, 256))
-    end do
+      do y = 1, height
+        coord = offset + cmplx(x*pixel_size, -y*pixel_size)
+        image(:,x,y) = to_rgb(pixel_value(coord, 256))
+      end do
     end do
 
   end function image
 
-  ! write imaeg data as ppm-file
+  ! write image data as ppm-file
   subroutine write_ppm (width, height, image, file_name)
     use ISO_FORTRAN_ENV, only: ERROR_UNIT
     implicit none
@@ -109,9 +109,9 @@ contains
 
     ! pixel data
     do x = 1, width
-    do y = 1, height
-    write (99,333) image(:,x,y)
-    end do
+      do y = 1, height
+        write (99,333) image(:,x,y)
+      end do
     end do
 
     ! close ppm file
@@ -124,4 +124,3 @@ contains
   end subroutine write_ppm
 
 end module mandelbrot
-
