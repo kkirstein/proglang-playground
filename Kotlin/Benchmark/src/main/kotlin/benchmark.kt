@@ -5,6 +5,7 @@
 
 package benchmark
 
+import kotlin.system.measureTimeMillis
 import fibonacci.*
 
 // main entry point
@@ -17,7 +18,8 @@ fun main(args: Array<String>) {
   println("Fibonacci numbers:");
   println("------------------");
   val res = fib_naive(35)
-  println("fib_naive(35) = $res")
+  val elap = measureTimeMillis { fib_naive(35) }
+  println("fib_naive(35) = $res, elapsed time: $elap ms.")
   println();
 
   println("------------------");
