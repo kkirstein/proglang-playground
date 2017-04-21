@@ -1,4 +1,4 @@
-/* fib.kt
+/* fibonacci.kt
  * Calculate Fibonacci numbers in the Kotlin
  * (http://kotlinlang.org) programming language
  */
@@ -8,11 +8,11 @@ package fibonacci
 import java.math.BigInteger
 
 // naive implementation
-fun fib_naive(n: Int): Int {
+fun fibNaive(n: Int): Int {
   if (n < 2) {
     return n
   } else {
-    return (fib_naive(n-1) + fib_naive(n-2))
+    return (fibNaive(n-1) + fibNaive(n-2))
   }
 }
 
