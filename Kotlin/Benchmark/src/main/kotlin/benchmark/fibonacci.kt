@@ -3,7 +3,7 @@
  * (http://kotlinlang.org) programming language
  */
 
-package fib
+package fibonacci
 
 // naive implementation
 fun fib_naive(n: Int) : Int {

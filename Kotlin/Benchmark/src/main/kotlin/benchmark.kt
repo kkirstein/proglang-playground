@@ -5,6 +5,8 @@
 
 package benchmark
 
+import fibonacci.*
+
 // main entry point
 fun main(args: Array<String>) {
 
@@ -14,8 +16,7 @@ fun main(args: Array<String>) {
 
   println("Fibonacci numbers:");
   println("------------------");
-  //val res = fib_naive(35).toString()
-  val res = "Test"
+  val res = fib_naive(35)
   println("fib_naive(35) = $res")
   println();
 
