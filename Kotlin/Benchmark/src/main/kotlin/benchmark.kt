@@ -6,6 +6,7 @@
 package benchmark
 
 import kotlin.system.measureTimeMillis
+/*import kotlin.coroutines.experimental.**/
 import timeit.timeit
 import fibonacci.*
 import perfectnumber.*
@@ -30,11 +31,12 @@ fun main(args: Array<String>) {
 
   println("Perfect numbers:");
   println("----------------");
-  val (pn, elap_pn) = timeit { perfectNumbers(10000) }
-  println("perfectNumbers(10000) = $pn, elapsed time: $elap_pn ms.")
+  val (pn, elapPn) = timeit { perfectNumbers(10000) }
+  println("perfectNumbers(10000) = $pn, elapsed time: $elapPn ms.")
+  val (pnSeq, elapPnSeq) = timeit { perfectNumberSeq.take(6).toList() }
+  println("perfectNumberSeq(6) = $pnSeq, elapsed time: $elapPnSeq ms.")
 
   println();
-
 
   println("------------------");
   println("Done.");
