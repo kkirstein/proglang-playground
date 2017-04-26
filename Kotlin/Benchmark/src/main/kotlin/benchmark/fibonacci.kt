@@ -17,9 +17,8 @@ fun fibNaive(n: Int): Int {
 }
 
 // optimized tail-recursive implementation
-
 fun fib(n: Int): BigInteger {
-  fun loop(a: BigInteger, b: BigInteger, n: Int): BigInteger {
+  tailrec fun loop(a: BigInteger, b: BigInteger, n: Int): BigInteger {
     return if (n == 0) a else loop(b, a + b, n - 1)
   }
 
