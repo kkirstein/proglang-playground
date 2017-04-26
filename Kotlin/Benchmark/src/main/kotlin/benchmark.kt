@@ -6,6 +6,7 @@
 package benchmark
 
 import kotlin.system.measureTimeMillis
+import timeit.timeit
 import fibonacci.*
 import perfectnumber.*
 
@@ -18,23 +19,19 @@ fun main(args: Array<String>) {
 
   println("Fibonacci numbers:");
   println("------------------");
-  val res = fibNaive(35)
-  var elap = measureTimeMillis { fibNaive(35) }
+  val (res, elap) = timeit { fibNaive(35) }
   println("fibNaive(35) = $res, elapsed time: $elap ms.")
-  var res2 = fib(35)
-  elap = measureTimeMillis { fib(35) }
-  println("fib(35) = $res2, elapsed time: $elap ms.")
-  res2 = fib(1000)
-  elap = measureTimeMillis { fib(1000) }
-  println("fib(1000) = $res2, elapsed time: $elap ms.")
+  val (res2, elap2) = timeit { fib(35) }
+  println("fib(35) = $res2, elapsed time: $elap2 ms.")
+  val (res3, elap3) = timeit { fib(1000) }
+  println("fib(1000) = $res3, elapsed time: $elap3 ms.")
 
   println();
 
   println("Perfect numbers:");
   println("----------------");
-  val pn = perfectNumbers(10000)
-  elap = measureTimeMillis { perfectNumbers(10000) }
-  println("perfectNumbers(10000) = $pn, elapsed time: $elap ms.")
+  val (pn, elap_pn) = timeit { perfectNumbers(10000) }
+  println("perfectNumbers(10000) = $pn, elapsed time: $elap_pn ms.")
 
   println();
 
