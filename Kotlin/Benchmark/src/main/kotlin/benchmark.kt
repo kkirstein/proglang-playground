@@ -33,8 +33,8 @@ fun main(args: Array<String>) {
   println("----------------");
   val (pn, elapPn) = timeit { perfectNumbers(10000) }
   println("perfectNumbers(10000) = $pn, elapsed time: $elapPn ms.")
-  val (pnSeq, elapPnSeq) = timeit { perfectNumberSeq.take(6).toList() }
-  println("perfectNumberSeq(6) = $pnSeq, elapsed time: $elapPnSeq ms.")
+  val (pnSeq, elapPnSeq) = timeit { perfectNumberSeq.take(5).toList() }
+  println("perfectNumberSeq(5) = $pnSeq, elapsed time: $elapPnSeq ms.")
 
   println();
 
