@@ -19,6 +19,9 @@ buildscript {
 
 // Apply the java plugin to add support for Java
 //apply plugin: 'java'
+//plugins {
+//  id "org.jetbrains.kotlin.jvm" version "1.1.1"
+//}
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
