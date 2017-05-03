@@ -20,21 +20,21 @@ fun main(args: Array<String>) {
 
   println("Fibonacci numbers:");
   println("------------------");
-  val (res, elap) = timeit { fibNaive(35) }
-  println("fibNaive(35) = $res, elapsed time: $elap ms.")
-  val (res2, elap2) = timeit { fib(35) }
-  println("fib(35) = $res2, elapsed time: $elap2 ms.")
-  val (res3, elap3) = timeit { fib(1000) }
-  println("fib(1000) = $res3, elapsed time: $elap3 ms.")
+  val res1 = timeit { fibNaive(35) }
+  println("fibNaive(35) = ${res1.result}, elapsed time: ${res1.elapsed} ms.")
+  val res2 = timeit { fib(35) }
+  println("fib(35) = ${res2.result}, elapsed time: ${res2.elapsed} ms.")
+  val res3 = timeit { fib(1000) }
+  println("fib(1000) = ${res3.result}, elapsed time: ${res3.elapsed} ms.")
 
   println();
 
   println("Perfect numbers:");
   println("----------------");
-  val (pn, elapPn) = timeit { perfectNumbers(10000) }
-  println("perfectNumbers(10000) = $pn, elapsed time: $elapPn ms.")
-  val (pnSeq, elapPnSeq) = timeit { perfectNumberSeq.take(5).toList() }
-  println("perfectNumberSeq(5) = $pnSeq, elapsed time: $elapPnSeq ms.")
+  val resPn = timeit { perfectNumbers(10000) }
+  println("perfectNumbers(10000) = ${resPn.result}, elapsed time: ${resPn.elapsed} ms.")
+  val resPnSeq = timeit { perfectNumberSeq.take(5).toList() }
+  println("perfectNumberSeq(5) = ${resPnSeq.result}, elapsed time: ${resPnSeq.elapsed} ms.")
 
   println();
 
