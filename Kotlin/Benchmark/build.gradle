@@ -7,7 +7,7 @@
  */
 
 buildscript {
-  ext.kotlin_version = '1.1.1'
+  ext.kotlin_version = '1.1.2-2'
 
   repositories {
     mavenCentral()
@@ -37,6 +37,7 @@ repositories {
 // In this section you declare the dependencies for your production and test code
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.15"
 
     // The production code uses the SLF4J logging API at compile time
     //compile 'org.slf4j:slf4j-api:1.7.21'

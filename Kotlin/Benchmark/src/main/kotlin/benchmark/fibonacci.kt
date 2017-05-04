@@ -16,6 +16,9 @@ fun fibNaive(n: Int): Int {
   }
 }
 
+// suspendable version of fibNaive
+suspend fun fibNaiveAsync(n: Int): Int = fibNaive(n)
+
 // optimized tail-recursive implementation
 fun fib(n: Int): BigInteger {
   tailrec fun loop(a: BigInteger, b: BigInteger, n: Int): BigInteger {

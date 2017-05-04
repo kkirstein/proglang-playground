@@ -6,8 +6,9 @@
 package benchmark
 
 import kotlin.system.measureTimeMillis
-/*import kotlin.coroutines.experimental.**/
+import kotlinx.coroutines.experimental.*
 import timeit.timeit
+import timeit.timeIt2
 import fibonacci.*
 import perfectnumber.*
 
@@ -20,6 +21,14 @@ fun main(args: Array<String>) {
 
   println("Fibonacci numbers:");
   println("------------------");
+
+  launch(CommonPool) {
+    /*delay(100L)
+    println("Checkpoint!")*/
+    val res = timeIt2 { fibNaiveAsync(35) }
+    println("fibNaive(35) = ${res.result} (Async), elapsed time: ${res.elapsed} ms.")
+  }
+
   val res1 = timeit { fibNaive(35) }
   println("fibNaive(35) = ${res1.result}, elapsed time: ${res1.elapsed} ms.")
   val res2 = timeit { fib(35) }
@@ -39,6 +48,7 @@ fun main(args: Array<String>) {
   println();
 
   println("------------------");
+  Thread.sleep(1000L)
   println("Done.");
 
 }
