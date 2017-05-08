@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Could not find org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version.&#13;&#10;Searched in the following locations:&#13;&#10;    https:/jcenter.bintray.com/org/jetbrains/kotlin/kotlin-test-junit/$kotlin_version/kotlin-test-junit-$kotlin_version.pom&#13;&#10;    https:/jcenter.bintray.com/org/jetbrains/kotlin/kotlin-test-junit/$kotlin_version/kotlin-test-junit-$kotlin_version.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
