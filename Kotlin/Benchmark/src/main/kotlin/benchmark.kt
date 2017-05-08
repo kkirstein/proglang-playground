@@ -7,7 +7,7 @@ package benchmark
 
 import kotlin.system.measureTimeMillis
 import kotlinx.coroutines.experimental.*
-import timeit.timeit
+import timeit.timeIt
 import timeit.timeIt2
 import fibonacci.*
 import perfectnumber.*

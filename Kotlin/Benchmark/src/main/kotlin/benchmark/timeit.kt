@@ -11,7 +11,7 @@ import kotlin.coroutines.experimental.*
 data class Result<T>(val result: T, val elapsed: Long)
 
 // call given function and record elapsed timeit
-fun <T> timeit(body: () -> T): Result<T> {
+fun <T> timeIt(body: () -> T): Result<T> {
   val tic = System.currentTimeMillis()
   val res: T = body()
   val toc = System.currentTimeMillis()
