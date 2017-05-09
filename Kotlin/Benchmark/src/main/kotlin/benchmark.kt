@@ -28,22 +28,22 @@ fun main(args: Array<String>) = runBlocking {
         println("fibNaive(35) = ${res.result}, elapsed time: ${res.elapsed} ms.")
     })
     jobs.add(launch(CommonPool) {
-        val res = timeIt { fib(35) }
+        val res = timeItAsync { fib(35) }
         println("fib(35) = ${res.result}, elapsed time: ${res.elapsed} ms.")
     })
     jobs.add(launch(CommonPool) {
-        val res = timeIt { fib(1000) }
+        val res = timeItAsync { fib(1000) }
         println("fib(1000) = ${res.result}, elapsed time: ${res.elapsed} ms.")
     })
 
     // Perfect numbers
     // ---------------
     jobs.add(launch(CommonPool) {
-        val res = timeIt { perfectNumbers(10000) }
+        val res = timeItAsync { perfectNumbers(10000) }
         println("perfectNumbers(10000) = ${res.result}, elapsed time: ${res.elapsed} ms.")
     })
     jobs.add(launch(CommonPool) {
-        val res = timeIt { perfectNumberSeq.take(5).toList() }
+        val res = timeItAsync { perfectNumberSeq.take(5).toList() }
         println("perfectNumberSeq(5) = ${res.result}, elapsed time: ${res.elapsed} ms.")
     })
 
