@@ -3,7 +3,7 @@
  * (http://kotlinlang.org) programming language
  */
 
-package mandelbrot
+package benchmark.mandelbrot
 
 import complex.Complex
 

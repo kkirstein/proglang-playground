@@ -3,7 +3,7 @@
  * (http://kotlinlang.org) programming language
  */
 
-package perfectnumber
+package benchmark.perfectnumber
 
 import kotlin.coroutines.experimental.*
 

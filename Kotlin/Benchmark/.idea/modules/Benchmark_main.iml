@@ -4,7 +4,7 @@
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="2" platform="JVM 1.6" useProjectSettings="false">
         <compilerSettings>
-          <option name="additionalArguments" value="-d D:\Users\kirstein\Documents\Kuki\GitHub\proglang-playground\Kotlin\Benchmark\build\kotlin-classes\main -cp D:\Users\kirstein\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.1.2-2\2b22828f027e103dcd45f3aa240338bfdb53d16b\kotlin-stdlib-1.1.2-2.jar;D:\Users\kirstein\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core\0.15\5f0e2a96538d4ddc421ed042799e825016875f29\kotlinx-coroutines-core-0.15.jar;D:\Users\kirstein\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar" />
+          <option name="additionalArguments" value="-d C:\Users\kayuwe.kirstein\Documents\GitHub\proglang-playground\Kotlin\Benchmark\build\kotlin-classes\main -cp C:\Users\kayuwe.kirstein\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.1.2-2\2b22828f027e103dcd45f3aa240338bfdb53d16b\kotlin-stdlib-1.1.2-2.jar;C:\Users\kayuwe.kirstein\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core\0.15\5f0e2a96538d4ddc421ed042799e825016875f29\kotlinx-coroutines-core-0.15.jar;C:\Users\kayuwe.kirstein\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-js\1.1.2-2\784b196a63b7fcedc14c5fdb9081037b9a15d8fe\kotlin-stdlib-js-1.1.2-2.jar;C:\Users\kayuwe.kirstein\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar" />
         </compilerSettings>
         <compilerArguments>
           <option name="noStdlib" value="true" />
@@ -38,6 +38,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.1.2-2" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core:0.15" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.2-2" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
   </component>
 </module>

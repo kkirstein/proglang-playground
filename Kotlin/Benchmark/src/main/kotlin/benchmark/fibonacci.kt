@@ -3,7 +3,7 @@
  * (http://kotlinlang.org) programming language
  */
 
-package fibonacci
+package benchmark.fibonacci
 
 import java.math.BigInteger
 
@@ -15,9 +15,6 @@ fun fibNaive(n: Int): Int {
     return (fibNaive(n-1) + fibNaive(n-2))
   }
 }
-
-// suspendable version of fibNaive
-suspend fun fibNaiveAsync(n: Int): Int = fibNaive(n)
 
 // optimized tail-recursive implementation
 fun fib(n: Int): BigInteger {
