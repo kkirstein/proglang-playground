@@ -5,7 +5,14 @@
 # IdeaJ user settings
 .idea/workspace.xml
 .idea/tasks.xml
-**/*.iws
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.iws
+
+# Gradle
+.idea/gradle.xml
+.idea/libraries
 
 # Ignore Gradle GUI config
 gradle-app.setting
