@@ -25,10 +25,10 @@
     (displayln "===============")
     (displayln (string-append "mandelbrot set (640x480) "
                               (if (time (mandelbrot 640 480)) "ok" "failed")))
-    (newline)
+    (newline)))
 
-    (displayln "Press any key to continue..")
-    (read-char)))
+    ;(displayln "Press any key to continue..")
+    ;(read-char)))
 
 
 ; main entry point
