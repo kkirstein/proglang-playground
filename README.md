@@ -19,6 +19,10 @@ ClojureScript is a Clojure dialect (mainly a subset) for web development, as it 
 
 A standardized version of LISP, containing an object system (CLOS) and many libraries.
 
+# Crystal
+
+[Crystal](https://www.crystal-lang.org) is a compiled programming language with a static type system. It features a Ruby-like syntax and utilizes the LLVM toolchain for high performance of te built executables.
+
 # Elixir
 
 A functional programmig language for the Erlang virtual machine. It features macros, strong concurrency features (Erlang!) and an expressive syntax ala Ruby.

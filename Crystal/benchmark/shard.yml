@@ -1,0 +1,13 @@
+name: benchmark
+version: 0.1.0
+
+authors:
+  -  <>
+
+targets:
+  benchmark:
+    main: src/benchmark.cr
+
+crystal: 0.23.1
+
+license: MIT
