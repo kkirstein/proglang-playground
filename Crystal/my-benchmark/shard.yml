@@ -1,0 +1,13 @@
+name: my-benchmark
+version: 0.1.0
+
+authors:
+  - Kay-Uwe Kirstein <kayuwe.kirstein@uster.com>
+
+targets:
+  my-benchmark:
+    main: src/my-benchmark.cr
+
+crystal: 0.23.1
+
+license: MIT
