@@ -1,0 +1,26 @@
+# vim: sw=2 ts=2
+#
+# Rakefile for yarn-test utilities
+#
+
+require 'rake/clean'
+require 'rake/testtask'
+
+# default task
+task default: %w[test]
+task dist: %w[benchmark.exe]
+
+# clean tasks
+CLEAN.include("*.exe")
+
+# test task
+Rake::TestTask.new do |t|
+	t.test_files = FileList["test/test_*.rb"]
+end
+
+# file tasks
+file "benchmark.exe" => ["bin/benchmark.rb"] do |t|
+	sh "ocra #{t.prerequisites.join(' ')}"
+
+end
+

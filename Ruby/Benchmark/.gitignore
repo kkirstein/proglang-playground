@@ -1,0 +1,7 @@
+# Vim backup files
+*~
+*.swp
+
+# generated files
+*.exe
+test_data
