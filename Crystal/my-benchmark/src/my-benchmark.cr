@@ -9,8 +9,7 @@ require "benchmark"
 require "./my-benchmark/*"
 
 module MyBenchmark
-
-	extend self
+  extend self
 
   def run
     puts "Fibonacci numbers"
@@ -22,7 +21,7 @@ module MyBenchmark
 
     puts "Perfect numbers"
     puts "==============="
-    # puts "perfect_numbers(10000) = #{PerfectNumber.perfect_numbers(10_000)}"
+    puts "perfect_numbers(10000) = #{PerfectNumber.perfect_numbers(10_000)}"
     puts ""
 
     puts "Mandelbrot set"
@@ -35,8 +34,11 @@ module MyBenchmark
       x.report("fib_naive") { Fibonacci.fib_naive(35) }
       x.report("fib") { Fibonacci.fib(35) }
     end
+
+    Benchmark.ips do |x|
+      x.report("perfect_numbers(10000)") { PerfectNumber.perfect_numbers(10_000) }
+    end
   end
 end
 
 MyBenchmark.run
-
