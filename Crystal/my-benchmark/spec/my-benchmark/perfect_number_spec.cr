@@ -1,6 +1,6 @@
 # vim: ft=crystal ts=2 sw=2
 #
-# spec for Module Benchmark/Perfectnumber
+# spec for Module Benchmark/PerfectNumber
 
 require "../spec_helper"
 
