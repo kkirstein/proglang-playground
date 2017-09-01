@@ -26,7 +26,9 @@ module MyBenchmark
 
     puts "Mandelbrot set"
     puts "=============="
-    # puts "Mandelbrot.new(640, 480, ..)"
+    puts "Mandelbrot.new(640, 480, ..)"
+		mandel_set = Mandelbrot::Image.new(640, 480, -0.5f32, 0.0f32, 4.0f32 / 640)
+		mandel_set.to_ppm("./test_data/mandelbrot.ppm")
     puts ""
 
     # Actually do benchmarking now
@@ -37,6 +39,10 @@ module MyBenchmark
 
     Benchmark.ips do |x|
       x.report("perfect_numbers(10000)") { PerfectNumber.perfect_numbers(10_000) }
+    end
+
+    Benchmark.ips do |x|
+			x.report("Mandelbrot::Image.new") { Mandelbrot::Image.new(640, 480, -0.5f32, 0.0f32, 4.0f32 / 640) }
     end
   end
 end

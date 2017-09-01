@@ -1,7 +1,7 @@
 # vim: ft=crystal ts=2 sw=2
 #
-# fibonacci.cr
-# Implementation of Fibonacci numbers in the Crystal programming language
+# perfect_number.cr
+# Implementation of perfect numbers in the Crystal programming language
 # https://www.crystal-lang.org
 #
 
