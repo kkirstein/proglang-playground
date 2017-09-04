@@ -24,4 +24,12 @@ describe "Fibonacci" do
     fib(10).should eq 55
   end
 
+  it "fib_big_int" do
+    fib_big_int(0).should eq 0
+    fib_big_int(1).should eq 1
+    fib_big_int(2).should eq 1
+    fib_big_int(3).should eq 2
+    fib_big_int(10).should eq 55
+  end
+
 end

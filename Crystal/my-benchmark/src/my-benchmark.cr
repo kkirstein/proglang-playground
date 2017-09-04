@@ -14,9 +14,10 @@ module MyBenchmark
   def run
     puts "Fibonacci numbers"
     puts "================="
-    puts "fib_naive(35) = #{Fibonacci.fib_naive(35)}"
-    puts "fib(35)       = #{Fibonacci.fib(35)}"
-    # puts "fib(1000)     = #{Fibonacci.fib(1000)}"
+    puts "fib_naive(35)      = #{Fibonacci.fib_naive(35)}"
+    puts "fib(35)            = #{Fibonacci.fib(35)}"
+    puts "fib_big_int(35)    = #{Fibonacci.fib_big_int(35)}"
+    puts "fib_big_int(1000)  = #{Fibonacci.fib_big_int(1000)}"
     puts ""
 
     puts "Perfect numbers"
@@ -35,6 +36,7 @@ module MyBenchmark
     Benchmark.ips do |x|
       x.report("fib_naive") { Fibonacci.fib_naive(35) }
       x.report("fib") { Fibonacci.fib(35) }
+      x.report("fib_big_int") { Fibonacci.fib_big_int(35) }
     end
 
     Benchmark.ips do |x|

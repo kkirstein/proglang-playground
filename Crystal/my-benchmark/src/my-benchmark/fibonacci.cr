@@ -5,6 +5,8 @@
 # https://www.crystal-lang.org
 #
 
+require "big_int"
+
 module MyBenchmark
 	module Fibonacci
 
@@ -19,7 +21,16 @@ module MyBenchmark
 			end
 		end
 
-		# TCO optimized implementation
+		# helper def for TCO optimized implementations
+		def fib_aux(n, a : BigInt, b : BigInt)
+			if n < 1
+				a
+			else
+				fib_aux(n - 1, b, a + b)
+			end
+		end
+
+		# ditto
 		def fib_aux(n, a, b)
 			if n < 1
 				a
@@ -27,10 +38,16 @@ module MyBenchmark
 				fib_aux(n - 1, b, a + b)
 			end
 		end
+
+		# TCO optimized implementation
 		def fib(n)
 			fib_aux(n, 0, 1)
 		end
 
+		# BigInt version
+		def fib_big_int(n : Int32)
+			fib_aux(n, BigInt.new(0), BigInt.new(1))
+		end
 	end
 end
 
