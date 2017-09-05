@@ -22,5 +22,29 @@ module MyBenchmark
     def perfect_numbers(n)
       (1..n).select { |i| perfect? i }
     end
+
+    # generates the first n perfect numbers
+    def perfect_numbers_2(n)
+      chan = Channel({Int32, Bool}).new
+
+      1.upto(n + 1) do |i|
+        spawn do
+          if perfect?(i)
+            chan.send({i, true})
+          else
+            chan.send({i, false})
+          end
+        end
+      end
+
+      pn = Array(Int32).new
+
+      n.times do
+        idx, res = chan.receive
+        pn << idx if res
+      end
+
+      pn
+    end
   end
 end

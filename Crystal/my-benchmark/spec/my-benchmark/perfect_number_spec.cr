@@ -20,4 +20,8 @@ describe "PerfectNumber" do
   it "should give the perfect numbers <= 1000" do
     perfect_numbers(1000).should eq [6, 28, 496]
   end
+
+  it "should give the perfect numbers <= 1000" do
+    perfect_numbers_2(1000).should eq [6, 28, 496]
+  end
 end

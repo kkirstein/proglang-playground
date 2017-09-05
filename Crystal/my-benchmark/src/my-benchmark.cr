@@ -23,12 +23,13 @@ module MyBenchmark
     puts "Perfect numbers"
     puts "==============="
     puts "perfect_numbers(10000) = #{PerfectNumber.perfect_numbers(10_000)}"
+    puts "perfect_numbers_2(10000) = #{PerfectNumber.perfect_numbers_2(10_000)}"
     puts ""
 
     puts "Mandelbrot set"
     puts "=============="
-    puts "Mandelbrot.new(640, 480, ..)"
-		mandel_set = Mandelbrot::Image.new(640, 480, -0.5f32, 0.0f32, 4.0f32 / 640)
+    puts "Mandelbrot.new(1920, 1080, ..)"
+		mandel_set = Mandelbrot::Image.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
 		mandel_set.to_ppm("./test_data/mandelbrot.ppm")
     puts ""
 
@@ -41,6 +42,7 @@ module MyBenchmark
 
     Benchmark.ips do |x|
       x.report("perfect_numbers(10000)") { PerfectNumber.perfect_numbers(10_000) }
+      x.report("perfect_numbers_2(10000)") { PerfectNumber.perfect_numbers_2(10_000) }
     end
 
     Benchmark.ips do |x|
