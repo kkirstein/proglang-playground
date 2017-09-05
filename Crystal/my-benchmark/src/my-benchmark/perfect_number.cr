@@ -23,7 +23,8 @@ module MyBenchmark
       (1..n).select { |i| perfect? i }
     end
 
-    # generates the first n perfect numbers
+    # generates an array of perfect numbers up to given upper bound
+		# (asynchronous version with a channel for results)
     def perfect_numbers_2(n)
       chan = Channel({Int32, Bool}).new
 
