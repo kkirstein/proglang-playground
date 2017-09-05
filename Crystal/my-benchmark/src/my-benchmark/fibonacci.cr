@@ -22,15 +22,6 @@ module MyBenchmark
 		end
 
 		# helper def for TCO optimized implementations
-		def fib_aux(n, a : BigInt, b : BigInt)
-			if n < 1
-				a
-			else
-				fib_aux(n - 1, b, a + b)
-			end
-		end
-
-		# ditto
 		def fib_aux(n, a, b)
 			if n < 1
 				a
