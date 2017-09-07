@@ -56,6 +56,12 @@ module MyBenchmark
           end
         end
       end
+
+			# writes imaeg data to PNG file
+			def to_png(file_name : String)
+				# TODO
+				raise Exception.new("Not implemented")
+			end
     end
   end
 end

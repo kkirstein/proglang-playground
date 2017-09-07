@@ -20,4 +20,12 @@ describe "Mandelbrot" do
     mandel_set.to_ppm(file_name)
     File.exists?(file_name).should be_true
   end
+
+  it "should write image data to a PNG file" do
+		mandel_set = Image.new(640, 480, -0.5f32, 0.0f32, 4.0f32 / 640)
+    file_name = "./test_data/mandelbrot.png"
+    File.delete file_name if File.exists? file_name
+    mandel_set.to_png(file_name)
+    File.exists?(file_name).should be_true
+  end
 end
