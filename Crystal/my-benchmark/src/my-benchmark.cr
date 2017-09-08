@@ -53,6 +53,14 @@ module MyBenchmark
       x.report("Mandelbrot (640x480)") { Mandelbrot::Image.new(640, 480, -0.5f32, 0.0f32, 4.0f32 / 640) }
       x.report("Mandelbrot (1920x1080)") { Mandelbrot::Image.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920) }
     end
+
+    puts
+
+    Benchmark.ips do |x|
+			x.report("Write Mandelbrot as PPM") { mandel_set.to_ppm("test_data/mandelbrot.ppm") }
+
+			x.report("Write Mandelbrot as PNG") { mandel_set.to_png("test_data/mandelbrot.png") }
+    end
   end
 end
 
