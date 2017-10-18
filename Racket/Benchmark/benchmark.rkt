@@ -1,6 +1,9 @@
 #lang racket
 
-(require "fibonacci.rkt" "perfect-numbers.rkt" "mandelbrot.rkt")
+(require
+  "fibonacci.rkt"
+  "perfect-numbers.rkt"
+  "mandelbrot.rkt")
 
 
 (define (benchmark)
