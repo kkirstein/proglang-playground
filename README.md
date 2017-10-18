@@ -19,6 +19,10 @@ ClojureScript is a Clojure dialect (mainly a subset) for web development, as it 
 
 A standardized version of LISP, containing an object system (CLOS) and many libraries.
 
+# Crystal
+
+[Crystal](https://www.crystal-lang.org) is a compiled programming language with a static type system. It features a Ruby-like syntax and utilizes the LLVM toolchain for high performance of te built executables.
+
 # Elixir
 
 A functional programmig language for the Erlang virtual machine. It features macros, strong concurrency features (Erlang!) and an expressive syntax ala Ruby.
@@ -84,6 +88,10 @@ Python is an interpreted general purpose programming language. Due to its wide s
 # Racket
 
 [Racket](http://racket-lang.org/) is a Scheme dialect with emphasis on teaching computer science. It features the definition and usage of new programming language variants. Its infrastructure contains a large number of packages for different application areas. DrRacket is a multi-platform developement environment. This might enable the usage of Racket also for other disciplines besides education.
+
+# Ruby
+
+[Ruby](https://www.ruby-lang.org) is a general purpose interpreted programming language with an expressive syntax. It is well known for the Rails web application framework.
 
 # Rust
 
