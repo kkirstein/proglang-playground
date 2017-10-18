@@ -1,1 +1,1 @@
-%{"pipe": {:hex, :pipe, "0.0.2"}}
+%{"pipe": {:hex, :pipe, "0.0.2", "eff98a868b426745acef103081581093ff5c1b88100f8ff5949b4a30e81d0d9f", [:mix], [], "hexpm"}}
