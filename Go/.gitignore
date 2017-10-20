@@ -2,6 +2,13 @@
 .vagrant
 
 # go build files
-*/bin/
-*/pkg/
+bin/
+pkg/
+src/github.com
+src/golang.org
+src/gopkg.in
+src/sourcegraph.com
 
+# generated files
+*.exe
+*.png
