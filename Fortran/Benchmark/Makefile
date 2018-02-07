@@ -18,7 +18,7 @@ else
 endif
 
 
-FFLAGS	= -O3 -Wall -fopenmp
+FFLAGS	= -O3 -Wall -fopenmp -fPIC
 
 
 # Targets
