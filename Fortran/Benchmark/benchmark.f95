@@ -71,8 +71,12 @@ program benchmark
   write (*,333) "mandelbrot_set", &
   & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
+  call system_clock(tic)
   file_name = "mandelbrot.ppm"
   call write_ppm(width, height, res_img, file_name)
+  call system_clock(toc)
+  write (*,333) "mandelbrot_set written to file", &
+  & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
   write (*,*) ""
 
@@ -80,6 +84,6 @@ program benchmark
 
   111 format (A25, I20, A, F0.3, A)
   222 format (A25, I8, A, A, /, A, F0.3, A)
-  333 format (A25, 20X, A, F0.3, A)
+  333 format (A35, 10X, A, F0.3, A)
 
 end program benchmark
