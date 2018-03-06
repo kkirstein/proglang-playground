@@ -53,7 +53,7 @@ module MyBenchmark
         File.open(file_name, "w") do |file|
           file << "P3\n" << "#{@width} #{@height} 3\n"
           @image_data.pixels.each do |pix|
-            rgb = pix.to_rgb
+            rgb = pix.to_rgb8
             file << "#{rgb[0]} #{rgb[1]} #{rgb[2]}\n"
           end
         end

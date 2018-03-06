@@ -58,9 +58,9 @@ module MyBenchmark
       x.report("Mandelbrot::Image (1920x1080)") {
 			 	Mandelbrot::Image.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
 		 	}
-      x.report("Mandelbrot::ImageAsync (1920x1080)") {
-			 	Mandelbrot::ImageAsync.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
-		 	}
+      #x.report("Mandelbrot::ImageAsync (1920x1080)") {
+			# 	Mandelbrot::ImageAsync.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
+		 	#}
     end
 
     puts

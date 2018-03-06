@@ -5,7 +5,7 @@
 # https://www.crystal-lang.org
 #
 
-require "big_int"
+require "big"
 
 module MyBenchmark
 	module Fibonacci
