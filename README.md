@@ -105,3 +105,7 @@ Scheme is a LISP-style programming language, mainly used for teaching. It is sta
 
 [Swift](https://swift.org) is Apples successor of Objective-C and a statically-typed programming language with object-oriented and functional features.
 
+# Urn
+
+[Urn](http://urn-lang.com) is a LISP dialect (LISP-1 type with a single namespace for functions & data). Urn compiles the LISP code to lua and can be used with ordinary lua 5.x or luajit.
+
