@@ -1,6 +1,6 @@
 # vim: ft=crystal ts=2 sw=2
 #
-# benchmark.cr
+# my-benchmark.cr
 # A set of (micro-)benchmarks for the Crystal programming language
 # https://www.crystal-lang.org
 #
@@ -67,7 +67,6 @@ module MyBenchmark
 
     Benchmark.ips do |x|
 			x.report("Write Mandelbrot as PPM") { mandel_set.to_ppm("test_data/mandelbrot.ppm") }
-
 			x.report("Write Mandelbrot as PNG") { mandel_set.to_png("test_data/mandelbrot.png") }
     end
   end
