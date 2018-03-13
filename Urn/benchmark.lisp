@@ -1,6 +1,7 @@
 ;;;; benchmark.lisp
 
 ;(in-package #:benchmark)
+(import fibonacci fib)
 
 ;;; "benchmark" goes here. Hacks and glory await!
 ;;;
@@ -10,11 +11,11 @@
     ;;
     ;; time different versions of Fibanocci calculations
     ;;
-    (print! "Fibonacci series (double recursive approach):")
-    ;(time (fibonacci:fibonacci-2 35))
-    ;(format t "Fibonacci series (linear recursive approach):~%")
-    ;(time (fibonacci:fibonacci 1000))
-    ;(format t "~%")
+    (print! "Fibonacci series (naive recursive approach):")
+    (print! (fib/fib-naive 35))
+    (print! "Fibonacci series (linear recursive approach):")
+    (print! (fib/fib 35))
+    (print! "")
 
     ;;
     ;; time computation of perfect numbers
