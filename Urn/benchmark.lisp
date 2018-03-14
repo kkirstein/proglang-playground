@@ -1,7 +1,16 @@
 ;;;; benchmark.lisp
 
 ;(in-package #:benchmark)
+(import lua/os os)
 (import fibonacci fib)
+
+; helper function to measure elapsed time
+(defun print-time-it (fn arg)
+  (progn
+    (let [(tic (os/clock))]
+      (printf "Result: %d" (fn arg))
+      (let [(toc (os/clock))]
+	(printf "Elapsed time %.3fs.\n" (- toc tic))))))
 
 ;;; "benchmark" goes here. Hacks and glory await!
 ;;;
@@ -12,9 +21,9 @@
     ;; time different versions of Fibanocci calculations
     ;;
     (print! "Fibonacci series (naive recursive approach):")
-    (print! (fib/fib-naive 35))
+    (print-time-it fib/fib-naive 35)
     (print! "Fibonacci series (linear recursive approach):")
-    (print! (fib/fib 35))
+    (print-time-it fib/fib 35)
     (print! "")
 
     ;;
