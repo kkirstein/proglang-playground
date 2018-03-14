@@ -3,12 +3,13 @@
 ;(in-package #:benchmark)
 (import lua/os os)
 (import fibonacci fib)
+(import perfect-numbers pn)
 
 ; helper function to measure elapsed time
 (defun print-time-it (fn arg)
   (progn
     (let [(tic (os/clock))]
-      (printf "Result: %d" (fn arg))
+      (printf "Result: %s" (pretty (fn arg)))
       (let [(toc (os/clock))]
 	(printf "Elapsed time %.3fs.\n" (- toc tic))))))
 
@@ -29,9 +30,10 @@
     ;;
     ;; time computation of perfect numbers
     ;;
-    ;(format t "Perfect numbers:~%")
-    ;(time (perfect-numbers:make-perfect-numbers 10000))
-    ;(format t "~%")
+    (print! "Perfect numbers:")
+    (print! (pn/make-perfect-numbers 10000))
+    (print-time-it pn/make-perfect-numbers 10000)
+    (print! "")
 
     ;;
     ;; time computation of Mandelbrot sets

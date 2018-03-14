@@ -2,31 +2,27 @@
 ;;; Compute Perfect Numbers in Lisp
 ;;;
 
-(in-package perfect-numbers)
-
 ;;
 ;; check if given number is perfect
 ;;
-
-(defun perfectp (N)
+(defun perfect? (n)
   "Check if given number is perfect"
-  (labels ((do-sum (S I)
-		   (cond ((= I N) (= S N))
-			 ((= 0 (mod N I)) (do-sum (+ S I) (1+ I)))
-			 (t (do-sum S (1+ I))))))
+  (letrec [(do-sum (s i)
+		   (cond ((= i n) (= s n))
+			 ((= 0 (mod n i)) (do-sum (+ s i) (+ 1 i)))
+			 (true (do-sum s (+ 1 i)))))]
     (do-sum 0 1)))
 
 ;;
 ;; generate list of perfect numbers
 ;;
-
-(defun make-perfect-numbers (N)
+(defun make-perfect-numbers (n)
   "Generate a list of perfect numbers up to N"
-  (labels ((do-list (L I)
-		    (if (<= I N)
-		      (if (perfectp I)
-			(do-list (append L (list I)) (1+ I))
-			(do-list L (1+ I)))
-		      L)))
+  (letrec [(do-list (l i)
+		    (if (<= i n)
+		      (if (perfect? i)
+			(do-list (append l (list i)) (+ 1 i))
+			(do-list l (+ 1 i)))
+		      l))]
     (do-list '() 1)))
 
