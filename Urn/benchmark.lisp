@@ -31,7 +31,6 @@
     ;; time computation of perfect numbers
     ;;
     (print! "Perfect numbers:")
-    (print! (pn/make-perfect-numbers 10000))
     (print-time-it pn/make-perfect-numbers 10000)
     (print! "")
 
