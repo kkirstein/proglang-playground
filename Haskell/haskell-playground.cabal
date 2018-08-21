@@ -2,7 +2,7 @@ name:           haskell-playground
 version:        0.1.0
 synopsis:       A playground for the Haskell programming language
 license:        MIT
-license-file:   ../LICENSE
+license-file:   ./LICENSE
 author:         Kay-Uwe Kirstein
 build-type:     Simple
 cabal-version:  >=1.10
@@ -11,6 +11,7 @@ executable benchmark
     main-is:            Benchmark.hs
     build-depends:      base >=4.6 && <5
     hs-source-dirs:     src/Benchmark
+    other-modules:	Fibonacci, PerfectNumber, Mandelbrot
     default-language:   Haskell2010
 
 executable tail
@@ -21,7 +22,7 @@ executable tail
 
 executable jsonpp
     main-is:            JsonPretty.hs
-    build-depends:      base >=4.6 && <5, text, aeson < 0.8, pretty,
+    build-depends:      base >=4.6 && <5, text, aeson, pretty,
                         bytestring, vector, unordered-containers, HTF
     hs-source-dirs:     src
     default-language:   Haskell2010
