@@ -5,9 +5,9 @@
 --
 
 module Fibonacci
-	( fibNaive
-	, fib )
-	where
+  ( fibNaive
+  , fib )
+  where
 
 
 -- naive approach
