@@ -67,7 +67,7 @@ prettyJson json =
     prettyKv (k, v) =
       let combine x y =
             if isStructured v then x $$ (nest 1 y) else x <+> y
-      in (prettyString k <> text ":") `combine` prettyJson v
+      in (prettyString k Text.PrettyPrint.<> text ":") `combine` prettyJson v
     prettyString t =
       text (show t)
     isStructured json =
