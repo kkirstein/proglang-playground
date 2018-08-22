@@ -3,6 +3,7 @@
 *.swp
 
 # generated files
+*.ibc
 dist/
 #*.o
 
