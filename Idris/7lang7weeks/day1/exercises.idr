@@ -14,5 +14,23 @@ everyOther (x1 :: x2 :: xs) = x1 :: everyOther xs
 
 -- playcard data type
 data Color = Kreuz | Pik | Herz | Karo
-data Value = Seven | Eight | Nine | Ten | Bube | Dame | Koenig | Ass
+data Value = Sieben | Acht | Neun | Zehn | Bube | Dame | Koenig | Ass
 data Card = Pair Color Value
+data Deck = List Card
+
+-- even & odd numbers
+mutual
+  data Even = Two | EvenSucc Odd
+  data Odd = One | OddSucc Even
+
+-- binary tree
+data BTree a =
+  Node (BTree a) (BTree a) | Leaf
+
+-- reverse a list
+rev : List a -> List a
+rev l = rev' l [] where
+  rev' : List a -> List a -> List a
+  rev' [] b = b
+  rev' (a :: as) b = rev' as (a :: b)
+
