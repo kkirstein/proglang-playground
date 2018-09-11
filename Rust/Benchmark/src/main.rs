@@ -5,8 +5,8 @@
 // vim: ft=rust sw=4 ts=4
 //
 
-extern crate time;
 extern crate num;
+extern crate time;
 
 use time::precise_time_ns;
 
@@ -14,18 +14,19 @@ use time::precise_time_ns;
 mod fibonacci;
 mod perfect_number;
 
-
 // a helper function to time closures
-fn time_it<F, T>(fun: F) -> (T, u64) where F: Fn() -> T {
+fn time_it<F, T>(fun: F) -> (T, u64)
+where
+    F: Fn() -> T,
+{
     let tic = precise_time_ns();
     let res = fun();
     let toc = precise_time_ns();
 
-    (res, (toc-tic)/1000000)
+    (res, (toc - tic) / 1000000)
 }
 
 fn main() {
-
     println!("Rust benchmarks");
     println!("===============");
 
