@@ -15,6 +15,13 @@ pub fn is_perfect(n: u64) -> bool {
 
     sum == n
 }
+pub fn is_perfect_opt(n: u64) -> Option<u64> {
+    if is_perfect(n) {
+        Some(n)
+    } else {
+        None
+    }
+}
 
 // generate a list of perfect numbers
 //pub fn perfect_numbers(limit: u64) -> Vec<u64> {
@@ -27,6 +34,7 @@ pub fn is_perfect(n: u64) -> bool {
 //    pn
 //}
 
+// calculate all perfect numbers up to given limit
 pub fn perfect_numbers(limit: u64) -> Vec<u64> {
     use std::iter::FromIterator;
 
@@ -35,6 +43,7 @@ pub fn perfect_numbers(limit: u64) -> Vec<u64> {
     pn
 }
 
+// use an iterator for perfect numbers
 pub fn perfect_number_iter(count: usize) -> Vec<u64> {
     use std::iter::FromIterator;
 
@@ -42,6 +51,9 @@ pub fn perfect_number_iter(count: usize) -> Vec<u64> {
 
     pn
 }
+
+// multi-threaded approach for perfetct number checks
+// TODO
 
 // Iterator for perfect numbers
 pub struct PerfectNumber {
