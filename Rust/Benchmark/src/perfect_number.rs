@@ -46,13 +46,15 @@ pub fn perfect_numbers_mt(limit: u64) -> Vec<u64> {
     use std::thread::spawn;
     let threads: Vec<_> = (1..limit)
         .map(|n| spawn(move || is_perfect_opt(n)))
-        //.map(|i| i.unwrap_or(0))
         .collect();
 
-    // .map(|i| i.unwrap_or(0));
-    // .filter(|i| {i != 0});
+    let res: Vec<_> = threads
+        .into_iter()
+        .map(|t| t.join().unwrap())
+        .filter_map(|i| i)
+        .collect();
 
-    vec![]
+    res
 }
 
 // use an iterator for perfect numbers
