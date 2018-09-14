@@ -3,6 +3,7 @@
 //
 // vim: ft=rust sw=4 ts=4
 //
+//extern crate rayon;
 
 // predicate to check for a perfect number
 pub fn is_perfect(n: u64) -> bool {
@@ -55,6 +56,12 @@ pub fn perfect_numbers_mt(limit: u64) -> Vec<u64> {
         .collect();
 
     res
+}
+pub fn perfect_numbers_mt2(limit: u64) -> Vec<u64> {
+    use rayon::prelude::*;
+
+    //let res: Vec<_> = (1..limit)
+    vec![]
 }
 
 // use an iterator for perfect numbers
