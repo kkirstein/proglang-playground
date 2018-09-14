@@ -7,6 +7,7 @@
 
 extern crate num;
 extern crate time;
+extern crate rayon;
 
 use time::precise_time_ns;
 

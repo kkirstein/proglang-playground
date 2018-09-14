@@ -3,7 +3,6 @@
 //
 // vim: ft=rust sw=4 ts=4
 //
-//extern crate rayon;
 
 // predicate to check for a perfect number
 pub fn is_perfect(n: u64) -> bool {
