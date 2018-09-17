@@ -59,6 +59,9 @@ fn main() {
     let (res, elap) = time_it(|| perfect_number::perfect_numbers_mt(10000));
     println!("pn_mt(10000) = {:?}\tElapsed: {}ms", res, elap);
 
+    let (res, elap) = time_it(|| perfect_number::perfect_numbers_rayon(10000));
+    println!("pn_rayon(10000) = {:?}\tElapsed: {}ms", res, elap);
+
     println!("");
 
     println!("Mandelbrot set:");

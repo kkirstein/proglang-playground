@@ -50,17 +50,21 @@ pub fn perfect_numbers_mt(limit: u64) -> Vec<u64> {
 
     let res: Vec<_> = threads
         .into_iter()
-        .map(|t| t.join().unwrap())
-        .filter_map(|i| i)
+        //.map(|t| t.join().unwrap())
+        .filter_map(|t| t.join().unwrap())
         .collect();
 
     res
 }
-pub fn perfect_numbers_mt2(limit: u64) -> Vec<u64> {
+pub fn perfect_numbers_rayon(limit: u64) -> Vec<u64> {
     use rayon::prelude::*;
 
-    //let res: Vec<_> = (1..limit)
-    vec![]
+    let res: Vec<_> = (1..limit).into_par_iter()
+    .map(|i| is_perfect_opt(i))
+    .filter_map(|i| i)
+    .collect();
+
+    res
 }
 
 // use an iterator for perfect numbers
