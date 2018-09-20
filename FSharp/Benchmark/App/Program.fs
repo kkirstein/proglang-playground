@@ -6,5 +6,5 @@ open Tasks.Fibonacci
 [<EntryPoint>]
 let main argv =
     printfn "fib_naive(35): %d" (fib_naive 35)
-    printfn "Hello World from F#!"
+    printfn "Done!"
     0 // return an integer exit code
