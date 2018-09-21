@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Include="Fibonacci.fs" />
+    <Compile Include="Perfectnumber.fs" />
   </ItemGroup>
 
 </Project>
