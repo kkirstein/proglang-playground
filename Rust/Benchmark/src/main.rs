@@ -5,14 +5,17 @@
 // vim: ft=rust sw=4 ts=4
 //
 
+extern crate image;
 extern crate num;
-extern crate time;
+extern crate num_complex;
 extern crate rayon;
+extern crate time;
 
 use time::precise_time_ns;
 
 // declare submodules
 mod fibonacci;
+mod mandelbrot;
 mod perfect_number;
 
 // a helper function to time closures
@@ -67,6 +70,15 @@ fn main() {
     println!("Mandelbrot set:");
     println!("--------------");
 
+    let (res, elap) = time_it(|| mandelbrot::mandelbrot(640, 480, -0.5, 0.0, 4.0 / 640 as f64));
+    println!("mandelbrot(640, 480) done\tElapsed: {}ms", elap);
+    let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
+    println!("mandelbrot(640, 480) written to PNG\tElapsed: {}ms", elap);
+
+    let (res, elap) = time_it(|| mandelbrot::mandelbrot(1920, 1200, -0.5, 0.0, 4.0 / 1920 as f64));
+    println!("mandelbrot(1920, 1200) done\tElapsed: {}ms", elap);
+    let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
+    println!("mandelbrot(1920, 1200) written to PNG\tElapsed: {}ms", elap);
     println!("");
 
     println!("------------------");

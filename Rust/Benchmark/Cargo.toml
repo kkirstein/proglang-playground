@@ -6,5 +6,7 @@ authors = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
 [dependencies]
 time = "0.1"
 num = "0.2"
+num-complex = "0.2"
+image = "*"
 rayon = "1.0"
 
