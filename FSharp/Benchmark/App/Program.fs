@@ -11,6 +11,7 @@ let main argv =
     printfn "Fibonacci numbers"
     printfn "-----------------"
     printfn "fib_naive(35): %d" (fib_naive 35)
+    printfn "fib(35): %d" (fib 35)
     printfn ""
     printfn "-----"
     printfn "Done!"
