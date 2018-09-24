@@ -32,6 +32,11 @@ fn to_rgb(n: u8) -> image::Rgb<u8> {
     image::Rgb([15 * (n % 15), 32 * (n % 7), 8 * (n % 31)])
 }
 
+// convert pixel value to RGB color
+fn to_vec(n: u8) -> Vec<u8> {
+    vec![15 * (n % 15), 32 * (n % 7), 8 * (n % 31)]
+}
+
 // Calculate Mandelbrot set for given image size
 pub fn mandelbrot(
     width: u32,
@@ -49,4 +54,34 @@ pub fn mandelbrot(
             y as f64 * pixel_size - y_offset,
         ))
     })
+}
+
+// Calculate Mandelbrot set with multithreading
+pub fn mandelbrot_rayon(
+    width: u32,
+    height: u32,
+    center_x: f64,
+    center_y: f64,
+    pixel_size: f64,
+) -> ImageBuffer<Rgb<u8>, Vec<u8>> {
+    use rayon::prelude::*;
+
+    let x_offset = center_x - 0.5 * pixel_size * width as f64;
+    let y_offset = center_y + 0.5 * pixel_size * height as f64;
+
+    let buf: Vec<_> = (0..width * height)
+        .into_par_iter()
+        .map(|i| {
+            let x = i % width;
+            let y = i / width;
+            to_vec(pixel_value(
+                x as f64 * pixel_size + x_offset,
+                y as f64 * pixel_size - y_offset,
+            ))
+        }).flatten()
+        .collect();
+
+    let img: ImageBuffer<Rgb<u8>, Vec<u8>> =
+        image::ImageBuffer::from_vec(width, height, buf).unwrap();
+    img
 }
