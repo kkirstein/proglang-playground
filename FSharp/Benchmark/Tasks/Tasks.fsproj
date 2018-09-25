@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Include="Fibonacci.fs" />
     <Compile Include="Perfectnumber.fs" />
+    <Compile Include="Mandelbrot.fs" />
   </ItemGroup>
 
   <ItemGroup>

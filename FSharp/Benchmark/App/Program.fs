@@ -3,6 +3,7 @@
 open System.Diagnostics
 open Tasks.Fibonacci
 open Tasks.Perfectnumber
+open Tasks.Mandelbrot
 
 // measures the elapsed tim eof the given function
 let time_it f =
@@ -30,9 +31,15 @@ let main argv =
     printfn "---------------"
     let res, elap = time_it (fun () -> perfectNumbers 10000) in
     printfn "perfectNumbers(10000): %A (%d ms)" res elap
-    let res, elap = time_it (fun () -> perfectNumbers2 10000) in
+    let res, elap = time_it (fun () -> perfectNumbersPar 10000) in
     printfn "perfectNumbers2(10000): %A (%d ms)" res elap
     printfn ""
+    printfn "Mandelbrot set"
+    printfn "--------------"
+    let res, elap = time_it (fun () -> mandelbrot 1920 1200 -0.5 0.0 (4.0/1920.0)) in
+    printfn "mandelbrot(1920 x 1200): done (%d ms)" elap
+    let res, elap = time_it (fun () -> writePNM res @"./mandelbrot.pnm") in
+    printfn "mandelbrot(1920 x 1200): written (%d ms)" elap
     printfn "-----"
     printfn "Done!"
     0 // return an integer exit code

@@ -27,6 +27,6 @@ module Perfectnumber =
         if start < stop then start :: (range (start + 1) stop) else []
 
     // generate a list of perfect numbers by an iterator
-    let perfectNumbers2 n =
+    let perfectNumbersPar n =
         let r = range 1 n in
         PSeq.filter isPerfect r |> PSeq.toList
