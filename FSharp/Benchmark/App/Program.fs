@@ -1,8 +1,16 @@
 ﻿// Learn more about F# at http://fsharp.org
 
-open System
+open System.Diagnostics
 open Tasks.Fibonacci
 open Tasks.Perfectnumber
+
+// measures the elapsed tim eof the given function
+let time_it f =
+    let timer = new Stopwatch () in
+    timer.Start ()
+    let res = f ()
+    timer.Stop ()
+    (res, timer.ElapsedMilliseconds)
 
 [<EntryPoint>]
 let main argv =
@@ -11,12 +19,17 @@ let main argv =
     printfn ""
     printfn "Fibonacci numbers"
     printfn "-----------------"
-    printfn "fib_naive(35): %d" (fib_naive 35)
-    printfn "fib(35): %d" (fib 35)
+    let res, elap = time_it (fun () -> fib_naive 35) in
+    printfn "fib_naive(35): %d (%d ms)" res elap
+    let res, elap = time_it (fun () -> fib 35) in
+    printfn "fib(35): %d (%d ms)" res elap
+    let res, elap = time_it (fun () -> fib 1000) in
+    printfn "fib(1000): %d (%d ms)" res elap
     printfn ""
     printfn "Perfect numbers"
     printfn "---------------"
-    printfn "perfect_numbers(10000): %A" (perfect_numbers 10000)
+    let res, elap = time_it (fun () -> perfect_numbers 10000) in
+    printfn "perfect_numbers(10000): %A (%d ms)" res elap
     printfn ""
     printfn "-----"
     printfn "Done!"
