@@ -2,6 +2,8 @@
 
 namespace Tasks
 
+open FSharp.Collections.ParallelSeq
+
 module Perfectnumber =
 
     // predicate to check whether a number is perfect
@@ -20,3 +22,11 @@ module Perfectnumber =
                 if isPerfect i then i :: loop (i + 1) else loop (i + 1)
         in
         loop 1
+
+    let rec range start stop =
+        if start < stop then start :: (range (start + 1) stop) else []
+
+    // generate a list of perfect numbers by an iterator
+    let perfectNumbers2 n =
+        let r = range 1 n in
+        PSeq.filter isPerfect r |> PSeq.toList

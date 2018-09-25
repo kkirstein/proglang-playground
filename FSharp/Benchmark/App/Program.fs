@@ -29,7 +29,9 @@ let main argv =
     printfn "Perfect numbers"
     printfn "---------------"
     let res, elap = time_it (fun () -> perfectNumbers 10000) in
-    printfn "perfect_numbers(10000): %A (%d ms)" res elap
+    printfn "perfectNumbers(10000): %A (%d ms)" res elap
+    let res, elap = time_it (fun () -> perfectNumbers2 10000) in
+    printfn "perfectNumbers2(10000): %A (%d ms)" res elap
     printfn ""
     printfn "-----"
     printfn "Done!"
