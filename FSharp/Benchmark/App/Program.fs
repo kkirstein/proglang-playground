@@ -16,8 +16,7 @@ let main argv =
     printfn ""
     printfn "Perfect numbers"
     printfn "---------------"
-    (* printfn "perfect_numbers(1000): %s"
-        (List.map to_string (perfect_numbers 1000) |> String.concat ",") *)
+    printfn "perfect_numbers(10000): %A" (perfect_numbers 10000)
     printfn ""
     printfn "-----"
     printfn "Done!"
