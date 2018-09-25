@@ -19,8 +19,8 @@ let main argv =
     printfn ""
     printfn "Fibonacci numbers"
     printfn "-----------------"
-    let res, elap = time_it (fun () -> fib_naive 35) in
-    printfn "fib_naive(35): %d (%d ms)" res elap
+    let res, elap = time_it (fun () -> fibNaive 35) in
+    printfn "fibNaive(35): %d (%d ms)" res elap
     let res, elap = time_it (fun () -> fib 35) in
     printfn "fib(35): %d (%d ms)" res elap
     let res, elap = time_it (fun () -> fib 1000) in

@@ -4,8 +4,8 @@ namespace Tasks
 
 module Fibonacci =
     (* a naive implementation of Fibonacci numbers *)
-    let rec fib_naive n =
-        if n > 2 then fib_naive (n - 1) + fib_naive (n - 2)
+    let rec fibNaive n =
+        if n > 2 then fibNaive (n - 1) + fibNaive (n - 2)
         else 1
 
     (* optimized version *)
