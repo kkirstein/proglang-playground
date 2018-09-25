@@ -14,4 +14,4 @@ module Fibonacci =
             if i < 1 then a
             else loop b (a + b) (i - 1)
         in
-        loop 0 1 n
+        loop (bigint 0) (bigint 1) n

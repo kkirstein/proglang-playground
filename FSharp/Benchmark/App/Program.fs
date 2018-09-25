@@ -22,13 +22,13 @@ let main argv =
     let res, elap = time_it (fun () -> fibNaive 35) in
     printfn "fibNaive(35): %d (%d ms)" res elap
     let res, elap = time_it (fun () -> fib 35) in
-    printfn "fib(35): %d (%d ms)" res elap
+    printfn "fib(35): %A (%d ms)" res elap
     let res, elap = time_it (fun () -> fib 1000) in
-    printfn "fib(1000): %d (%d ms)" res elap
+    printfn "fib(1000): %A (%d ms)" res elap
     printfn ""
     printfn "Perfect numbers"
     printfn "---------------"
-    let res, elap = time_it (fun () -> perfect_numbers 10000) in
+    let res, elap = time_it (fun () -> perfectNumbers 10000) in
     printfn "perfect_numbers(10000): %A (%d ms)" res elap
     printfn ""
     printfn "-----"
