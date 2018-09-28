@@ -32,7 +32,7 @@ let main argv =
     let res, elap = time_it (fun () -> perfectNumbers 10000) in
     printfn "perfectNumbers(10000): %A (%d ms)" res elap
     let res, elap = time_it (fun () -> perfectNumbersPar 10000) in
-    printfn "perfectNumbers2(10000): %A (%d ms)" res elap
+    printfn "perfectNumbersPar(10000): %A (%d ms)" res elap
     printfn ""
     printfn "Mandelbrot set"
     printfn "--------------"

@@ -29,4 +29,4 @@ module Perfectnumber =
     // generate a list of perfect numbers by an iterator
     let perfectNumbersPar n =
         let r = range 1 n in
-        PSeq.filter isPerfect r |> PSeq.toList
+        PSeq.filter isPerfect r |> PSeq.sort |> PSeq.toList
