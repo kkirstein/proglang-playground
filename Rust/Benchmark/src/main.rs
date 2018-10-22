@@ -18,6 +18,10 @@ mod fibonacci;
 mod mandelbrot;
 mod perfect_number;
 
+mod test {
+    mod test_fibonacci;
+}
+
 // a helper function to time closures
 fn time_it<F, T>(fun: F) -> (T, u64)
 where
