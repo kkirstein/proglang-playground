@@ -42,20 +42,6 @@ pub fn perfect_numbers(limit: u64) -> Vec<u64> {
 
     pn
 }
-pub fn perfect_numbers_mt(limit: u64) -> Vec<u64> {
-    use std::thread::spawn;
-    let threads: Vec<_> = (1..limit)
-        .map(|n| spawn(move || is_perfect_opt(n)))
-        .collect();
-
-    let res: Vec<_> = threads
-        .into_iter()
-        //.map(|t| t.join().unwrap())
-        .filter_map(|t| t.join().unwrap())
-        .collect();
-
-    res
-}
 pub fn perfect_numbers_rayon(limit: u64) -> Vec<u64> {
     use rayon::prelude::*;
 
