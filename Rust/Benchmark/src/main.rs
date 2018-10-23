@@ -20,7 +20,8 @@ mod perfect_number;
 
 #[cfg(test)]
 mod test {
-    mod test_fibonacci;
+    mod test_fib;
+    mod test_pn;
 }
 
 // a helper function to time closures
