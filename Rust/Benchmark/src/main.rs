@@ -18,6 +18,7 @@ mod fibonacci;
 mod mandelbrot;
 mod perfect_number;
 
+#[cfg(test)]
 mod test {
     mod test_fibonacci;
 }
