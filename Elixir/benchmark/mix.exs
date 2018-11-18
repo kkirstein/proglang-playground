@@ -4,10 +4,10 @@ defmodule Benchmark.Mixfile do
   def project do
     [app: :benchmark,
      version: "0.0.1",
-     elixir: "~> 1.0",
+     elixir: "~> 1.7",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
