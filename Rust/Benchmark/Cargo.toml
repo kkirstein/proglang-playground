@@ -1,9 +1,12 @@
 [package]
 name = "benchmark"
 version = "0.1.0"
-authors = ["Kay-Uwe Kirstein <kayuwe.kirstein@uster.com>"]
+authors = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
 
 [dependencies]
 time = "0.1"
-num = "0.1.25"
+num = "0.2"
+num-complex = "0.2"
+image = "*"
+rayon = "1.0"
 
