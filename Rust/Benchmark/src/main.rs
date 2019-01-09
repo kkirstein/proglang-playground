@@ -83,10 +83,14 @@ fn main() {
     let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
     println!("mandelbrot(1920, 1200) written to PNG\tElapsed: {}ms", elap);
 
-    let (res, elap) = time_it(|| mandelbrot::mandelbrot_rayon(1920, 1200, -0.5, 0.0, 4.0 / 1920 as f64));
+    let (res, elap) =
+        time_it(|| mandelbrot::mandelbrot_rayon(1920, 1200, -0.5, 0.0, 4.0 / 1920 as f64));
     println!("mandelbrot_rayon(1920, 1200) done\tElapsed: {}ms", elap);
     let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
-    println!("mandelbrot_rayon(1920, 1200) written to PNG\tElapsed: {}ms", elap);
+    println!(
+        "mandelbrot_rayon(1920, 1200) written to PNG\tElapsed: {}ms",
+        elap
+    );
     println!("");
 
     println!("------------------");
