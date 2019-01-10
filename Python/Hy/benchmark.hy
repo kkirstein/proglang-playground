@@ -11,11 +11,17 @@
       (import time)
       (setv tic (time.perf_counter))
       (setv res ~fun)
-      (- (time.perf_counter) tic)))
+      {"elap" (- (time.perf_counter) tic) "res" res}))
 
+(defn pprint-time-it [name info]
+  (print (.format "{} = {} (elapsed: {}s)" name (get info "res") (get info "elap"))))
 
 ; Fibonacci numbers
 ; =================
 (import [fibonacci [fib-naive fib]])
-(print (time-it (fib-naive 35)))
+(print "Fibonacci Numbers")
+(print "=================")
+(pprint-time-it "fib-naive(35)" (time-it (fib-naive 35)))
+(pprint-time-it "fib(35)" (time-it (fib 35)))
+(pprint-time-it "fib(1000)" (time-it (fib 1000)))
 
