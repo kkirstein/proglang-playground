@@ -6,15 +6,15 @@
 ; programming language
 ;
 
-(defmacro time-it [fun]
+(defmacro/g! time-it [fun]
   `(do
       (import time)
-      (setv tic (time.perf_counter))
-      (setv res ~fun)
-      {"elap" (- (time.perf_counter) tic) "res" res}))
+      (setv ~g!tic (time.perf_counter))
+      (setv ~g!res ~fun)
+      {"elap" (- (time.perf_counter) ~g!tic) "res" ~g!res}))
 
 (defn pprint-time-it [name info]
-  (print (.format "{} = {} (elapsed: {}s)" name (get info "res") (get info "elap"))))
+  (print (.format "{} = {} (elapsed: {:.3f}s)" name (get info "res") (get info "elap"))))
 
 ; Fibonacci numbers
 ; =================
@@ -24,4 +24,17 @@
 (pprint-time-it "fib-naive(35)" (time-it (fib-naive 35)))
 (pprint-time-it "fib(35)" (time-it (fib 35)))
 (pprint-time-it "fib(1000)" (time-it (fib 1000)))
+(print "")
+
+; Perfect numbers
+; ===============
+(import [perfect-number [perfect-numbers perfect-numbers-gen]])
+(print "Perfect Numbers")
+(print "===============")
+(pprint-time-it "perfect-numbers(1000)" (time-it (perfect-numbers 1000)))
+(pprint-time-it "perfect-numbers-gen(3)" (time-it (perfect-numbers-gen 3)))
+(print "")
+
+
+(print "done.")
 
