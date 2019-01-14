@@ -100,6 +100,6 @@ contains
     write(num_str, '(I5)') ary(len)
     str = str // num_str
 
-  endsubroutine to_string
+  end subroutine to_string
 
 end module perfect_number
