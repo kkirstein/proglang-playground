@@ -14,10 +14,10 @@ fib_naive 1 = 1
 fib_naive n = fib_naive (n - 1) + fib_naive (n - 2)
 
 -- Tail-call friendly version
-fib : Int -> Integer
-fib n = fib_aux 0 1 n where
-  fib_aux : Integer -> Integer -> Int -> Integer
-  fib_aux a b 0 = a
-  fib_aux a b n = fib_aux b (a + b) (n -1)
+fib : Nat -> Nat
+fib n = fib_aux Z (S Z) n where
+  fib_aux : Nat -> Nat -> Nat -> Nat
+  fib_aux a b Z = a
+  fib_aux a b (S n) = fib_aux b (plus a b) n
 
 
