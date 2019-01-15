@@ -13,6 +13,15 @@
       [(zero? (% n i)) (recur (+ i 1) (+ sum i))]
       [True (recur (+ i 1) sum)])))
 
+(defn perfect-iter? [n]
+  "Check whether given number is 'perfect', non-recursive implementation"
+  (do
+    (setv sum 0)
+    (for [i (range 1 n)]
+      (when (zero? (% n i)) (setv sum (+ sum i))))
+    (= sum n)))
+
+
 (defn perfect-numbers [nmax]
   "Calculate 'perfect' numbers up to 'nmax'"
   (lfor x (range 1 nmax)
@@ -23,7 +32,7 @@
 (defn pn-generator []
   "Generator for 'perfect' numbers"
   (gfor x (count 1)
-    :if (perfect? x)
+    :if (perfect-iter? x)
     x))
 
 (defn perfect-numbers-gen [n]

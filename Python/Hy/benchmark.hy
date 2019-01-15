@@ -32,7 +32,7 @@
 (print "Perfect Numbers")
 (print "===============")
 (pprint-time-it "perfect-numbers(1000)" (time-it (perfect-numbers 1000)))
-(pprint-time-it "perfect-numbers-gen(3)" (time-it (perfect-numbers-gen 3)))
+(pprint-time-it "perfect-numbers-gen(4)" (time-it (perfect-numbers-gen 4)))
 (print "")
 
 
