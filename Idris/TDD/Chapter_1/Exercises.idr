@@ -59,3 +59,15 @@ export
 top_ten : Ord a => (l : List a) -> List a
 top_ten l = take 10 $ reverse $ sort l
 
+
+-- Count strings over given length
+
+||| Counts the number of strings wiht length
+||| larger than given limit
+||| @len A Nat of length limit
+||| @strs A list of string
+export
+over_length : (len : Nat) -> (strs : List String) -> Nat
+over_length len strs = length $ filter (\w => (length w) > len) strs
+
+
