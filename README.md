@@ -57,6 +57,10 @@ Haxe is statically typed and supports algebraic data types ala Haskell.
 
 [Idris](http://www.idris-lang.org/) is a Haskell-style programming language with [dependent types](http://en.wikipedia.org/wiki/Dependent_type). It compiles to either machine code (via C) or to JavaScript.
 
+# Julia
+
+[Julia](https://julialang.org) is a dynamically-typed programming language well suited for scientific and data science related applications. It is JIT-compiled with the help of the LLVM framework.
+
 # Kotlin
 
 [Kotlin](http://kotlinlang.org) is a statically-typed object-oriented programming language, targetting the Java Virtual Machine (JVM) and now also compiles to JavaScript. Its main goal is to reduce the complexity (aka boilerplate) and avoid some pitfalls, like null pointers, of the Java programming language.
