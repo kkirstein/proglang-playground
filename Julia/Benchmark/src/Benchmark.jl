@@ -4,9 +4,11 @@
 # A set of (micro-) benchmarks for the Julia programming language
 #
 
-include("fibonacci.jl")
 
-#using Fibonacci
+module Benchmark
+
+include("Fibonacci.jl")
+#import Fibonacci
 
 println("Fibonacci numbers")
 println("-----------------")
@@ -29,3 +31,5 @@ println()
 
 
 println(" done.")
+
+end # module

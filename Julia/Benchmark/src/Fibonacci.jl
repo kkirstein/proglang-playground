@@ -1,6 +1,6 @@
 # vim: set ft=julia sw=4 ts=4:
 #
-# fibonacci.jl
+# Fibonacci.jl
 #
 # Calculate Fibonacci numbers in Julia
 

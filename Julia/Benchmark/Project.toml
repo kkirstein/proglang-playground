@@ -1,0 +1,4 @@
+name = "Benchmark"
+uuid = "e0724fb4-2633-11e9-089b-3d3a08f497d2"
+authors = ["Kay-Uwe Kirstein <kayuwe.kirstein@uster.com>"]
+version = "0.1.0"
