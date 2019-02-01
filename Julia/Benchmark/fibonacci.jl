@@ -6,7 +6,7 @@
 
 module Fibonacci
 
-export fib_naive
+export fib_naive, fib
 
 "Naive implementation of Fibonacci number calculation"
 function fib_naive(n)
@@ -17,6 +17,17 @@ function fib_naive(n)
 	end
 end
 
+"Tail-call optimized implementation"
+function fib(n)
+	function aux(n, a, b)
+		if n < 1
+			a
+		else
+			aux(n-1, b, a+b)
+		end
+	end
+	aux(n, BigInt(0), BigInt(1))
 end
 
+end # module
 

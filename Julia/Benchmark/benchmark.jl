@@ -10,7 +10,9 @@ include("fibonacci.jl")
 
 println("Fibonacci numbers")
 println("-----------------")
-@time println("fib_naive(35) = $(Fibonacci.fib_naive(35))")
+@time println(lpad("fib_naive(35)", 16) * " = $(Fibonacci.fib_naive(35))")
+@time println(lpad("fib(35)", 16) * " = $(Fibonacci.fib(35))")
+@time println(lpad("fib(1000)", 16) * " = $(Fibonacci.fib(1000))")
 println()
 
 
