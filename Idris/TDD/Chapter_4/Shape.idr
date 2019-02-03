@@ -5,7 +5,7 @@
 module Shape
 
 ||| Represents shapes
-export
+public export
 data Shape = ||| A triangle, with its base and height
              Triangle Double Double
            | ||| A rectangle, with length and height
