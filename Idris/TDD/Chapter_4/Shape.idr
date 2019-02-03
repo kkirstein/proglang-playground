@@ -13,6 +13,8 @@ data Shape = ||| A triangle, with its base and height
            | ||| A circle, with radius
              Circle Double
 
+%name Shape shape, shape1, shape2
+
 ||| Calculates area of given shape
 export
 area : Shape -> Double
