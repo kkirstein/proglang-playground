@@ -22,11 +22,21 @@ treeToList (Node left x right) = let leftList = treeToList left
 -- ==================
 
 ||| Data type for arithmetic expression(s)
-data Expr = Val Int
-          | Add Expr Expr
-          | Sub Expr Expr
-          | Mult Expr Expr
+data Expr = ||| Int value
+            Val Int
+          | ||| Arithmetic addition of two expressions
+            Add Expr Expr
+          | ||| Arithmetic substraction of two expressions
+            Sub Expr Expr
+          | ||| Arithmetic multiplication of two expressions
+            Mult Expr Expr
 
+||| Evaluates given arithmentic expression
+evaluate : Expr -> Int
+evaluate (Val x) = x
+evaluate (Add x y) = (evaluate x) + (evaluate y)
+evaluate (Sub x y) = (evaluate x) - (evaluate y)
+evaluate (Mult x y) = (evaluate x) * (evaluate y)
 
 
 
