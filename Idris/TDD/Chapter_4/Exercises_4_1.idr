@@ -18,4 +18,15 @@ treeToList (Node left x right) = let leftList = treeToList left
                                      leftList ++ [x] ++ rightList
 
 
+-- Integer arithmetic
+-- ==================
+
+||| Data type for arithmetic expression(s)
+data Expr = Val Int
+          | Add Expr Expr
+          | Sub Expr Expr
+          | Mult Expr Expr
+
+
+
 
