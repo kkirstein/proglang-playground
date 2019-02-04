@@ -39,4 +39,17 @@ evaluate (Sub x y) = (evaluate x) - (evaluate y)
 evaluate (Mult x y) = (evaluate x) * (evaluate y)
 
 
+-- Maybe comparator
+-- ================
+maxMaybe : Ord a => Maybe a -> Maybe a -> Maybe a
+maxMaybe Nothing Nothing = Nothing
+maxMaybe Nothing (Just y) = Just y
+maxMaybe (Just x) Nothing = Just x
+maxMaybe (Just x) (Just y) = case compare x y of
+                                  LT => Just y
+                                  EQ => Just x
+                                  GT => Just x
+
+
+
 
