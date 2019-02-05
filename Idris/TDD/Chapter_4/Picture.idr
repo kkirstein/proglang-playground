@@ -5,6 +5,7 @@
 import Shape
 
 ||| Represents a picture with multiple shapes
+public export
 data Picture = Primitive Shape
              | Combine Picture Picture
              | Rotate Double Picture
@@ -29,6 +30,7 @@ testPicture = Combine (Translate 5 5 rectangle)
               (Translate 15 25 triangle))
 
 ||| Calculates the sum area of all shapes in a picture
+export
 pictureArea : Picture -> Double
 pictureArea (Primitive shape) = area shape
 pictureArea (Combine pic pic1) = pictureArea pic + pictureArea pic1
