@@ -12,15 +12,15 @@ data Vect : Nat -> Type -> Type where
 
 %name Vect xs, ys, zs
 
+
 ||| appends two vectors
 append : Vect n elem -> Vect m elem -> Vect (n + m) elem
 append [] ys = ys
 append (x :: xs) ys = x :: append xs ys
 
+
 ||| Combine two vectors to a vector of pairs
 zip : Vect n a -> Vect n b -> Vect n (a, b)
 zip [] ys = []
 zip (x :: xs) (y :: ys) = (x, y) :: zip xs ys
-
-
 
