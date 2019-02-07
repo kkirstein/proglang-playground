@@ -11,4 +11,12 @@ vectTake Z (x :: xs) = []
 vectTake (S k) (x :: xs) = x :: vectTake k xs
 
 
+||| Calculate sum of selected entries, return Nothing if index
+||| is out of bounds
+sumEntries : Num a => (pos : Integer) -> Vect n a -> Vect n a ->
+             Maybe a
+sumEntries pos xs ys = case _ of
+                            case_val => ?sumEntries_rhs
+
+
 
