@@ -15,8 +15,9 @@ vectTake (S k) (x :: xs) = x :: vectTake k xs
 ||| is out of bounds
 sumEntries : Num a => (pos : Integer) -> Vect n a -> Vect n a ->
              Maybe a
-sumEntries pos xs ys = case _ of
-                            case_val => ?sumEntries_rhs
+sumEntries {n} pos xs ys = case integerToFin pos n of
+                                Nothing => Nothing
+                                (Just x) => Just ((index x xs) + (index x ys))
 
 
 
