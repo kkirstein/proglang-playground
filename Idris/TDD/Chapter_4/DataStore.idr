@@ -30,6 +30,7 @@ addToStore (MkData size items) newItem = MkData _ (addToData items)
 ||| commands for data store
 data Command = Add String
              | Get Integer
+             | Size
              | Quit
 
 
@@ -38,10 +39,11 @@ parseCommand "add" str = Just (Add str)
 parseCommand "get" val = case all isDigit (unpack val) of
                               False => Nothing
                               True => Just (Get (cast val))
+parseCommand "size" "" = Just Size
 parseCommand "quit" "" = Just Quit
 parseCommand _ _ = Nothing
 
-||| Parses given string and return matching command
+||| Parses given string and returns matching command
 ||| if sucessful (or Nothing in case of invalid string)
 parse : (input : String) -> Maybe Command
 parse input = case span (/= ' ') input of
@@ -63,6 +65,8 @@ processInput store input = case parse input of
                                 (Just (Add item)) =>
                                   Just ("ID " ++ show (size store) ++ "\n", addToStore store item)
                                 (Just (Get pos)) => getEntry pos store
+                                (Just Size) =>
+                                  Just ("Size: " ++ cast (size store) ++ "\n", store)
                                 (Just Quit) => Nothing
 
 -- entry point
