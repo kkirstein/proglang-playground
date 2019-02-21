@@ -62,7 +62,12 @@ getEntry pos store = let store_items = items store in
 
 findEntries : (str : String) -> (store : DataStore) ->  (p : Nat ** Vect p String)
 findEntries str store = let store_items = items store in
-                            filter (== str) store_items
+                            filter (isInfixOf str) store_items
+
+concateStringVect : (p : Nat ** Vect p String) -> String
+concateStringVect (Z ** []) = "\n"
+concateStringVect (S x ** (str :: strs)) = str ++ "\n" ++ ?remainingVect
+                                --(concatStringVect (x ** strs))
 
 ||| Processes given String command
 processInput : DataStore -> String -> Maybe (String, DataStore)
@@ -72,7 +77,7 @@ processInput store input = case parse input of
                                   Just ("ID " ++ show (size store) ++ "\n", addToStore store item)
                                 Just (Get pos) => getEntry pos store
                                 Just (Search str) =>
-                                  Just (?concateStringVect (findEntries str store), store)
+                                  Just (concateStringVect (findEntries str store), store)
                                 Just Size =>
                                   Just ("Size: " ++ cast (size store) ++ "\n", store)
                                 Just Quit => Nothing
