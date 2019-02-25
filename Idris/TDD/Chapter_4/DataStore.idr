@@ -60,17 +60,18 @@ getEntry pos store = let store_items = items store in
                               (Just id) => Just (index id store_items ++ "\n", store)
 
 
-storeIds : (store : DataStore) -> Vect (size store) Nat
-storeIds store = let maxId = size store in
-                     ?storeIds_rhs
+findEntriesString : (idx : Nat) -> (str : String) -> (items : Vect len String) -> String
+findEntriesString idx str [] = "\n"
+findEntriesString idx str (x :: xs) = if (isInfixOf str x)
+                                         then (show idx) ++ ": " ++ x ++ "\n" ++ findEntriesString (idx + 1) str xs 
+                                         else findEntriesString (idx + 1) str xs
 
-findEntries : (str : String) -> (store : DataStore) ->  (p : Nat ** Vect p (Nat, String))
-findEntries str store = let store_items = zip (storeIds store) (items store) in
-                            filter (\(_, item) => isInfixOf str item) store_items
+findEntries : (str : String) -> (store : DataStore) -> String
+findEntries str store = findEntriesString Z str (items store)
 
 concatStringVect : (p : Nat ** Vect p (Nat, String)) -> String
 concatStringVect (Z ** []) = "\n"
-concatStringVect (S x ** ((_, str) :: items)) = str ++ "\n" ++ concatStringVect (x ** items)
+concatStringVect (S x ** ((id, str) :: items)) = (show id) ++ ": " ++ str ++ "\n" ++ concatStringVect (x ** items)
 
 ||| Processes given String command
 processInput : DataStore -> String -> Maybe (String, DataStore)
@@ -80,7 +81,7 @@ processInput store input = case parse input of
                                   Just ("ID " ++ show (size store) ++ "\n", addToStore store item)
                                 Just (Get pos) => getEntry pos store
                                 Just (Search str) =>
-                                  Just (concatStringVect $ findEntries str store, store)
+                                  Just (findEntries str store, store)
                                 Just Size =>
                                   Just ("Size: " ++ cast (size store) ++ "\n", store)
                                 Just Quit => Nothing
