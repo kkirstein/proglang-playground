@@ -60,17 +60,17 @@ getEntry pos store = let store_items = items store in
                               (Just id) => Just (index id store_items ++ "\n", store)
 
 
---findEntries : (str : String) -> (store : DataStore) -> String
---findEntries str store = let items = items store in
---                            findItems items where
---                              findItems items = ?findtems_rhs
-findEntries : (str : String) -> (store : DataStore) ->  (p : Nat ** Vect p String)
-findEntries str store = let store_items = items store in
-                            filter (isInfixOf str) store_items
+storeIds : (store : DataStore) -> Vect (size store) Nat
+storeIds store = let maxId = size store in
+                     ?storeIds_rhs
 
-concatStringVect : (p : Nat ** Vect p String) -> String
+findEntries : (str : String) -> (store : DataStore) ->  (p : Nat ** Vect p (Nat, String))
+findEntries str store = let store_items = zip (storeIds store) (items store) in
+                            filter (\(_, item) => isInfixOf str item) store_items
+
+concatStringVect : (p : Nat ** Vect p (Nat, String)) -> String
 concatStringVect (Z ** []) = "\n"
-concatStringVect (S x ** (str :: strs)) = str ++ "\n" ++ concatStringVect (x ** strs)
+concatStringVect (S x ** ((_, str) :: items)) = str ++ "\n" ++ concatStringVect (x ** items)
 
 ||| Processes given String command
 processInput : DataStore -> String -> Maybe (String, DataStore)
