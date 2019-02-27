@@ -2,6 +2,9 @@
 
 -- Reading and validating a number from stdin
 
+module ReadNum
+
+export
 readNumber : IO (Maybe Nat)
 readNumber = do
   input <- getLine
