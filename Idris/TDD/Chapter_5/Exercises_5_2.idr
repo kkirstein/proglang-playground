@@ -21,6 +21,14 @@ guess target guesses =
           GT => putStrLn "Too large, try again.." >>= \_ => guess target (S guesses)
 
 
+||| Mimic replWith function from Prelude module
+myReplWith : (state : a) -> (prompt : String) -> (onInput : a -> String -> Maybe (String, a)) -> IO ()
+
+
+||| Mimic repl function from Prelude module
+myRepl : (prompt : String) -> (onInput : String -> String) -> IO ()
+
+
 main : IO ()
 main = do
   tsecs <- time
