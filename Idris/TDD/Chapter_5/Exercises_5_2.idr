@@ -23,10 +23,17 @@ guess target guesses =
 
 ||| Mimic replWith function from Prelude module
 myReplWith : (state : a) -> (prompt : String) -> (onInput : a -> String -> Maybe (String, a)) -> IO ()
+myReplWith state prompt onInput = do
+  putStr prompt
+  input <- getLine
+  let Just (output, newState) = onInput state input | Nothing => pure ()
+  putStr output
+  myReplWith newState prompt onInput
 
 
 ||| Mimic repl function from Prelude module
 myRepl : (prompt : String) -> (onInput : String -> String) -> IO ()
+myRepl prompt onInput = myReplWith () prompt (\(), input => Just (onInput input, ()))
 
 
 main : IO ()
