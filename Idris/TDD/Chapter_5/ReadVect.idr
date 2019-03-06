@@ -16,6 +16,7 @@ readVectLen (S k) = do x <- getLine
                        xs <- readVectLen k
                        pure (x :: xs)
 
+-- alternative implementation without DPairs
 
 public export
 data VectUnknown : Type -> Type where
