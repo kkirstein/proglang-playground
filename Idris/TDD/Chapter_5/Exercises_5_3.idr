@@ -13,6 +13,12 @@ readToBlank = do putStrLn "Enter text (blank line to end):"
 
 
 readAndSave : IO ()
+readAndSave = do
+  ls <- readToBlank
+  putStr "Enter filename: "
+  fileName <- getLine
+  Right fid <- openFile
+  ?readAndSave_rhs
 
 
 
