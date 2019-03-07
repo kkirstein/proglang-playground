@@ -5,6 +5,7 @@
 -- and zip them together
 
 
+import Data.Vect
 
 ||| Reads a Vect of unknown length
 readVect : IO (len ** Vect len String)
