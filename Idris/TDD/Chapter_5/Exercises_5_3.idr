@@ -1,4 +1,4 @@
--- Exercise_5_3.idr
+-- Exercises_5_3.idr
 
 -- Read a List from stdin and write content to given file
 
