@@ -3,6 +3,8 @@
 -- Exercises for generic types
 
 import Tree
+import Shape
+import Picture
 
 ||| Converts given List to a binary Tree
 listToTree : Ord elem => List elem -> Tree elem
@@ -51,5 +53,20 @@ maxMaybe (Just x) (Just y) = case compare x y of
                                   GT => Just x
 
 
+-- Biggest triangle of picture
+-- ===========================
+biggestTriangle : Picture -> Maybe Double
+biggestTriangle (Primitive triangle@(Triangle _ _)) = Just (area triangle)
+biggestTriangle (Primitive _) = Nothing
+biggestTriangle (Combine pic pic1) = maxMaybe (biggestTriangle pic) (biggestTriangle pic1)
+biggestTriangle (Rotate x pic) = biggestTriangle pic
+biggestTriangle (Translate x y pic) = biggestTriangle pic
 
+
+testPic1 : Picture
+testPic1 = Combine (Primitive (Triangle 2 3))
+                   (Primitive (Triangle 2 4))
+testPic2 : Picture
+testPic2 = Combine (Primitive (Rectangle 1 3))
+                   (Primitive (Circle 4))
 
