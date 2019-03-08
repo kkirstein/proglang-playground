@@ -10,6 +10,9 @@ readToBlank = do putStrLn "Enter text (blank line to end):"
                     else do xs <- readToBlank
                             pure (x :: xs)
 
+spreadListToLines : (ls : List String) -> String
+spreadListToLines [] = "\n"
+spreadListToLines (x :: xs) = x ++ "\n" ++ spreadListToLines xs
 
 
 readAndSave : IO ()
@@ -17,8 +20,8 @@ readAndSave = do
   ls <- readToBlank
   putStr "Enter filename: "
   fileName <- getLine
-  Right fid <- openFile
-  ?readAndSave_rhs
+  Right () <- writeFile fileName (spreadListToLines ls)
+  putStrLn ("Data written to file " ++ fileName ++ "\n")
 
 
 
