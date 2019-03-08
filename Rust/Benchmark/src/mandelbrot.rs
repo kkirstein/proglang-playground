@@ -85,3 +85,13 @@ pub fn mandelbrot_rayon(
         image::ImageBuffer::from_vec(width, height, buf).unwrap();
     img
 }
+#[allow(dead_code)]
+pub fn mandelbrot_rayon2(
+    width: u32,
+    height: u32,
+    //center_x: f64,
+    //center_y: f64,
+    //pixel_size: f64,
+) -> ImageBuffer<Rgb<u8>, Vec<u8>> {
+    ImageBuffer::new(width, height)
+}
