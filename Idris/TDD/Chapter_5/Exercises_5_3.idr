@@ -33,10 +33,21 @@ readAndSave = do
 
 
 
+readLines : (fid : File) -> IO (n : Nat ** Vect n String)
+readLines fid = do
+  eof <- fEOF fid
+  if eof
+     then pure (_ ** [])
+     else do x <- getLine
+             (_ ** xs) <- readLines fid
+             pure (_ ** (x :: xs))
+
 ||| Read a Vect of string from a given file.
 ||| Each line is an Vect entry
 readVectFile : (filename : String) -> IO (n ** Vect n String)
-readVectFile filename = ?readVectFile_rhs
+readVectFile filename = do
+  Right fid <- openFile filename Read
+  readLines fid
 
 
 
