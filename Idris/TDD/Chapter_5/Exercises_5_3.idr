@@ -38,7 +38,9 @@ readLines fid = do
   eof <- fEOF fid
   if eof
      then pure (_ ** [])
-     else do x <- getLine
+     else do Right x <- fGetLine fid | Left err => do
+                   putStrLn ("Error: " ++ (show err))
+                   pure (_ ** [])
              (_ ** xs) <- readLines fid
              pure (_ ** (x :: xs))
 
@@ -46,7 +48,9 @@ readLines fid = do
 ||| Each line is an Vect entry
 readVectFile : (filename : String) -> IO (n ** Vect n String)
 readVectFile filename = do
-  Right fid <- openFile filename Read
+  Right fid <- openFile filename Read | Left err => do
+    putStrLn ("Error: " ++ (show err))
+    pure (0 ** [])
   readLines fid
 
 
