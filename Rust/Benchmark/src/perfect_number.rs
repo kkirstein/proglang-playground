@@ -43,11 +43,11 @@ pub fn perfect_numbers(limit: u64) -> Vec<u64> {
     pn
 }
 pub fn perfect_numbers_rayon(limit: u64) -> Vec<u64> {
-    use rayon::prelude::*;
+    use rayon::prelude::{IntoParallelIterator, ParallelIterator};
 
     let res: Vec<_> = (1..limit)
         .into_par_iter()
-        .map(|i| is_perfect_opt(i))
+        .map(is_perfect_opt)
         .filter_map(|i| i)
         .collect();
 

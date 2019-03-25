@@ -45,13 +45,13 @@ pub fn mandelbrot(
     center_y: f64,
     pixel_size: f64,
 ) -> ImageBuffer<Rgb<u8>, Vec<u8>> {
-    let x_offset = center_x - 0.5 * pixel_size * width as f64;
-    let y_offset = center_y + 0.5 * pixel_size * height as f64;
+    let x_offset = center_x - 0.5 * pixel_size * f64::from(width);
+    let y_offset = center_y + 0.5 * pixel_size * f64::from(height);
 
     ImageBuffer::from_fn(width, height, |x, y| {
         to_rgb(pixel_value(
-            x as f64 * pixel_size + x_offset,
-            y as f64 * pixel_size - y_offset,
+            f64::from(x) * pixel_size + x_offset,
+            f64::from(y) * pixel_size - y_offset,
         ))
     })
 }
@@ -66,8 +66,8 @@ pub fn mandelbrot_rayon(
 ) -> ImageBuffer<Rgb<u8>, Vec<u8>> {
     use rayon::prelude::*;
 
-    let x_offset = center_x - 0.5 * pixel_size * width as f64;
-    let y_offset = center_y + 0.5 * pixel_size * height as f64;
+    let x_offset = center_x - 0.5 * pixel_size * f64::from(width);
+    let y_offset = center_y + 0.5 * pixel_size * f64::from(height);
 
     let buf: Vec<_> = (0..width * height)
         .into_par_iter()
@@ -75,8 +75,8 @@ pub fn mandelbrot_rayon(
             let x = i % width;
             let y = i / width;
             to_vec(pixel_value(
-                x as f64 * pixel_size + x_offset,
-                y as f64 * pixel_size - y_offset,
+                f64::from(x) * pixel_size + x_offset,
+                f64::from(y) * pixel_size - y_offset,
             ))
         }).flatten()
         .collect();

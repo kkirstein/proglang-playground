@@ -33,14 +33,14 @@ where
     let res = fun();
     let toc = precise_time_ns();
 
-    (res, (toc - tic) / 1000000)
+    (res, (toc - tic) / 1_000_000)
 }
 
 fn main() {
     println!("Rust benchmarks");
     println!("===============");
 
-    println!("");
+    println!();
 
     println!("Fibonacci numbers:");
     println!("------------------");
@@ -54,7 +54,7 @@ fn main() {
     let (res, elap) = time_it(|| fibonacci::fib(1000));
     println!("fib(1000) = {}\tElapsed: {}ms", res, elap);
 
-    println!("");
+    println!();
 
     println!("Perfect numbers:");
     println!("----------------");
@@ -68,30 +68,30 @@ fn main() {
     let (res, elap) = time_it(|| perfect_number::perfect_numbers_rayon(10000));
     println!("pn_rayon(10000) = {:?}\tElapsed: {}ms", res, elap);
 
-    println!("");
+    println!();
 
     println!("Mandelbrot set:");
     println!("--------------");
 
-    let (res, elap) = time_it(|| mandelbrot::mandelbrot(640, 480, -0.5, 0.0, 4.0 / 640 as f64));
+    let (res, elap) = time_it(|| mandelbrot::mandelbrot(640, 480, -0.5, 0.0, 4.0 / f64::from(640)));
     println!("mandelbrot(640, 480) done\tElapsed: {}ms", elap);
     let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
     println!("mandelbrot(640, 480) written to PNG\tElapsed: {}ms", elap);
 
-    let (res, elap) = time_it(|| mandelbrot::mandelbrot(1920, 1200, -0.5, 0.0, 4.0 / 1920 as f64));
+    let (res, elap) = time_it(|| mandelbrot::mandelbrot(1920, 1200, -0.5, 0.0, 4.0 / f64::from(1920)));
     println!("mandelbrot(1920, 1200) done\tElapsed: {}ms", elap);
     let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
     println!("mandelbrot(1920, 1200) written to PNG\tElapsed: {}ms", elap);
 
     let (res, elap) =
-        time_it(|| mandelbrot::mandelbrot_rayon(1920, 1200, -0.5, 0.0, 4.0 / 1920 as f64));
+        time_it(|| mandelbrot::mandelbrot_rayon(1920, 1200, -0.5, 0.0, 4.0 / f64::from(1920)));
     println!("mandelbrot_rayon(1920, 1200) done\tElapsed: {}ms", elap);
     let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
     println!(
         "mandelbrot_rayon(1920, 1200) written to PNG\tElapsed: {}ms",
         elap
     );
-    println!("");
+    println!();
 
     println!("------------------");
     println!("Done!");
