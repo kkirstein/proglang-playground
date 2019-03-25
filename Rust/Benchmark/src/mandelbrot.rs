@@ -78,7 +78,8 @@ pub fn mandelbrot_rayon(
                 f64::from(x) * pixel_size + x_offset,
                 f64::from(y) * pixel_size - y_offset,
             ))
-        }).flatten()
+        })
+        .flatten()
         .collect();
 
     let img: ImageBuffer<Rgb<u8>, Vec<u8>> =

@@ -4,7 +4,6 @@
 // vim: ft=rust sw=4 ts=4
 //
 
-
 use num::bigint::BigInt;
 use num::{One, Zero};
 
