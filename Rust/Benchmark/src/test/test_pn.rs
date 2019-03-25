@@ -1,6 +1,6 @@
 // check perfect number calculation
 
-use perfect_number::*;
+use crate::perfect_number::*;
 
 #[test]
 fn test_is_perfect() {
