@@ -84,7 +84,7 @@ fn main() {
     let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
     println!("mandelbrot(1920, 1200) written to PNG\tElapsed: {}ms", elap);
 
-    let _: Vec<()> = vec![2, 4, 8]
+    let _: Vec<()> = vec![1, 2, 4, 8, 16, 30, 40]
         .into_iter()
         .map(|i| {
             let (_res, elap) = time_it(|| {
