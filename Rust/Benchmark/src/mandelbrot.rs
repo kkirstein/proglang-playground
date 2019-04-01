@@ -63,21 +63,33 @@ pub fn mandelbrot_rayon(
     center_x: f64,
     center_y: f64,
     pixel_size: f64,
+    num_worker: u32,
 ) -> ImageBuffer<Rgb<u8>, Vec<u8>> {
     use rayon::prelude::*;
+
+    assert!(height % num_worker == 0);
+    let lines_per_worker = height / num_worker;
 
     let x_offset = center_x - 0.5 * pixel_size * f64::from(width);
     let y_offset = center_y + 0.5 * pixel_size * f64::from(height);
 
-    let buf: Vec<_> = (0..width * height)
+    let buf: Vec<_> = (0..num_worker)
         .into_par_iter()
-        .map(|i| {
-            let x = i % width;
-            let y = i / width;
-            to_vec(pixel_value(
-                f64::from(x) * pixel_size + x_offset,
-                f64::from(y) * pixel_size - y_offset,
-            ))
+        .map(|worker| {
+            let start_pix = worker * lines_per_worker * width;
+            let stop_pix = (worker + 1) * lines_per_worker * width;
+            let lines: Vec<_> = (start_pix..stop_pix)
+                .map(|i| {
+                    let x = i % width;
+                    let y = i / width;
+                    to_vec(pixel_value(
+                        f64::from(x) * pixel_size + x_offset,
+                        f64::from(y) * pixel_size - y_offset,
+                    ))
+                })
+                .flatten()
+                .collect();
+            lines
         })
         .flatten()
         .collect();
@@ -85,14 +97,4 @@ pub fn mandelbrot_rayon(
     let img: ImageBuffer<Rgb<u8>, Vec<u8>> =
         image::ImageBuffer::from_vec(width, height, buf).unwrap();
     img
-}
-#[allow(dead_code)]
-pub fn mandelbrot_rayon2(
-    width: u32,
-    height: u32,
-    //center_x: f64,
-    //center_y: f64,
-    //pixel_size: f64,
-) -> ImageBuffer<Rgb<u8>, Vec<u8>> {
-    ImageBuffer::new(width, height)
 }

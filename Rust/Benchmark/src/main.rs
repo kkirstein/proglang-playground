@@ -84,9 +84,16 @@ fn main() {
     let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
     println!("mandelbrot(1920, 1200) written to PNG\tElapsed: {}ms", elap);
 
-    let (res, elap) =
-        time_it(|| mandelbrot::mandelbrot_rayon(1920, 1200, -0.5, 0.0, 4.0 / f64::from(1920)));
-    println!("mandelbrot_rayon(1920, 1200) done\tElapsed: {}ms", elap);
+    let _: Vec<()> = vec![2, 4, 8]
+        .into_iter()
+        .map(|i| {
+            let (_res, elap) = time_it(|| {
+                mandelbrot::mandelbrot_rayon(1920, 1200, -0.5, 0.0, 4.0 / f64::from(1920), i)
+            });
+            println!("mandelbrot_rayon(1920, 1200, {}) done\tElapsed: {}ms", i, elap);
+        })
+        .collect();
+
     let (_, elap) = time_it(|| res.save("./mandelbrot.png").unwrap());
     println!(
         "mandelbrot_rayon(1920, 1200) written to PNG\tElapsed: {}ms",
