@@ -8,6 +8,7 @@
 // vim: ft=rust sw=4 ts=4
 
 use std::thread;
+use std::time::Duration;
 use std::sync::{Mutex, Arc};
 
 // a philosopher struct
@@ -21,8 +22,8 @@ impl Philosopher {
     fn new(name: &str, left: usize, right: usize) -> Philosopher {
         Philosopher {
             name: name.to_string(),
-            left: left,
-            right: right,
+            left,
+            right,
         }
     }
 
@@ -32,14 +33,14 @@ impl Philosopher {
 
         println!("{} has started eating.", self.name);
 
-        thread::sleep_ms(1000);
+        thread::sleep(Duration::from_millis(1000));
 
         println!("{} has finished eating.", self.name);
     }
 
     fn mult_eat(&self, table: &Table, pause: u32, repeat: u32) {
         for x in 0..repeat {
-            thread::sleep_ms(pause);
+            thread::sleep(Duration::from_millis(u64::from(pause)));
             println!("{} went to table for {}. time.", self.name, (x+1));
             self.eat(table);
         }
