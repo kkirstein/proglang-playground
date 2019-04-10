@@ -1,5 +1,4 @@
-
-use fibonacci::{fib_naive, fib};
+use crate::fibonacci::{fib, fib_naive};
 
 // unit tests for Fibonacci numbers
 #[test]

@@ -1,7 +1,8 @@
 [package]
 name = "benchmark"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
+edition = "2018"
 
 [dependencies]
 time = "0.1"

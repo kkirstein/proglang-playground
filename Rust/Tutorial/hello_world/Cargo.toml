@@ -5,6 +5,6 @@ version = "0.0.1"
 authors = [ "Kay-Uwe Kirstein <kayuwe.kirstein@uster.com>" ]
 
 [[bin]]
-
 name = "hello_world"
+path = "src/hello_world.rs"
 

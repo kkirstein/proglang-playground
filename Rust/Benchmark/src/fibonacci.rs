@@ -4,7 +4,6 @@
 // vim: ft=rust sw=4 ts=4
 //
 
-
 use num::bigint::BigInt;
 use num::{One, Zero};
 
@@ -25,5 +24,5 @@ fn fib_loop(n: u64, a: BigInt, b: BigInt) -> BigInt {
     if n == 0 {
         return a;
     }
-    return fib_loop(n - 1, b.clone(), a + b);
+    fib_loop(n - 1, b.clone(), a + b)
 }
