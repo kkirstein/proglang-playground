@@ -6,7 +6,9 @@
 module Printf
 
 export
-data Format = Number Format
+data Format = Num Format
+            | Chr Format
+            | Dbl Format
             | Str Format
             | Lit String Format
             | End
@@ -15,7 +17,9 @@ data Format = Number Format
 
 export
 PrintfType : Format -> Type
-PrintfType (Number fmt) = (i : Int) -> PrintfType fmt
+PrintfType (Num fmt) = (i : Int) -> PrintfType fmt
+PrintfType (Chr fmt) = (c : Char) -> PrintfType fmt
+PrintfType (Dbl fmt) = (f : Double) -> PrintfType fmt
 PrintfType (Str fmt) = (str : String) -> PrintfType fmt
 PrintfType (Lit str fmt) = PrintfType fmt
 PrintfType End = String
@@ -24,7 +28,9 @@ PrintfType End = String
 ||| Generates a string from the given format spec
 export
 printfFmt : (fmt : Format) -> (acc : String) -> PrintfType fmt
-printfFmt (Number fmt) acc = \i => printfFmt fmt (acc ++ (show i))
+printfFmt (Num fmt) acc = \i => printfFmt fmt (acc ++ (show i))
+printfFmt (Chr fmt) acc = \c => printfFmt fmt (acc ++ (show c))
+printfFmt (Dbl fmt) acc = \f => printfFmt fmt (acc ++ (show f))
 printfFmt (Str fmt) acc = \str => printfFmt fmt (acc ++ str)
 printfFmt (Lit str fmt) acc = printfFmt fmt (acc ++ str)
 printfFmt End acc = acc
@@ -33,7 +39,9 @@ printfFmt End acc = acc
 export
 toFormat : (xs : List Char) -> Format
 toFormat [] = End
-toFormat ('%' :: 'd' :: chars) = Number (toFormat chars)
+toFormat ('%' :: 'd' :: chars) = Num (toFormat chars)
+toFormat ('%' :: 'c' :: chars) = Chr (toFormat chars)
+toFormat ('%' :: 'f' :: chars) = Dbl (toFormat chars)
 toFormat ('%' :: 's' :: chars) = Str (toFormat chars)
 toFormat ('%' :: chars) = Lit "%" (toFormat chars)
 toFormat (c :: chars) = case toFormat chars of
