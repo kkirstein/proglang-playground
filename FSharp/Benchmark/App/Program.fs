@@ -1,5 +1,6 @@
 ﻿// Learn more about F# at http://fsharp.org
 
+
 open System.Diagnostics
 open Tasks.Fibonacci
 open Tasks.Perfectnumber
@@ -14,7 +15,7 @@ let timeIt f =
     (res, timer.ElapsedMilliseconds)
 
 [<EntryPoint>]
-let main argv =
+let main _argv =
     printfn "F# Benchmarks"
     printfn "============="
     printfn ""
