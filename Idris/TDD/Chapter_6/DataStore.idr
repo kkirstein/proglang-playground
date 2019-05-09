@@ -7,18 +7,25 @@ module Main
 
 import Data.Vect
 
+infix 5 .+.
+
+data Schema = SString
+            | SInt
+            | (.+.) Schema Schema
+
+SchemaType : Schema -> Type
+SchemaType SString = String
+SchemaType SInt = Int
+SchemaType (x .+. y) = (SchemaType x, SchemaType y)
+
 ||| A record-style DataStore type
-data DataStore : Type where
-  MkData : (size : Nat) ->
-           (items : Vect size String) ->
-           DataStore
+record DataStore where
+       constructor MkData 
+       schema : Schema
+       size : Nat
+       items : Vect size (SchemaType schema)
 
-size : DataStore -> Nat
-size (MkData size' items') = size'
-
-items : (store : DataStore) -> Vect (size store) String
-items (MkData size' items') = items'
-
+{-
 addToStore : DataStore -> String -> DataStore
 addToStore (MkData size items) newItem = MkData _ (addToData items)
   where
@@ -90,6 +97,6 @@ processInput store input = case parse input of
 main : IO ()
 main = replWith (MkData 0 []) "Command: " processInput
 
-
+-}
 
 
