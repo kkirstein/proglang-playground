@@ -38,5 +38,17 @@ program tsunami
     ! write initial state to screen
     write(output_unit, *) 0, u
 
+    time_loop: do n = 1, nm
+
+        ! apply the periodic boundary condition
+        du(1) = u(1) - u(im)
+
+        ! calculate the difference of u in space
+        do concurrent (i = 2:im)
+            du(i) = u(i) - u(i-1)
+        end do
+
+    end do time_loop
+
 end program tsunami
 
