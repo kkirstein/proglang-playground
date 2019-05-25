@@ -48,6 +48,14 @@ program tsunami
             du(i) = u(i) - u(i-1)
         end do
 
+        ! compute u at next time step
+        do concurrent (i = 1:im)
+            u(i) = u(i) - c * du(i) / dx * dt
+        end do
+
+        ! write output state to screen
+        write(output_unit, *) n, u
+
     end do time_loop
 
 end program tsunami
