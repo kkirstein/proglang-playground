@@ -18,6 +18,7 @@ program ex_1
 
     real(real32) :: temp_result
 
+    ! update temperature in Miami
     temp_result = temp2 - c * (temp2 - temp1) / dx * dt
 
     ! print result to screen
