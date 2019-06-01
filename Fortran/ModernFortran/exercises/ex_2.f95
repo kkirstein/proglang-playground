@@ -14,7 +14,7 @@ program ex_2
     real(real32), parameter :: dx = 960.    ! distance between Atlanta & Miami (km)
     real(real32), parameter :: c = 20.      ! speed in km/h
 
-    real(real32), parameter :: dt = 1.     ! time increment (h)
+    real(real32), parameter :: dt = 1.      ! time increment (h)
 
     integer(int32) :: i
 
@@ -26,7 +26,7 @@ program ex_2
 
     contains
 
-        real(real32) function update_temp(temp1, temp2, c, dx, dt)
+        real(real32) pure function update_temp(temp1, temp2, c, dx, dt)
             real(real32), intent(in) :: temp1, temp2, c, dx, dt
 
             update_temp = temp2 - c * (temp2 - temp1) / dx * dt
