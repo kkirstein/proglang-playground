@@ -3,26 +3,27 @@
 #use "topfind"
 #thread
 #require "str"
-#require "threads"
-#require "gnuplot"
+#require "archimedes"
+#require "archimedes.cairo"
 
 (** plot_1d_time_steps.ml
     Reads output of tsunami app (chapter 2) and plots the
     resulting blob position in an image file; one image file
     per time step. *)
 
+module A = Archimedes
+
 let input_file = "./data/1d_time_steps.txt"
 
 let generate_plot data_str =
   match Str.split (Str.regexp "[ ]+") data_str with
   | time :: data -> begin
-      let open Gnuplot in
-      let gp = Gp.create () in
-      let output = Output.create (`Png (Printf.sprintf "./data/plot_1d_time_%03d.png" (int_of_string time)))
+      let file_name = Printf.sprintf "./data/plot_1d_time_%03d.png" (int_of_string time) in
+      let vp = A.init ["Cairo"; "PNG"; file_name]
       in
-      Gp.plot gp ~output ~use_grid:true
-        (Series.lines (List.map float_of_string data));
-      Gp.close gp
+      A.Axes.box vp;
+      A.List.y vp ~style:`Lines (List.map float_of_string data);
+      A.close vp
     end
   | _            -> failwith "Invalid data"
 
