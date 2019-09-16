@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/class)
 
 ; module mandelbrot
 ; Calculate Mandelbrot set in Racket

@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 ; Fibonacci.rkt
 ; Calculate Fibonacci numbers in Racket

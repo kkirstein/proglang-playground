@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/future)
 
 ; perfect-numbers.rkt
 ; Calculate perfect numbers in Racket
