@@ -113,3 +113,6 @@ Scheme is a LISP-style programming language, mainly used for teaching. It is sta
 
 [Urn](http://urn-lang.com) is a LISP dialect (LISP-1 type with a single namespace for functions & data). Urn compiles the LISP code to lua and can be used with ordinary lua 5.x or luajit.
 
+# Zig
+
+[Zig](https://ziglang.org/) is a general-purpose language with the goal of robustness, optimality and maintanability. It is meant to be a successor to [C](https://en.wikipedia.org/wiki/C_%28programming_language%29) as Rust is meant to be for C++.
