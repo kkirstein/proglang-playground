@@ -2,22 +2,19 @@
 
 /// fib.zig
 /// Calculating Fibonacci nambers
-
 /// Naive recursive implementation
 pub fn fib_naive(n: u64) u64 {
-    return if (n < 2) n else fib_naive(n-1) + fib_naive(n-2);
+    return if (n < 2) n else fib_naive(n - 1) + fib_naive(n - 2);
 }
 
 /// Optimized tail-recursive variant
-pub fn fib(n: u64) u64 {
-
-    return fib_aux(n, 0, 1);
+pub fn fib(comptime T: type, n: u64) T {
+    return fib_aux(T, n, 0, 1);
 }
 
-fn fib_aux(i: u64, a: u64, b: u64) u64 {
-    return if (i == 0) a else fib_aux(i - 1, b, a + b);
+fn fib_aux(comptime T: type, i: u64, a: T, b: T) T {
+    return if (i == 0) a else fib_aux(T, i - 1, b, a + b);
 }
-
 
 const assert = @import("std").debug.assert;
 
@@ -29,9 +26,10 @@ test "fib_naive" {
 }
 
 test "fib" {
-    assert(fib(1) == 1);
-    assert(fib(2) == 1);
-    assert(fib(3) == 2);
-    assert(fib(35) == 9227465);
+    assert(fib(u64, 1) == 1);
+    assert(fib(u64, 2) == 1);
+    assert(fib(u64, 3) == 2);
+    assert(fib(u32, 35) == 9227465);
+    assert(fib(u64, 35) == 9227465);
+    assert(fib(u128, 35) == 9227465);
 }
-

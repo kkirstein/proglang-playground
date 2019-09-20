@@ -22,7 +22,12 @@ pub fn main() !void {
     warn("fib_naive(35) = {} (Elapsed: {d:.3}ms).\n", u64(res), @intToFloat(f32, elap / ns_per_ms));
 
     timer.reset();
-    res = fib.fib(35);
+    res = fib.fib(u32, 35);
     elap = timer.read();
     warn("fib(35) = {} (Elapsed: {d:.3}ms).\n", u64(res), @intToFloat(f32, elap / ns_per_ms));
+
+    timer.reset();
+    const res_2 = fib.fib(u128, 100);
+    elap = timer.read();
+    warn("fib(100) = {} (Elapsed: {d:.3}ms).\n", u128(res_2), @intToFloat(f32, elap / ns_per_ms));
 }
