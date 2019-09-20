@@ -11,13 +11,18 @@ const fib = @import("fib.zig");
 pub fn main() !void {
     const stdout_file = try std.io.getStdOut();
 
-    //var timer = try std.time.Timer.start();
+    var timer = try std.time.Timer.start();
+    const ns_per_ms = std.time.ns_per_s / std.time.ms_per_s;
 
     try stdout_file.write("Fibonacci numbers\n");
     try stdout_file.write("=================\n");
-    const tic = 1;
-    const res = fib.fib_naive(35);
-    const toc = 2;
-    //try stdout_file.write(format("fib:naive(35) = {0} (Elapsed: {1}s.\n", res, toc - tic));
-    warn("fib_naive(35) = {0} (Elapsed: {1}s).\n", u64(res), f64(toc - tic));
+    timer.reset();
+    var res = fib.fib_naive(35);
+    var elap = timer.read();
+    warn("fib_naive(35) = {} (Elapsed: {d:.3}ms).\n", u64(res), @intToFloat(f32, elap / ns_per_ms));
+
+    timer.reset();
+    res = fib.fib(35);
+    elap = timer.read();
+    warn("fib(35) = {} (Elapsed: {d:.3}ms).\n", u64(res), @intToFloat(f32, elap / ns_per_ms));
 }
