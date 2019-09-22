@@ -27,7 +27,7 @@ pub fn main() !void {
     warn("fib(35) = {} (Elapsed: {d:.3}ms).\n", u64(res), @intToFloat(f32, elap / ns_per_ms));
 
     timer.reset();
-    const res_2 = fib.fib(u128, 100);
+    const res_2 = fib.fib(u256, 1000);
     elap = timer.read();
-    warn("fib(100) = {} (Elapsed: {d:.3}ms).\n", u128(res_2), @intToFloat(f32, elap / ns_per_ms));
+    warn("fib(1000) = {} (Elapsed: {d:.3}ms).\n", u128(0), @intToFloat(f32, elap / ns_per_ms));
 }
