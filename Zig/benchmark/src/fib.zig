@@ -19,20 +19,20 @@ fn fib_aux(comptime T: type, i: u64, a: T, b: T) anyerror!T {
     }
 }
 
-const assert = @import("std").debug.assert;
+const testing = @import("std").testing;
 
 test "fib_naive" {
-    assert(fib_naive(1) == 1);
-    assert(fib_naive(2) == 1);
-    assert(fib_naive(3) == 2);
-    assert(fib_naive(35) == 9227465);
+    testing.expect(fib_naive(1) == 1);
+    testing.expect(fib_naive(2) == 1);
+    testing.expect(fib_naive(3) == 2);
+    testing.expect(fib_naive(35) == 9227465);
 }
 
 test "fib" {
-    assert(fib(u64, 1) == 1);
-    assert(fib(u64, 2) == 1);
-    assert(fib(u64, 3) == 2);
-    assert(fib(u32, 35) == 9227465);
-    assert(fib(u64, 35) == 9227465);
-    assert(fib(u128, 35) == 9227465);
+    testing.expect((try fib(u64, 1)) == 1);
+    testing.expect((try fib(u64, 2)) == 1);
+    testing.expect((try fib(u64, 3)) == 2);
+    testing.expect((try fib(u32, 35)) == 9227465);
+    testing.expect((try fib(u64, 35)) == 9227465);
+    testing.expect((try fib(u128, 35)) == 9227465);
 }
