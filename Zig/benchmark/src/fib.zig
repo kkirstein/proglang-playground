@@ -8,12 +8,15 @@ pub fn fib_naive(n: u64) u64 {
 }
 
 /// Optimized tail-recursive variant
-pub fn fib(comptime T: type, n: u64) T {
+pub fn fib(comptime T: type, n: u64) !T {
     return fib_aux(T, n, 0, 1);
 }
 
-fn fib_aux(comptime T: type, i: u64, a: T, b: T) T {
-    return if (i == 0) a else fib_aux(T, i - 1, b, a + b);
+fn fib_aux(comptime T: type, i: u64, a: T, b: T) anyerror!T {
+    if (i == 0) return a else {
+        var new_b: T = 0;
+        if (@addWithOverflow(T, a, b, &new_b)) return error.Overflow else return fib_aux(T, i - 1, b, new_b);
+    }
 }
 
 const assert = @import("std").debug.assert;
