@@ -8,7 +8,7 @@ pub fn is_perfect(n: u64) bool {
 }
 
 /// Generates perfect number up to givien limit [n]
-pub fn perfect_numbers(limit: u64) [_]u64 {
+pub fn perfect_numbers(limit: u64) []u64 {
     return [_]u64{};
 }
 
