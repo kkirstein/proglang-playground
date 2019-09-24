@@ -19,6 +19,22 @@ fn fib_aux(comptime T: type, i: u64, a: T, b: T) anyerror!T {
     }
 }
 
+/// Iterative variant
+pub fn fib_iter(comptime T: type, n: u64) !T {
+    var a: T = 0;
+    var b: T = 1;
+    var i: u64 = n;
+    while (i > 0) : ({
+        i -= 1;
+    }) {
+        var new_b: T = 0;
+        if (@addWithOverflow(T, a, b, &new_b)) return error.Overflow;
+        a = b;
+        b = new_b;
+    }
+    return a;
+}
+
 const testing = @import("std").testing;
 
 test "fib_naive" {
@@ -26,6 +42,15 @@ test "fib_naive" {
     testing.expect(fib_naive(2) == 1);
     testing.expect(fib_naive(3) == 2);
     testing.expect(fib_naive(35) == 9227465);
+}
+
+test "fib_iter" {
+    testing.expect((try fib_iter(u64, 1)) == 1);
+    testing.expect((try fib_iter(u64, 2)) == 1);
+    testing.expect((try fib_iter(u64, 3)) == 2);
+    testing.expect((try fib_iter(u32, 35)) == 9227465);
+    testing.expect((try fib_iter(u64, 35)) == 9227465);
+    testing.expect((try fib_iter(u128, 35)) == 9227465);
 }
 
 test "fib" {
