@@ -36,3 +36,8 @@ pub fn main() !void {
     elap = timer.read();
     warn("fib_iter(1000) = {} (Elapsed: {d:.3}ms).\n", u64(0), @intToFloat(f32, elap / ns_per_ms));
 }
+
+test "benchmark" {
+    _ = @import("fib.zig");
+    _ = @import("perfect.zig");
+}
