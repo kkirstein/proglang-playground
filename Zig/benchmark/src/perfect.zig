@@ -10,9 +10,9 @@ const testing = std.testing;
 
 /// Finding perfect numbers
 /// Predicate for perfect numbers
-pub fn is_perfect(n: u64) bool {
-    var i: u64 = 1;
-    var sum: u64 = 0;
+pub fn is_perfect(n: u32) bool {
+    var i: u32 = 1;
+    var sum: u32 = 0;
 
     while (i < n) : (i += 1) {
         if (n % i == 0) sum += i;
@@ -22,11 +22,11 @@ pub fn is_perfect(n: u64) bool {
 }
 
 /// Generates perfect number up to givien limit [n]
-pub fn perfect_numbers(limit: u64) std.SinglyLinkedList(u64) {
+pub fn perfect_numbers(limit: u32) std.SinglyLinkedList(u32) {
     const allocator = heap.direct_allocator;
-    var res = std.SinglyLinkedList(u64).init();
+    var res = std.SinglyLinkedList(u32).init();
 
-    var i: u64 = 1;
+    var i: u32 = 1;
     while (i <= limit) : (i += 1) {
         if (is_perfect(i)) {
             const entry = res.createNode(i, allocator) catch unreachable;
