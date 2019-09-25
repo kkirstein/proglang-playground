@@ -6,6 +6,7 @@ const format = std.fmt.format;
 const warn = std.debug.warn;
 
 const fib = @import("fib.zig");
+const perfect = @import("perfect.zig");
 
 /// main entry point
 pub fn main() !void {
@@ -16,6 +17,7 @@ pub fn main() !void {
 
     try stdout_file.write("Fibonacci numbers\n");
     try stdout_file.write("=================\n");
+
     timer.reset();
     var res = fib.fib_naive(35);
     var elap = timer.read();
@@ -35,6 +37,14 @@ pub fn main() !void {
     const res_2 = try fib.fib_iter(u1024, 1000);
     elap = timer.read();
     warn("fib_iter(1000) = {} (Elapsed: {d:.3}ms).\n", u64(0), @intToFloat(f32, elap / ns_per_ms));
+
+    try stdout_file.write("Perfect numbers\n");
+    try stdout_file.write("===============\n");
+
+    timer.reset();
+    const pn = perfect.perfect_numbers(10000);
+    elap = timer.read();
+    warn("perfect_numbers(10000) = {} (Elapsed: {d:.3}ms).\n", pn, @intToFloat(f32, elap / ns_per_ms));
 }
 
 test "benchmark" {
