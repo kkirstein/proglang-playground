@@ -1,31 +1,32 @@
 // vim: set ft=zig sw=4 ts=4:
 
 /// perfect.zig
+const std = @import("std");
+const heap = std.heap;
+const mem = std.mem;
+//const warn = std.debug.warn;
+
+const testing = std.testing;
+
 /// Finding perfect numbers
 /// Predicate for perfect numbers
 pub fn is_perfect(n: u64) bool {
     var i: u64 = 1;
     var sum: u64 = 0;
 
-    while (i < n) : ({
-        i += 1;
-    }) {
+    while (i < n) : (i += 1) {
         if (n % i == 0) sum += i;
     }
 
     return sum == n;
 }
 
-const std = @import("std");
-const List = @import("std").SinglyLinkedList;
-const heap = @import("std").heap;
-
 /// Generates perfect number up to givien limit [n]
 pub fn perfect_numbers(limit: u64) std.SinglyLinkedList(u64) {
     const allocator = heap.direct_allocator;
     var res = std.SinglyLinkedList(u64).init();
 
-    var i: u64 = 0;
+    var i: u64 = 1;
     while (i <= limit) : (i += 1) {
         if (is_perfect(i)) {
             const entry = res.createNode(i, allocator) catch unreachable;
@@ -35,8 +36,6 @@ pub fn perfect_numbers(limit: u64) std.SinglyLinkedList(u64) {
 
     return res;
 }
-
-const testing = @import("std").testing;
 
 test "is perfect" {
     testing.expect(!is_perfect(1));
@@ -49,11 +48,9 @@ test "is perfect" {
     testing.expect(is_perfect(28));
 }
 
-const mem = @import("std").mem;
-
 test "perfect numbers" {
     const res = perfect_numbers(1000);
-    const exp = [_]u64{ 496, 28, 6, 0 };
+    const exp = [_]u64{ 496, 28, 6 };
     var it = res.first;
     var idx: u32 = 0;
     while (it) |node| : (it = node.next) {
