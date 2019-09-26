@@ -1,4 +1,6 @@
 bin
 obj
 
+**/symbolCache.db
+
 *.pnm
