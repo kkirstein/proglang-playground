@@ -32,8 +32,8 @@ let main _argv =
     printfn "---------------"
     let res, elap = timeIt (fun () -> perfectNumbers 10000) in
     printfn "perfectNumbers(10000): %A (%d ms)" res elap
-    let res, elap = timeIt (fun () -> perfectNumbersPar 10000) in
-    printfn "perfectNumbersPar(10000): %A (%d ms)" res elap
+    let res, elap = timeIt (fun () -> perfectNumbersAsync 10000) in
+    printfn "perfectNumbersAsync(10000): %A (%d ms)" res elap
     printfn ""
     printfn "Mandelbrot set"
     printfn "--------------"
