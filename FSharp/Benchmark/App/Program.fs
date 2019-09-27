@@ -37,9 +37,13 @@ let main _argv =
     printfn ""
     printfn "Mandelbrot set"
     printfn "--------------"
-    let res, elap = timeIt (fun () -> mandelbrot 1920 1200 -0.5 0.0 (4.0/1920.0)) in
-    printfn "mandelbrot(1920 x 1200): done (%d ms)" elap
-    let res, elap = timeIt (fun () -> writePNM res @"./mandelbrot.pnm") in
+    let res, elap = timeIt (fun () -> mandelbrotAry 1920 1200 -0.5 0.0 (4.0/1920.0)) in
+    printfn "mandelbrotAry(1920 x 1200): done (%d ms)" elap
+    let res, elap = timeIt (fun () -> mandelbrotPSeq 1920 1200 -0.5 0.0 (4.0/1920.0)) in
+    printfn "mandelbrotPSeq(1920 x 1200): done (%d ms)" elap
+    let res, elap = timeIt (fun () -> mandelbrotAsync 1920 1200 -0.5 0.0 (4.0/1920.0)) in
+    printfn "mandelbrotAsync(1920 x 1200): done (%d ms)" elap
+    let _, elap = timeIt (fun () -> writePNM res @"./mandelbrot.pnm") in
     printfn "mandelbrot(1920 x 1200): written (%d ms)" elap
     printfn "-----"
     printfn "Done!"
