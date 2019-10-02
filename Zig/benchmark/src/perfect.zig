@@ -37,6 +37,15 @@ pub fn perfect_numbers(limit: u32) std.SinglyLinkedList(u32) {
     return res;
 }
 
+/// String representation of a singly linked list
+pub fn to_string(comptime T: type, l: std.SinglyLinkedList(T)) []u8 {
+    var str = []u8{};
+
+    while (it) |node| : (it = node.next) {
+        // concat to given string
+    }
+}
+
 test "is perfect" {
     testing.expect(!is_perfect(1));
     testing.expect(!is_perfect(2));
