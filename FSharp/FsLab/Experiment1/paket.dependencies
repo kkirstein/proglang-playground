@@ -1,7 +1,7 @@
 # These are the various packges that make up FsLab
 
 # net461 is used for F# Interactive scripting
-framework: net461
+framework: netstandard2.0
 source https://nuget.org/api/v2
 
 

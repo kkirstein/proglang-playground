@@ -1,6 +1,7 @@
 # build system
 .fake
 obj
+bin
 packages
 .ionide
 
