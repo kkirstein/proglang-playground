@@ -38,13 +38,24 @@ pub fn main() !void {
     elap = timer.read();
     warn("fib_iter(1000) = {} (Elapsed: {d:.3}ms).\n", u64(0), @intToFloat(f32, elap / ns_per_ms));
 
+    try stdout_file.write("\n");
     try stdout_file.write("Perfect numbers\n");
     try stdout_file.write("===============\n");
 
     timer.reset();
-    const pn = perfect.perfect_numbers(10000);
+    const pn_u16 = perfect.perfect_numbers(u16, 10000);
     elap = timer.read();
-    warn("perfect_numbers(10000) = {} (Elapsed: {d:.3}ms).\n", pn, @intToFloat(f32, elap / ns_per_ms));
+    warn("perfect_numbers(u16, 10000) = {} (Elapsed: {d:.3}ms).\n", pn_u16, @intToFloat(f32, elap / ns_per_ms));
+
+    timer.reset();
+    const pn_u32 = perfect.perfect_numbers(u32, 10000);
+    elap = timer.read();
+    warn("perfect_numbers(u32, 10000) = {} (Elapsed: {d:.3}ms).\n", pn_u32, @intToFloat(f32, elap / ns_per_ms));
+    
+    timer.reset();
+    const pn_u64 = perfect.perfect_numbers(u64, 10000);
+    elap = timer.read();
+    warn("perfect_numbers(u64, 10000) = {} (Elapsed: {d:.3}ms).\n", pn_u64, @intToFloat(f32, elap / ns_per_ms));
 }
 
 test "benchmark" {
