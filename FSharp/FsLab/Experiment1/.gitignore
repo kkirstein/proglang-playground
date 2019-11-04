@@ -1,0 +1,12 @@
+# build system
+.fake
+obj
+bin
+packages
+.ionide
+
+# paket
+.paket
+
+# fslab output
+output
