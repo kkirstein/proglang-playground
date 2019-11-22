@@ -17,11 +17,13 @@ use time::precise_time_ns;
 mod fibonacci;
 mod mandelbrot;
 mod perfect_number;
+mod primes;
 
 #[cfg(test)]
 mod test {
     mod test_fib;
     mod test_pn;
+    mod test_primes;
 }
 
 // a helper function to time closures
@@ -53,6 +55,14 @@ fn main() {
 
     let (res, elap) = time_it(|| fibonacci::fib(1000));
     println!("fib(1000) = {}\tElapsed: {}ms", res, elap);
+
+    println!();
+
+    println!("Prime numbers:");
+    println!("--------------");
+
+    let (res, elap) = time_it(|| primes::find_primes(100_000));
+    println!("find_primes(100_000): {:?} primes\tElapsed: {}ms", res.len(), elap);
 
     println!();
 
