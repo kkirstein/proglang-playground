@@ -54,11 +54,11 @@ fn main() {
     println!("Prime numbers:");
     println!("--------------");
 
-    let (res, elap) = time_it(|| primes::find_primes(100_000));
-    println!("find_primes(100_000): {:?} primes\tElapsed: {}ms", res.len(), elap);
+    let (res, elap) = time_it(|| primes::find_primes(1_000_000));
+    println!("find_primes(1_000_000): {:?} primes\tElapsed: {}ms", res.len(), elap);
 
-    let (res, elap) = time_it(|| primes::find_primes_rayon(100_000));
-    println!("find_primes_rayon(100_000): {:?} primes\tElapsed: {}ms", res.len(), elap);
+    let (res, elap) = time_it(|| primes::find_primes_rayon(1_000_000));
+    println!("find_primes_rayon(1_000_000): {:?} primes\tElapsed: {}ms", res.len(), elap);
 
     println!();
 
