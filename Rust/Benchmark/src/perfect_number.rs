@@ -15,6 +15,7 @@ pub fn is_perfect(n: u64) -> bool {
 
     sum == n
 }
+#[allow(dead_code)]
 pub fn is_perfect_opt(n: u64) -> Option<u64> {
     if is_perfect(n) {
         Some(n)
@@ -34,13 +35,10 @@ pub fn perfect_numbers(limit: u64) -> Vec<u64> {
 pub fn perfect_numbers_rayon(limit: u64) -> Vec<u64> {
     use rayon::prelude::{IntoParallelIterator, ParallelIterator};
 
-    let res: Vec<_> = (1..limit)
+    (1..limit)
         .into_par_iter()
-        .map(is_perfect_opt)
-        .filter_map(|i| i)
-        .collect();
-
-    res
+        .filter(|i| is_perfect(*i))
+        .collect()
 }
 
 // use an iterator for perfect numbers
