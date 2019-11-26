@@ -24,6 +24,15 @@ pub fn find_primes(limit: u64) -> Vec<u64> {
     (1..limit).filter(|i| is_prime(*i)).collect()
 }
 
+// find all primes below [limit]
+pub fn find_primes_rayon(limit: u64) -> Vec<u64> {
+    use rayon::prelude::{IntoParallelIterator, ParallelIterator};
+
+    (1..limit)
+        .into_par_iter()
+        .filter(|i| is_prime(*i))
+        .collect()
+}
 // unit tests
 #[cfg(test)]
 mod test {
@@ -45,5 +54,11 @@ mod test {
     fn test_find_primes() {
         assert_eq!(find_primes(19), vec! {2, 3, 5, 7, 11, 13, 17});
         assert_eq!(find_primes(20), vec! {2, 3, 5, 7, 11, 13, 17, 19});
+    }
+
+    #[test]
+    fn test_find_primes_rayon() {
+        assert_eq!(find_primes_rayon(19), vec! {2, 3, 5, 7, 11, 13, 17});
+        assert_eq!(find_primes_rayon(20), vec! {2, 3, 5, 7, 11, 13, 17, 19});
     }
 }
