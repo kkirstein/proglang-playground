@@ -38,13 +38,20 @@ pub fn perfect_numbers(comptime T: type, limit: T) std.SinglyLinkedList(T) {
 }
 
 /// String representation of a singly linked list
-pub fn to_string(comptime T: type, l: std.SinglyLinkedList(T)) []u8 {
+pub fn to_str(comptime T: type, l: std.SinglyLinkedList(T)) ![]u8 {
     const allocator = heap.direct_allocator;
-    var buf = try std.Buffer.init(allocator);
+    var buf = try std.Buffer.init(allocator, "[");
+    defer buf.deinit();
 
+    var it = l.first;
     while (it) |node| : (it = node.next) {
         // concat to given string
+        try std.fmt.formatIntValue(node.data, "", std.fmt.FormatOptions{}, &buf, @typeOf(std.Buffer.append).ReturnType.ErrorSet, std.Buffer.append);
+        try buf.append(",");
     }
+    try buf.append("]");
+
+    return buf.toOwnedSlice();
 }
 
 test "is perfect" {
@@ -71,6 +78,8 @@ test "perfect numbers" {
 
 test "string representation of perfect numbers list" {
     const res = perfect_numbers(u32, 100);
+    const str = try to_str(u32, res);
 
-    //testing.expect(to_string(u32, res) == "[6,28]");
+    //std.debug.warn("{}\n", str);
+    testing.expect(mem.eql(u8, str, "[28,6,]"));
 }

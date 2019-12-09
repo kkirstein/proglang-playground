@@ -45,17 +45,17 @@ pub fn main() !void {
     timer.reset();
     const pn_u16 = perfect.perfect_numbers(u16, 10000);
     elap = timer.read();
-    warn("perfect_numbers(u16, 10000) = {} (Elapsed: {d:.3}ms).\n", pn_u16, @intToFloat(f32, elap / ns_per_ms));
+    warn("perfect_numbers(u16, 10000) = {} (Elapsed: {d:.3}ms).\n", perfect.to_str(u16, pn_u16), @intToFloat(f32, elap / ns_per_ms));
 
     timer.reset();
     const pn_u32 = perfect.perfect_numbers(u32, 10000);
     elap = timer.read();
-    warn("perfect_numbers(u32, 10000) = {} (Elapsed: {d:.3}ms).\n", pn_u32, @intToFloat(f32, elap / ns_per_ms));
+    warn("perfect_numbers(u32, 10000) = {} (Elapsed: {d:.3}ms).\n", perfect.to_str(u32, pn_u32), @intToFloat(f32, elap / ns_per_ms));
     
     timer.reset();
     const pn_u64 = perfect.perfect_numbers(u64, 10000);
     elap = timer.read();
-    warn("perfect_numbers(u64, 10000) = {} (Elapsed: {d:.3}ms).\n", pn_u64, @intToFloat(f32, elap / ns_per_ms));
+    warn("perfect_numbers(u64, 10000) = {} (Elapsed: {d:.3}ms).\n", perfect.to_str(u64, pn_u64), @intToFloat(f32, elap / ns_per_ms));
 }
 
 test "benchmark" {
