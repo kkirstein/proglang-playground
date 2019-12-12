@@ -46,7 +46,7 @@ pub fn to_str(comptime T: type, l: std.SinglyLinkedList(T)) ![]u8 {
     var it = l.first;
     while (it) |node| : (it = node.next) {
         // concat to given string
-        try std.fmt.formatIntValue(node.data, "", std.fmt.FormatOptions{}, &buf, @typeOf(std.Buffer.append).ReturnType.ErrorSet, std.Buffer.append);
+        try std.fmt.formatIntValue(node.data, "", std.fmt.FormatOptions{}, &buf, @TypeOf(std.Buffer.append).ReturnType.ErrorSet, std.Buffer.append);
         try buf.append(",");
     }
     try buf.append("]");
