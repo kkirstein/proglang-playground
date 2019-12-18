@@ -10,7 +10,7 @@ extern crate serde;
 extern crate serde_derive;
 
 use chrono::prelude::*;
-use rocket_contrib::Json;
+use rocket_contrib::json::*;
 
 #[derive(Serialize)]
 struct Timestamp {
@@ -32,5 +32,5 @@ fn time_now() -> Json<Timestamp> {
 }
 
 fn main() {
-    rocket::ignite().mount("/", [index, time_now()]).launch();
+    rocket::ignite().mount("/", [index, time_now]).launch();
 }
