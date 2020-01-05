@@ -16,7 +16,7 @@ fn process_lines<T: BufRead>(reader: T, re: Regex) {
                 Some(_) => println!("{}", line),
                 None => (),
             },
-            _ => (),
+            Err(e) => panic!(e),
         }
     }
 }
