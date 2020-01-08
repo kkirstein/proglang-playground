@@ -1,11 +1,7 @@
 //#![allow(dead_code)]
 
-//extern crate rand;
-//use rand::Rng;
-//
-//fn one_in(n: f64) -> bool {
-//    rand::thread_rng().gen_bool(n)
-//}
+use std::fmt;
+use std::fmt::Display;
 
 #[derive(Debug, PartialEq)]
 enum FileState {
@@ -18,6 +14,21 @@ struct File {
     name: String,
     data: Vec<u8>,
     state: FileState,
+}
+
+impl Display for FileState {
+    fn fmt(self: &FileState, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            FileState::Open => write!(f, "OPEN"),
+            FileState::Closed => write!(f, "CLOSED"),
+        }
+    }
+}
+
+impl Display for File {
+    fn fmt(self: &File, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "<{} ({})>", self.name, self.state)
+    }
 }
 
 impl File {
@@ -58,22 +69,23 @@ fn close(mut f: File) -> Result<File, String> {
 }
 
 fn main() {
-    let f5_data: Vec<u8> = vec![114, 117, 115, 116, 33];
-    let mut f5 = File::new_with_data("5.txt", &f5_data);
+    let f6_data: Vec<u8> = vec![114, 117, 115, 116, 33];
+    let mut f6 = File::new_with_data("6.txt", &f6_data);
 
     let mut buffer: Vec<u8> = vec![];
 
-    if f5.read(&mut buffer).is_err() {
+    if f6.read(&mut buffer).is_err() {
         println!("Error checking is working");
     }
 
-    f5 = open(f5).unwrap();
-    let f5_length = f5.read(&mut buffer).unwrap();
-    f5 = close(f5).unwrap();
+    f6 = open(f6).unwrap();
+    let f6_length = f6.read(&mut buffer).unwrap();
+    f6 = close(f6).unwrap();
 
     let text = String::from_utf8_lossy(&buffer);
 
-    println!("{:?}", f5);
-    println!("{} is {} bytes long", f5.name, f5_length);
+    println!("{:?}", f6);
+    println!("{}", f6);
+    println!("{} is {} bytes long", f6.name, f6_length);
     println!("{}", text);
 }
