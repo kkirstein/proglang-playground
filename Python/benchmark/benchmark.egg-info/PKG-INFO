@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: benchmark
+Version: 0.1.0
+Summary: A set of micro-benchmarks for the Python programming language
+Home-page: UNKNOWN
+Author: Kay-Uwe Kirstein
+Author-email: kay-uwe@kirsteinhome.ch
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.8,<4.0
