@@ -6,7 +6,7 @@ authors = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
 license = "MIT"
 
 [tool.poetry.scripts]
-benchmark = "benchmark.benchmark:run"
+benchmark = "benchmark.runner:run"
 
 [tool.poetry.dependencies]
 python = "^3.8"
