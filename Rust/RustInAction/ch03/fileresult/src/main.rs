@@ -17,7 +17,7 @@ struct File {
 }
 
 impl Display for FileState {
-    fn fmt(self: &FileState, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             FileState::Open => write!(f, "OPEN"),
             FileState::Closed => write!(f, "CLOSED"),
@@ -26,7 +26,7 @@ impl Display for FileState {
 }
 
 impl Display for File {
-    fn fmt(self: &File, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "<{} ({})>", self.name, self.state)
     }
 }
@@ -46,7 +46,7 @@ impl File {
         f
     }
 
-    fn read(self: &File, save_to: &mut Vec<u8>) -> Result<usize, String> {
+    fn read(&self, save_to: &mut Vec<u8>) -> Result<usize, String> {
         if self.state != FileState::Open {
             return Err(String::from("File must be open for reading"));
         }
