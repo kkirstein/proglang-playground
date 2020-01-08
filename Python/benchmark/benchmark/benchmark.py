@@ -40,6 +40,7 @@ def run():
 
     print("Mandelbrot set")
     print("==============")
+    print("not yet implemented")
     print()
 
     print(" done.")
