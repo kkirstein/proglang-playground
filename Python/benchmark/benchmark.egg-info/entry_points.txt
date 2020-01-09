@@ -1,0 +1,3 @@
+[console_scripts]
+benchmark = benchmark.runner:run
+
