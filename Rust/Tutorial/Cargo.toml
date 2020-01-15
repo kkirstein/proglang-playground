@@ -2,5 +2,6 @@
 members = [
     "hello_world",
     "dining_philosophers",
-    "guessing_game"
+    "guessing_game",
+    "closures",
 ]
