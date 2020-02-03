@@ -12,7 +12,7 @@ module mandelbrot
 contains
 
   ! calculate loop count for a (complex) pixel
-  pure integer function pixel_value (z, n_max)
+  integer function pixel_value (z, n_max)
     implicit none
 
     complex, intent( in ) :: z
@@ -24,13 +24,14 @@ contains
     if ( present(n_max) ) then
       n_end = n_max
     else
-      n_end = 256
+      n_end = 255
     end if
     z1 = 0
 
-    do n = 0, n_end
-      if (abs(z) > r_max) then
+    do n = n_end, 0, -1
+      if (abs(z1) > r_max) then
         pixel_value = n
+        !write (*, *) n
         return
       end if
       z1 = z1**2 + z
@@ -74,12 +75,14 @@ contains
     offset = cmplx(x_center - 0.5*pixel_size*width, &
     y_center + 0.5*pixel_size*height)
 
-    do x = 1, width
-      do y = 1, height
+    !$omp parallel do private(y, x, coord)
+    do y = 1, height
+      do x = 1, width
         coord = offset + cmplx(x*pixel_size, -y*pixel_size)
-        image(:,x,y) = to_rgb(pixel_value(coord, 256))
+        image(:,x,y) = to_rgb(pixel_value(coord, 255))
       end do
     end do
+    !$omp end parallel do
 
   end function image
 
@@ -105,14 +108,15 @@ contains
 
     ! header
     write(99,111) "P3"
-    write(99,222) width, height, 256
+    write(99,222) width, height, 255
 
     ! pixel data
-    do x = 1, width
-      do y = 1, height
-        write (99,333) image(:,x,y)
-      end do
-    end do
+    write (99, *) image
+    !do x = 1, width
+    !  do y = 1, height
+    !    write (99,333) image(y,x,:)
+    !  end do
+    !end do
 
     ! close ppm file
     close (99)
