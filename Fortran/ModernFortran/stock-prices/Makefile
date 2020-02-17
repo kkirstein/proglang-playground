@@ -27,7 +27,7 @@ exe = stock_gain$(EXE_EXT)
 
 all: $(exe)
 
-LIBOBJ = mod_array.o mod_io.f95 mod_alloc.f95
+LIBOBJ = mod_array.o mod_io.o mod_alloc.o
 ALLOBJ = $(LIBOBJ) stock_gain.o
 
 $(shared): $(LIBOBJ)
