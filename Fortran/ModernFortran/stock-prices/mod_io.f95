@@ -2,7 +2,9 @@
 
 module mod_io
 	
-	implicit none
+    use mod_alloc, only: alloc
+
+    implicit none
 
     private
     public :: read_stock
@@ -24,12 +26,38 @@ contains
 
         if (allocated(time)) deallocate(time)
         allocate(character(len=10) :: time(nm))
+        call alloc(open, nm)
+        call alloc(high, nm)
+        call alloc(low, nm)
+        call alloc(close, nm)
+        call alloc(adjclose, nm)
+        call alloc(volume, nm)
+
+        open(newunit=fileunit, file=filename)
+        read(fileunit, fmt=*, end=1)
+        do n = 1, nm
+            read(fileunit, fmt=*, end=1) time(n), open(n),&
+                high(n), low(n), close(n), adjclose(n), volume(n)
+        end do
+        1 close(fileunit)
 
     end subroutine read_stock
 
 
-    integer function num_records(fname)
-        character(len=255), intent(in) :: fname
+    integer function num_records(filename)
+        ! Return the number of records (lines) of a text file
+        character(len=*), intent(in) :: filename
+        integer :: fileunit
+
+        open(newunit=fileunit, file=filename)
+        num_records = 0
+        do
+            read(unit=fileunit, fmt=*, end=1)
+            num_records = num_records + 1
+        end do
+
+        1 continue
+        close(unit=fileunit)
 
     end function num_records
 

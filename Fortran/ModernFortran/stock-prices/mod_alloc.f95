@@ -2,11 +2,11 @@
 
 module mod_alloc
 	
-	implicit none
+    implicit none
 
     private
     public :: alloc
-    public :: free
+    public :: dealloc
 
 contains
 
@@ -16,7 +16,7 @@ contains
         integer :: stat
         character(len=100) :: errmsg
 
-        if (allocated(x)) call free(x)
+        if (allocated(x)) call dealloc(x)
 
         allocate(x(n), stat=stat, errmsg=errmsg)
         if (stat > 0) error stop errmsg
@@ -24,7 +24,7 @@ contains
     end subroutine alloc
 
 
-    subroutine free(x)
+    subroutine dealloc(x)
         real, allocatable, intent(in out) :: x(:)
         integer :: stat
         character(len=100) :: errmsg
@@ -33,7 +33,7 @@ contains
             deallocate(x, stat=stat, errmsg=errmsg)
             if (stat > 0) error stop errmsg
         end if
-    end subroutine free
+    end subroutine dealloc
 
 end module
 

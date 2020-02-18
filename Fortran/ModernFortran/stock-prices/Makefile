@@ -20,21 +20,27 @@ endif
 
 FFLAGS	= -O3 -Wall -fopenmp -fPIC
 
-
-# Targets
-#
-exe = stock_gain$(EXE_EXT)
-
-all: $(exe)
-
 LIBOBJ = mod_array.o mod_io.o mod_alloc.o
-ALLOBJ = $(LIBOBJ) stock_gain.o
 
-$(shared): $(LIBOBJ)
-	$(FC) $(FFLAGS) $(SHARED_FLAGS) -o $@ $^
+all: stock_gain$(EXE_EXT)
 
-$(exe): $(ALLOBJ)
+.SUFFIXES: .f95 .o
+
+# general rule
+.f95.o:
+	$(FC) $(FFLAGS) -c $<
+
+# programs
+stock_gain: stock_gain.f95 $(LIBOBJ)
 	$(FC) $(FFLAGS) -o $@ $^
+
+# modules
+mod_alloc.o: mod_alloc.f95
+mod_array.o: mod_array.f95
+mod_io.o: mod_io.f95 mod_alloc.o
+
+#$(exe): $(ALLOBJ)
+#	$(FC) $(FFLAGS) -o $@ $^
 
 clean:
 	rm -f *.o
@@ -45,11 +51,6 @@ clean:
 cleanall: clean
 	rm -f $(exe) $(shared) $(shared).a
 
-%.mod: %.o
-	@touch $@
+#%.mod: %.o
+#	@touch $@
 
-%.o: %.f95
-	$(FC) $(FFLAGS) -c $< -o $@
-
-%.o: %.f
-	$(FC) $(FFLAGS) -c $< -o $@
