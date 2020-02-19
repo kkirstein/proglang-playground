@@ -1,0 +1,58 @@
+# Makfile to compile benchmark.exe
+#
+
+
+uname_s := $(shell uname -s)
+ifeq ($(uname_s),Linux)
+	FC = gfortran
+	SHARED_FLAGS = -shared -fPIC
+	EXE_EXT =
+	SHARED_EXT = .so
+	OBJ_EXT = .o
+else
+	#FC  = /usr/bin/x86_64-w64-mingw32-gfortran
+	FC  = pgfortran
+	SHARED_FLAGS = --shared \
+		-Wl,--out-implib=${shared}.a \
+		-Wl,--export-all-symbols \
+		-Wl,--enable-auto-import
+	EXE_EXT = .exe
+	OBJ_EXT = .obj
+	SHARED_EXT = .dll
+endif
+
+FCFLAGS = -O3 -mp
+OBJS = color_map.obj mandelbrot.obj perfect_number.obj fibonacci.obj
+
+
+.PHONY: all clean
+.SUFFIXES: .f90 .o .obj
+
+all: benchmark
+
+# general rules
+.f90.obj:
+	$(FC) $(FCFLAGS) -c $<
+
+#%.obj: %.mod
+
+
+# modules
+color_map.obj: color_map.f90
+fibonacci.obj: fibonacci.f90
+mandelbrot.obj: mandelbrot.f90
+perfect_number.obj: perfect_number.f90
+primes.obj: primes.f90
+
+# programs
+benchmark: benchmark.f90 $(OBJS)
+	$(FC) $(FCFLAGS) $^ -o $@
+
+clean:
+	rm -f *.o
+	rm -f *.obj
+	rm -f *.mod
+	rm -f *.pdb
+	rm -f *.dwf
+	rm -f benchmark$(EXE_EXT)
+
