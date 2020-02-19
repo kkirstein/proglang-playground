@@ -1,6 +1,7 @@
 ! vim: set ft=fortran sw=4 ts=4 :
 
 program stock_gain
+
     use mod_arrays, only: reverse
     use mod_io, only: read_stock
 
@@ -10,7 +11,7 @@ program stock_gain
     character(len=:), allocatable :: time(:)
     real, allocatable :: open(:), high(:), low(:),&
           close(:), adjclose(:), volume(:)
-    integer :: i, im, n
+    integer :: n
     real :: gain
 
     symbols = ['AAPL', 'AMZN', 'CRAY', 'CSCO', 'HPQ ',&
