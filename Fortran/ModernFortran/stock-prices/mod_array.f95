@@ -1,8 +1,8 @@
 ! vim: set ft=fortran sw=4 ts=4 :
 
 module mod_arrays
-	
-	implicit none
+
+    implicit none
 
     private
     public :: reverse
