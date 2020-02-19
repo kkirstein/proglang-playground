@@ -22,22 +22,22 @@ FFLAGS	= -O3 -Wall -fopenmp -fPIC
 
 LIBOBJ = mod_array.o mod_io.o mod_alloc.o
 
-all: stock_gain$(EXE_EXT)
+all: stock_gain
 
-.SUFFIXES: .f95 .o
+.SUFFIXES: .f90 .o
 
 # general rule
-.f95.o:
+.f90.o:
 	$(FC) $(FFLAGS) -c $<
 
 # programs
-stock_gain: stock_gain.f95 $(LIBOBJ)
+stock_gain: stock_gain.f90 $(LIBOBJ)
 	$(FC) $(FFLAGS) -o $@ $^
 
 # modules
-mod_alloc.o: mod_alloc.f95
-mod_array.o: mod_array.f95
-mod_io.o: mod_io.f95 mod_alloc.o
+mod_alloc.o: mod_alloc.f90
+mod_array.o: mod_array.f90
+mod_io.o: mod_io.f90 mod_alloc.o
 
 #$(exe): $(ALLOBJ)
 #	$(FC) $(FFLAGS) -o $@ $^
