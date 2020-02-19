@@ -17,25 +17,32 @@ else
 	SHARED_EXT = .dll
 endif
 
+FCFLAGS	= -O3 -Wall -fopenmp -fPIC
+OBJS = color_map.o mandelbrot.o perfect_number.o fibonacci.o
 
-FFLAGS	= -O3 -Wall -fopenmp -fPIC
+
+.PHONY: all clean
+.SUFFIXES: .f90 .o
+
+all: benchmark
+
+# general rules
+.f90.o:
+	$(FC) $(FCFLAGS) -c $<
+
+%.o: %.mod
 
 
-# Targets
-#
-exe = benchmark$(EXE_EXT)
-shared = benchmark$(SHARED_EXT)
+# modules
+color_map.o: color_map.f90
+fibonacci.o: fibonacci.f90
+mandelbrot.o: mandelbrot.f90
+perfect_number.o: perfect_number.f90
+primes.o: primes.f90
 
-all: $(exe) $(shared)
-
-LIBOBJ = color_map.o mandelbrot.o perfect_number.o fibonacci.o
-ALLOBJ = $(LIBOBJ) benchmark.o
-
-$(shared): $(LIBOBJ)
-	$(FC) $(FFLAGS) $(SHARED_FLAGS) -o $@ $^
-
-$(exe): $(ALLOBJ)
-	$(FC) $(FFLAGS) -o $@ $^
+# programs
+benchmark: benchmark.f90 $(OBJS)
+	$(FC) $(FCFLAGS) $^ -o $@
 
 clean:
 	rm -f *.o
@@ -43,14 +50,3 @@ clean:
 	rm -f $(exe)
 	rm -f $(shared)
 
-cleanall: clean
-	rm -f $(exe) $(shared) $(shared).a
-
-%.mod: %.o
-	@touch $@
-
-%.o: %.f95
-	$(FC) $(FFLAGS) -c $< -o $@
-
-%.o: %.f
-	$(FC) $(FFLAGS) -c $< -o $@
