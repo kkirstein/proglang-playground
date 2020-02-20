@@ -97,33 +97,24 @@ contains
     character(:), allocatable, intent( in ) :: file_name
 
     integer :: stat
-    integer :: x, y
+    integer :: fileunit
 
     ! open ppm file for write
-    open(99, file=file_name, action='write', iostat=stat)
+    open(newunit=fileunit, file=file_name, action='write', iostat=stat)
     if (stat /= 0) then
       write (ERROR_UNIT,*) "Could not open file ", file_name
       stop -1
     end if
 
     ! header
-    write(99,111) "P3"
-    write(99,222) width, height, 255
+    write (fileunit, '(a)') "P3"
+    write (fileunit, '(i4, 1x, i4, 1x, i3)') width, height, 255
 
     ! pixel data
-    write (99, *) image
-    !do x = 1, width
-    !  do y = 1, height
-    !    write (99,333) image(y,x,:)
-    !  end do
-    !end do
+    write (fileunit, *) image
 
     ! close ppm file
-    close (99)
-
-    111 format (A)
-    222 format (I4, 1X, I4, 1X, I3)
-    333 format (I3, 1X, I3, 1X, I3)
+    close (fileunit)
 
   end subroutine write_ppm
 
