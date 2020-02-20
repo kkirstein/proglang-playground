@@ -47,6 +47,5 @@ benchmark: benchmark.f90 $(OBJS)
 clean:
 	rm -f *.o
 	rm -f *.mod
-	rm -f $(exe)
-	rm -f $(shared)
+	rm -f benchmark$(EXE_EXT)
 
