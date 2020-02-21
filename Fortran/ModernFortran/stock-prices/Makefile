@@ -30,6 +30,9 @@ all: stock_gain
 .f90.o:
 	$(FC) $(FFLAGS) -c $<
 
+%.o: %.mod
+
+
 # programs
 stock_gain: stock_gain.f90 $(LIBOBJ)
 	$(FC) $(FFLAGS) -o $@ $^
@@ -39,18 +42,10 @@ mod_alloc.o: mod_alloc.f90
 mod_array.o: mod_array.f90
 mod_io.o: mod_io.f90 mod_alloc.o
 
-#$(exe): $(ALLOBJ)
-#	$(FC) $(FFLAGS) -o $@ $^
 
 clean:
 	rm -f *.o
 	rm -f *.mod
-	rm -f $(exe)
-	rm -f $(shared)
+	rm -f stock_gain
 
-cleanall: clean
-	rm -f $(exe) $(shared) $(shared).a
-
-#%.mod: %.o
-#	@touch $@
 
