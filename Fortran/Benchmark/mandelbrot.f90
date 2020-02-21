@@ -4,8 +4,9 @@
 ! vim: set ft=fortran sw=2 ts=2 :
 
 module mandelbrot
+  !use iso_fortran_env, only: int16
+
   implicit none
-  save
 
   real, parameter :: r_max = 2.0
 
