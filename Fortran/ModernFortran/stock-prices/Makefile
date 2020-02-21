@@ -18,7 +18,7 @@ else
 endif
 
 
-FFLAGS	= -O3 -Wall -fopenmp -fPIC
+FCFLAGS	= -O3 -Wall -fopenmp -fPIC
 
 LIBOBJ = mod_array.o mod_io.o mod_alloc.o
 
@@ -28,14 +28,14 @@ all: stock_gain
 
 # general rule
 .f90.o:
-	$(FC) $(FFLAGS) -c $<
+	$(FC) $(FCFLAGS) -c $<
 
 %.o: %.mod
 
 
 # programs
 stock_gain: stock_gain.f90 $(LIBOBJ)
-	$(FC) $(FFLAGS) -o $@ $^
+	$(FC) $(FCFLAGS) -Wno-uninitialized -o $@ $^
 
 # modules
 mod_alloc.o: mod_alloc.f90
