@@ -30,8 +30,12 @@ program benchmark
 
   call system_clock(count_rate = rate)
 
-  print *, 'Compiler version: ', compiler_version()
-  print *, 'Compiler options: ', compiler_options()
+  write (*, *) "Compiler infos"
+  write (*, *) "=============="
+
+  write (*, *) 'Compiler version: ', compiler_version()
+  write (*, *) 'Compiler options: ', compiler_options()
+  write (*, *)
 
   write (*,*) "Fibonacci numbers"
   write (*,*) "================="
