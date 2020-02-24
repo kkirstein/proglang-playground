@@ -267,8 +267,7 @@ module color_map
       Z'ff', Z'ff', Z'aa', &
       Z'ff', Z'ff', Z'ff']
 
-  integer, parameter, dimension(3, 256) :: cm = &
-    reshape( tmp, [3, 256])
+  integer, parameter, dimension(3, 256) :: cm = reshape(tmp, [3, 256])
 
 end module color_map
 
