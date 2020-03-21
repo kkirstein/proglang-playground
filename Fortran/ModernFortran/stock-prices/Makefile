@@ -18,11 +18,11 @@ else
 endif
 
 
-FCFLAGS	= -O3 -Wall -fopenmp -fPIC
+FCFLAGS	= -O3 -Wall -fPIC
 
 LIBOBJ = mod_array.o mod_io.o mod_alloc.o
 
-all: stock_gain
+all: stock_gain stock_volatility
 
 .SUFFIXES: .f90 .o
 
@@ -35,6 +35,9 @@ all: stock_gain
 
 # programs
 stock_gain: stock_gain.f90 $(LIBOBJ)
+	$(FC) $(FCFLAGS) -Wno-uninitialized -o $@ $^
+
+stock_volatility: stock_volatility.f90 $(LIBOBJ)
 	$(FC) $(FCFLAGS) -Wno-uninitialized -o $@ $^
 
 # modules

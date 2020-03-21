@@ -7,13 +7,14 @@ module mod_io
     implicit none
 
     private
-    public :: read_stock
+    public :: read_stock, write_stock
     public :: num_records
 
 contains
 
     subroutine read_stock(filename, time, open, high, low,&
             close, adjclose, volume)
+        ! Read daily stock data from given CSV file
         character(len=*), intent(in) :: filename
         character(len=:), allocatable, intent(in out) :: time(:)
         real, allocatable, intent(in out) :: open(:), high(:), low(:),&
@@ -42,6 +43,25 @@ contains
         1 close(fileunit)
 
     end subroutine read_stock
+
+
+    subroutine write_stock(filename, time, price, mvavg, mvstd)
+        ! write derived stock data to file
+        character(len=*), intent(in) :: filename
+        character(len=:), allocatable, intent(in) :: time(:)
+        real, intent(in) :: price(:), mvavg(:), mvstd(:)
+
+        integer :: fileunit, n
+
+        open(newunit=fileunit, file=filename)
+
+        do n = 1, size(time)
+        write(fileunit, fmt=*) time(n), price(n), mvavg(n), mvstd(n)
+        end do
+
+        close(fileunit)
+
+    end subroutine write_stock
 
 
     integer function num_records(filename)
