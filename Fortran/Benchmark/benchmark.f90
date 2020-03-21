@@ -5,6 +5,8 @@
 
 program benchmark
 
+  use iso_fortran_env, only: compiler_version, compiler_options 
+
   use fibonacci
   use perfect_number
   !use color_map
@@ -27,6 +29,13 @@ program benchmark
   character(:), allocatable :: file_name, res_pn_str
 
   call system_clock(count_rate = rate)
+
+  write (*, *) "Compiler infos"
+  write (*, *) "=============="
+
+  write (*, *) 'Compiler version: ', compiler_version()
+  write (*, *) 'Compiler options: ', compiler_options()
+  write (*, *)
 
   write (*,*) "Fibonacci numbers"
   write (*,*) "================="
