@@ -24,7 +24,10 @@ program stock_volatility
 
         im = size(time)
 
-        gain = (adjclose(1) - adjclose(size(adjclose)))
+        adjclose = reverse(adjclose)
+        time = time(size(time):1:-1)
+
+        gain = (adjclose(size(adjclose)) - adjclose(1))
         mean = average(adjclose)
         stddev = std(adjclose)
 
