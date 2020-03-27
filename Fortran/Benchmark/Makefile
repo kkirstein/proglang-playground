@@ -18,7 +18,7 @@ else
 endif
 
 FCFLAGS	= -O3 -Wall -fopenmp -fPIC
-OBJS = color_map.o mandelbrot.o perfect_number.o fibonacci.o
+OBJS = mandelbrot.o perfect_number.o fibonacci.o
 
 
 .PHONY: all clean
@@ -34,7 +34,6 @@ all: benchmark
 
 
 # modules
-color_map.o: color_map.f90
 fibonacci.o: fibonacci.f90
 mandelbrot.o: mandelbrot.f90
 perfect_number.o: perfect_number.f90
