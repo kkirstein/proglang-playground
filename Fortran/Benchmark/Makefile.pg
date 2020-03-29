@@ -22,7 +22,7 @@ else
 endif
 
 FCFLAGS = -O3 -mp
-OBJS = color_map.obj mandelbrot.obj perfect_number.obj fibonacci.obj
+OBJS = mandelbrot.obj perfect_number.obj fibonacci.obj
 
 
 .PHONY: all clean
@@ -38,7 +38,6 @@ all: benchmark
 
 
 # modules
-color_map.obj: color_map.f90
 fibonacci.obj: fibonacci.f90
 mandelbrot.obj: mandelbrot.f90
 perfect_number.obj: perfect_number.f90
