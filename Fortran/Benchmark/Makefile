@@ -41,7 +41,7 @@ primes.o: primes.f90
 
 # programs
 benchmark: benchmark.f90 $(OBJS)
-	$(FC) $(FCFLAGS) $^ -o $@
+	$(FC) $(FCFLAGS) -cpp $^ -o $@
 
 clean:
 	rm -f *.o
