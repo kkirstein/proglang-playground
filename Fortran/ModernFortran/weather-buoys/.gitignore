@@ -1,6 +1,8 @@
 **.mod
 
 **/weather_stats
+**/weather_stats_parallel
+**/check_tiles
 
 results
 

@@ -18,10 +18,14 @@ else
 endif
 
 
-all: weather_stats
+all: weather_stats weather_stats_parallel
 
 # programs
 weather_stats:
+	$(MAKE) --directory=src $@
+	cp src/$@ .
+
+weather_stats_parallel:
 	$(MAKE) --directory=src $@
 	cp src/$@ .
 
