@@ -32,6 +32,6 @@ weather_stats_parallel:
 
 clean:
 	$(MAKE) --directory=src $@
-	$(RM) -f weather_stats
+	$(RM) -f weather_stats weather_stats_parallel
 
 
