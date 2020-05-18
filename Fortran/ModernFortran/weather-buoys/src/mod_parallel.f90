@@ -15,19 +15,24 @@ contains
         integer, intent(in) :: sz
         integer :: res(2)
 
-        integer :: start, stop, len
+        integer :: tile_start, tile_end, tile_size, offset
         integer :: this, num
 
         this = this_image()
         num = num_images()
 
-        len = sz / num
-        start = len * (this - 1) + 1
-        stop = len * this
+        tile_size = sz / num
+        tile_start = tile_size * (this - 1) + 1
+        tile_end = tile_start + tile_size - 1
 
-        if (this == num) stop = sz
+        ! distribute remainder equally on tiles
+        offset = num - mod(sz, num)
+        if (this > offset) then
+            tile_start = tile_start + this - offset - 1
+            tile_end = tile_end + this - offset
+        end if
 
-        res = [start, stop]
+        res = [tile_start, tile_end]
 
     end function tile_indices
 
