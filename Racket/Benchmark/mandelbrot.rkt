@@ -31,14 +31,5 @@
     (for* ([x width] [y height])
       (let ([real-x (- (* 3.0 (/ x width)) 2.25)]
             [real-y (- (* 2.5 (/ y height)) 1.25)])
-        (send dc set-pen (iter->color (iterations (make-rectangular real-x real-y) 0 0)) 1 'solid)
-        (send dc draw-point x y)))
+        (send dc set-pixel x y (iter->color (iterations (make-rectangular real-x real-y) 0 0)))))
     (send target save-file "mandelbrot.png" 'png)))
-
-; write mandelbrot set to canvas
-(define (pixel->canvas width height pixels)
-  (let* ([target (make-bitmap width height)]
-         [dc (new bitmap-dc% [bitmap target])])
-    (for* ([x width] [y height])
-      (let ([dummy 0])
-        '()))))
