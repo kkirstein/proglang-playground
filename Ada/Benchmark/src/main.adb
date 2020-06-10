@@ -22,13 +22,13 @@ begin
    Put_Line ("Fibonacci Numbers");
    Put_Line ("-----------------");
    Tic := Clock;
-   Put ("Fib_Naive (35)        = " & Natural'Image (Fib.Fib_Naive (35)));
+   Put ("Fib_Naive (35)   = " & Natural'Image (Fib.Fib_Naive (35)));
    Put_Elapsed (Tic);
    Tic := Clock;
-   Put ("Fib_Iter (35)         = " & Natural'Image (Fib.Fib_Iter (35)));
+   Put ("Fib_Iter (1000)  = " & To_String (Fib.Fib_Iter (1000)));
    Put_Elapsed (Tic);
    Tic := Clock;
-   Put ("Fib_Iter_Big_Int (35) = " & To_String (Fib.Fib_Iter_Big_Int (35)));
+   Put ("Fib_Recur (1000) = " & To_String (Fib.Fib_Recur (1000)));
    Put_Elapsed (Tic);
 
 end Main;
