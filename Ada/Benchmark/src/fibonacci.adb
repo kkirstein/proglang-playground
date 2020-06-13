@@ -37,4 +37,9 @@ package body Fibonacci is
       return Fib_Aux (N, 0, 1);
    end Fib_Recur;
 
+   function Big_Natural_Image (N : Big_Natural) return String is
+   begin
+      return To_String (N);
+   end Big_Natural_Image;
+
 end Fibonacci;

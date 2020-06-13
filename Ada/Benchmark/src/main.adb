@@ -5,14 +5,34 @@ with Ada.Numerics.Big_Numbers.Big_Integers;
 use Ada.Numerics.Big_Numbers.Big_Integers;
 
 with Fibonacci;
+with Perfect_Number;
 
 procedure Main is
    package Fib renames Fibonacci;
+   package Pn renames Perfect_Number;
 
    procedure Put_Elapsed (Tic : Time; Toc : Time := Clock) is
-      begin
+   begin
       Put_Line (" elapsed time: " & Duration'Image(Toc - Tic) & "s");
    end Put_Elapsed;
+
+   -- overload Img function for string representatin of result data
+   function Img (X : Natural) return String renames Natural'Image;
+   function Img (X : Big_Natural) return String renames Fib.Big_Natural_Image;
+   function Img (X : Pn.Pn_Vectors.Vector) return String is
+      Res : String := "Length: " & Natural'Image (Natural (X.Length));
+   begin
+      return Res;
+   end Img;
+
+   procedure Put_Pn (X : Pn.Pn_Vectors.Vector) is
+   begin
+      Put ("[");
+      for E of X loop
+         Put (Img (E) & ", ");
+      end loop;
+      Put ("]");
+   end Put_Pn;
 
    Tic : Time;
 begin
@@ -22,13 +42,25 @@ begin
    Put_Line ("Fibonacci Numbers");
    Put_Line ("-----------------");
    Tic := Clock;
-   Put ("Fib_Naive (35)   = " & Natural'Image (Fib.Fib_Naive (35)));
+   Put ("Fib_Naive (35)   = " & Img (Fib.Fib_Naive (35)));
    Put_Elapsed (Tic);
    Tic := Clock;
-   Put ("Fib_Iter (1000)  = " & To_String (Fib.Fib_Iter (1000)));
+   Put ("Fib_Iter (1000)  = " & Img (Fib.Fib_Iter (1000)));
    Put_Elapsed (Tic);
    Tic := Clock;
-   Put ("Fib_Recur (1000) = " & To_String (Fib.Fib_Recur (1000)));
+   Put ("Fib_Recur (1000) = " & Img (Fib.Fib_Recur (1000)));
    Put_Elapsed (Tic);
 
-end Main;
+   Put_Line ("Perfect Numbers");
+   Put_Line ("---------------");
+   Tic := Clock;
+   declare
+      Res : Pn.Pn_Vectors.Vector := Pn.Get_Perfect_Numbers (10000);
+   begin
+      --Put_Pn (Res);
+      --New_Line;
+      Put ("Perfect_Numbers (10000)   = "); Put_Pn (res);
+      Put_Elapsed (Tic);
+   end;
+
+   end Main;

@@ -7,4 +7,5 @@ package Fibonacci is
    function Fib_Naive (N : Natural) return Natural;
    function Fib_Recur (N : Natural) return Big_Natural;
 
+   function Big_Natural_Image (N : Big_Natural) return String;
 end Fibonacci;
