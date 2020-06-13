@@ -3,6 +3,10 @@ proglang-playground
 
 A playground for various programming languages.
 
+# Ada
+
+[Ada](https://en.wikipedia.org/wiki/Ada_(programming_language)) is a strongly typed imperative porgramming language with emphasis on safety and security. It also features generic and object-oriented paradigms. SPARK is a subset of Ada, which enables program verification by theorem provers, like `Alt-Ergo`.
+
 # ATS
 
 [ATS](http://www.ats-lang.org) is a statically-typed programming language that support functional and imperative styles. Its type system supports dependent types and enables theorem proofing of its implementations.
