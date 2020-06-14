@@ -3,6 +3,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Calendar; use Ada.Calendar;
 with Ada.Numerics.Big_Numbers.Big_Integers;
 use Ada.Numerics.Big_Numbers.Big_Integers;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 with Fibonacci;
 with Perfect_Number;
@@ -20,9 +21,15 @@ procedure Main is
    function Img (X : Natural) return String renames Natural'Image;
    function Img (X : Big_Natural) return String renames Fib.Big_Natural_Image;
    function Img (X : Pn.Pn_Vectors.Vector) return String is
-      Res : String := "Length: " & Natural'Image (Natural (X.Length));
+      --Res : String := "Length: " & Natural'Image (Natural (X.Length));
+      Res : Unbounded_String := Null_Unbounded_String;
    begin
-      return Res;
+      Res := Res & "[";
+      for E of X loop
+         Res := Res & Img (E) & ",";
+      end loop;
+      Res := Res & "]";
+      return To_String (Res);
    end Img;
 
    procedure Put_Pn (X : Pn.Pn_Vectors.Vector) is
@@ -59,7 +66,7 @@ begin
    begin
       --Put_Pn (Res);
       --New_Line;
-      Put ("Perfect_Numbers (10000)   = "); Put_Pn (res);
+      Put ("Perfect_Numbers (10000) = " & Img (Res));
       Put_Elapsed (Tic);
    end;
 

@@ -3,9 +3,9 @@ with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Int
 package body Fibonacci is
 
    function Fib_Iter (N : Natural) return Big_Natural is
-      A   : Big_Natural := 0;
-      B   : Big_Natural := 1;
-      Tmp : Big_Natural := 0;
+      A   : Big_Natural := To_Big_Integer (0);
+      B   : Big_Natural := To_Big_Integer (1);
+      Tmp : Big_Natural := To_Big_Integer (0);
    begin
       for I in 0..N-1 loop
          Tmp := A;
