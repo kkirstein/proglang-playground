@@ -21,7 +21,6 @@ procedure Main is
    function Img (X : Natural) return String renames Natural'Image;
    function Img (X : Big_Natural) return String renames Fib.Big_Natural_Image;
    function Img (X : Pn.Pn_Vectors.Vector) return String is
-      --Res : String := "Length: " & Natural'Image (Natural (X.Length));
       Res : Unbounded_String := Null_Unbounded_String;
    begin
       Res := Res & "[";
@@ -32,19 +31,11 @@ procedure Main is
       return To_String (Res);
    end Img;
 
-   procedure Put_Pn (X : Pn.Pn_Vectors.Vector) is
-   begin
-      Put ("[");
-      for E of X loop
-         Put (Img (E) & ", ");
-      end loop;
-      Put ("]");
-   end Put_Pn;
-
    Tic : Time;
 begin
    Put_Line ("Benchmark");
    Put_Line ("=========");
+   New_Line;
 
    Put_Line ("Fibonacci Numbers");
    Put_Line ("-----------------");
@@ -57,17 +48,13 @@ begin
    Tic := Clock;
    Put ("Fib_Recur (1000) = " & Img (Fib.Fib_Recur (1000)));
    Put_Elapsed (Tic);
+   New_Line;
 
    Put_Line ("Perfect Numbers");
    Put_Line ("---------------");
    Tic := Clock;
-   declare
-      Res : Pn.Pn_Vectors.Vector := Pn.Get_Perfect_Numbers (10000);
-   begin
-      --Put_Pn (Res);
-      --New_Line;
-      Put ("Perfect_Numbers (10000) = " & Img (Res));
-      Put_Elapsed (Tic);
-   end;
+   Put ("Perfect_Numbers (10000) = " & Img (Pn.Get_Perfect_Numbers (10000)));
+   Put_Elapsed (Tic);
+   New_line;
 
-   end Main;
+end Main;
