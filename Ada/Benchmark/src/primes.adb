@@ -40,11 +40,14 @@ package body Primes is
    
 
    function Get_Primes (Limit : Big_Natural) return Big_Prime_Vectors.Vector is
+      I : Big_Natural := To_Big_Integer (2);
       Result : Big_Prime_Vectors.Vector;
    begin
-      --for I in To_Big_Integer (2) .. Limit loop
-      --   if Is_Prime (I) then Result.Append (I); end if;
-      --end loop;
+      while I < Limit loop
+         null;
+         I := I + 1;
+         if Is_Prime (I) then Result.Append (I); end if;
+      end loop;
       return Result;
    end Get_Primes;
 

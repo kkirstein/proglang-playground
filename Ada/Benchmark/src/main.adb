@@ -74,15 +74,12 @@ begin
 
    Put_Line ("Prime Numbers");
    Put_Line ("-------------");
-
    Tic := Clock;
-   declare
-      Res : Primes.Prime_Vectors.Vector := Primes.Get_Primes (10_000);
-   begin
-      Put ("Get_Primes (10000): (" &
-          Img (Res) &
-             ")");
-   end;
+   Put ("Get_Primes (10000): (" & Img (Primes.Get_Primes (10_000)) & ")");
+   Put_Elapsed (Tic);
+   Tic := Clock;
+   -- FIXME: Provide Img overload for Primes.Prime_Vectors_Big.Vector
+   --Put ("Get_Primes (10000): (" & Img (Primes.Get_Primes (To_Big_Integer (10_000))) & ")");
    Put_Elapsed (Tic);
    New_Line;
 
