@@ -7,6 +7,7 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 with Fibonacci;
 with Perfect_Number;
+with Primes;
 
 procedure Main is
    package Fib renames Fibonacci;
@@ -19,7 +20,9 @@ procedure Main is
 
    -- overload Img function for string representatin of result data
    function Img (X : Natural) return String renames Natural'Image;
+
    function Img (X : Big_Natural) return String renames Fib.Big_Natural_Image;
+
    function Img (X : Pn.Pn_Vectors.Vector) return String is
       Res : Unbounded_String := Null_Unbounded_String;
    begin
@@ -30,6 +33,18 @@ procedure Main is
       Res := Res & "]";
       return To_String (Res);
    end Img;
+
+   function Img (X : Primes.Prime_Vectors.Vector) return String is
+      Res : Unbounded_String := Null_Unbounded_String;
+   begin
+      Res := Res & "[";
+      for E of X loop
+         Res := Res & Img (E) & ",";
+      end loop;
+      Res := Res & "]";
+      return To_String (Res);
+   end Img;
+
 
    Tic : Time;
 begin
@@ -56,5 +71,19 @@ begin
    Put ("Perfect_Numbers (10000) = " & Img (Pn.Get_Perfect_Numbers (10000)));
    Put_Elapsed (Tic);
    New_line;
+
+   Put_Line ("Prime Numbers");
+   Put_Line ("-------------");
+
+   Tic := Clock;
+   declare
+      Res : Primes.Prime_Vectors.Vector := Primes.Get_Primes (10_000);
+   begin
+      Put ("Get_Primes (10000): (" &
+          Img (Res) &
+             ")");
+   end;
+   Put_Elapsed (Tic);
+   New_Line;
 
 end Main;

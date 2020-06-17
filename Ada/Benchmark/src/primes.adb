@@ -28,4 +28,24 @@ package body Primes is
       return True;
    end Is_Prime;
 
+   
+   function Get_Primes (Limit : Natural) return Prime_Vectors.Vector is
+      Result : Prime_Vectors.Vector;
+   begin
+      for I in 2 .. Limit loop
+         if Is_Prime (I) then Result.Append (I); end if;
+      end loop;
+      return Result;
+   end Get_Primes;
+   
+
+   function Get_Primes (Limit : Big_Natural) return Big_Prime_Vectors.Vector is
+      Result : Big_Prime_Vectors.Vector;
+   begin
+      --for I in To_Big_Integer (2) .. Limit loop
+      --   if Is_Prime (I) then Result.Append (I); end if;
+      --end loop;
+      return Result;
+   end Get_Primes;
+
 end Primes;
