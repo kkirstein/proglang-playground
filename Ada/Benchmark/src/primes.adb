@@ -17,13 +17,13 @@ package body Primes is
    
    
    function Is_Prime (N : Big_Natural) return Boolean is
-      Limit : constant Big_Natural := N / 2;
+      Limit : constant Big_Natural := N / To_Big_Integer (2);
       I     : Big_Natural := To_Big_Integer (2);
    begin
-      if N < 2 then return False; end if;
+      if N < To_Big_Integer (2) then return False; end if;
       while I < Limit loop
-         if N mod I = 0 then return False; end if;
-         I := I + 1;
+         if N mod I = To_Big_Integer (0) then return False; end if;
+         I := I + To_Big_Integer (1);
       end loop;
       return True;
    end Is_Prime;
@@ -45,7 +45,7 @@ package body Primes is
    begin
       while I < Limit loop
          null;
-         I := I + 1;
+         I := I + To_Big_Integer (1);
          if Is_Prime (I) then Result.Append (I); end if;
       end loop;
       return Result;
