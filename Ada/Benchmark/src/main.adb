@@ -45,6 +45,17 @@ procedure Main is
       return To_String (Res);
    end Img;
 
+   function Img (X : Primes.Big_Prime_Vectors.Vector) return String is
+      Res : Unbounded_String := Null_Unbounded_String;
+   begin
+      Res := Res & "[";
+      for E of X loop
+         Res := Res & Img (E) & ",";
+      end loop;
+      Res := Res & "]";
+      return To_String (Res);
+   end Img;
+
 
    Tic : Time;
 begin
@@ -78,8 +89,7 @@ begin
    Put ("Get_Primes (10000): (" & Img (Primes.Get_Primes (10_000)) & ")");
    Put_Elapsed (Tic);
    Tic := Clock;
-   -- FIXME: Provide Img overload for Primes.Prime_Vectors_Big.Vector
-   --Put ("Get_Primes (10000): (" & Img (Primes.Get_Primes (To_Big_Integer (10_000))) & ")");
+   Put ("Get_Primes (10000): (" & Img (Primes.Get_Primes (To_Big_Integer (10_000))) & ")");
    Put_Elapsed (Tic);
    New_Line;
 
