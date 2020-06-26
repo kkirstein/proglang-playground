@@ -3,11 +3,11 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Calendar; use Ada.Calendar;
 with Ada.Numerics.Big_Numbers.Big_Integers;
 use Ada.Numerics.Big_Numbers.Big_Integers;
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 with Fibonacci;
 with Perfect_Number;
 with Primes;
+with Aux_Image; use Aux_Image;
 
 procedure Main is
    package Fib renames Fibonacci;
@@ -17,45 +17,6 @@ procedure Main is
    begin
       Put_Line (" elapsed time: " & Duration'Image(Toc - Tic) & "s");
    end Put_Elapsed;
-
-   -- overload Img function for string representatin of result data
-   function Img (X : Natural) return String renames Natural'Image;
-
-   function Img (X : Big_Natural) return String renames Fib.Big_Natural_Image;
-
-   function Img (X : Pn.Pn_Vectors.Vector) return String is
-      Res : Unbounded_String := Null_Unbounded_String;
-   begin
-      Res := Res & "[";
-      for E of X loop
-         Res := Res & Img (E) & ",";
-      end loop;
-      Res := Res & "]";
-      return To_String (Res);
-   end Img;
-
-   function Img (X : Primes.Prime_Vectors.Vector) return String is
-      Res : Unbounded_String := Null_Unbounded_String;
-   begin
-      Res := Res & "[";
-      for E of X loop
-         Res := Res & Img (E) & ",";
-      end loop;
-      Res := Res & "]";
-      return To_String (Res);
-   end Img;
-
-   function Img (X : Primes.Big_Prime_Vectors.Vector) return String is
-      Res : Unbounded_String := Null_Unbounded_String;
-   begin
-      Res := Res & "[";
-      for E of X loop
-         Res := Res & Img (E) & ",";
-      end loop;
-      Res := Res & "]";
-      return To_String (Res);
-   end Img;
-
 
    Tic : Time;
 begin
@@ -86,7 +47,7 @@ begin
    Put_Line ("Prime Numbers");
    Put_Line ("-------------");
    Tic := Clock;
-   Put ("Get_Primes (10000): (" & Img (Primes.Get_Primes (10_000)) & ")");
+   Put ("Get_Primes (10000): (" & Img (Primes.Get_Primes (Integer (10_000))) & ")");
    Put_Elapsed (Tic);
    Tic := Clock;
    Put ("Get_Primes (10000): (" & Img (Primes.Get_Primes (To_Big_Integer (10_000))) & ")");
