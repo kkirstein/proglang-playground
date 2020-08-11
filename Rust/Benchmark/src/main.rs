@@ -55,10 +55,18 @@ fn main() {
     println!("--------------");
 
     let (res, elap) = time_it(|| primes::find_primes(1_000_000));
-    println!("find_primes(1_000_000): {:?} primes\tElapsed: {}ms", res.len(), elap);
+    println!(
+        "find_primes(1_000_000): {:?} primes\tElapsed: {}ms",
+        res.len(),
+        elap
+    );
 
     let (res, elap) = time_it(|| primes::find_primes_rayon(1_000_000));
-    println!("find_primes_rayon(1_000_000): {:?} primes\tElapsed: {}ms", res.len(), elap);
+    println!(
+        "find_primes_rayon(1_000_000): {:?} primes\tElapsed: {}ms",
+        res.len(),
+        elap
+    );
 
     println!();
 
@@ -96,7 +104,10 @@ fn main() {
             let (_res, elap) = time_it(|| {
                 mandelbrot::mandelbrot_rayon(1920, 1200, -0.5, 0.0, 4.0 / f64::from(1920), i)
             });
-            println!("mandelbrot_rayon(1920, 1200, {}) done\tElapsed: {}ms", i, elap);
+            println!(
+                "mandelbrot_rayon(1920, 1200, {}) done\tElapsed: {}ms",
+                i, elap
+            );
         })
         .collect();
 
