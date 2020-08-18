@@ -6,7 +6,9 @@ static C: [u8; 11] = [116, 104, 97, 110, 107, 115, 102, 105, 115, 104, 0];
 
 // print_info
 fn print_info_ptr<T>(desc: &str, x: T)
-where T : std::fmt::Pointer + std::fmt::Debug {
+where
+    T: std::fmt::Pointer + std::fmt::Debug,
+{
     println!("{}:", desc);
     println!(" location:  {:p}", &x);
     println!(" size:      {:?} bytes", size_of::<T>());
@@ -21,6 +23,7 @@ fn print_info<T: std::fmt::Debug>(desc: &str, x: T) {
 }
 
 fn main() {
+    // introduction
     let a = 42;
     let b = &B;
     let c = Box::new(C);
@@ -38,4 +41,14 @@ fn main() {
     println!();
 
     print_info("C (an array of 11 bytes)", C);
+
+    // raw pointers
+    println!("");
+    println!("raw pointers:");
+    println!("-------------");
+
+    let a: i64 = 42;
+    let a_ptr = &a as *const i64;
+    let a_addr: usize = unsafe { std::mem::transmute(a_ptr) };
+    println!("a: {} ({:p}...0x{:x})", a, a_ptr, a_addr + 7);
 }
