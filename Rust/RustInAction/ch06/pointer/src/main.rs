@@ -5,7 +5,8 @@ static B: [u8; 10] = [99, 97, 114, 114, 121, 116, 111, 119, 101, 108];
 static C: [u8; 11] = [116, 104, 97, 110, 107, 115, 102, 105, 115, 104, 0];
 
 // print_info
-fn print_info_ptr<T: std::fmt::Pointer>(desc: &str, x: T) {
+fn print_info_ptr<T>(desc: &str, x: T)
+where T : std::fmt::Pointer + std::fmt::Debug {
     println!("{}:", desc);
     println!(" location:  {:p}", &x);
     println!(" size:      {:?} bytes", size_of::<T>());
