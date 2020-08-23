@@ -41,4 +41,17 @@ fn main() {
     println!("{:?} @ {:p}", this_pid, this_proc);
     println!("{:?}", proc_info);
     println!("min: {:p}, max: {:p}", min_app_addr, max_app_addr);
+
+    // scan thu process memory space
+    loop {
+        let rc: SIZE_T = unsafe {
+            kernel32::VirtualQueryEx(this_proc, base_addr, &mut mem_info, MEM_SIZE as SIZE_T)
+        };
+        if rc == 0 {
+            break;
+        }
+
+        println!("{:?}", mem_info);
+        base_addr = ((base_addr as u64) + mem_info.RegionSize) as PVOID;
+    }
 }
