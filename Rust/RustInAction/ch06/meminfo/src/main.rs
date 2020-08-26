@@ -39,7 +39,7 @@ fn main() {
     max_app_addr = proc_info.lpMaximumApplicationAddress;
 
     println!("{:?} @ {:p}", this_pid, this_proc);
-    println!("{:?}", proc_info);
+    println!("{:#?}", proc_info);
     println!("min: {:p}, max: {:p}", min_app_addr, max_app_addr);
 
     // scan thu process memory space
@@ -51,7 +51,7 @@ fn main() {
             break;
         }
 
-        println!("{:?}", mem_info);
+        println!("{:#?}", mem_info);
         base_addr = ((base_addr as u64) + mem_info.RegionSize) as PVOID;
     }
 }
