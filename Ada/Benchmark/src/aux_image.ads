@@ -20,7 +20,7 @@ package Aux_Image is
 
 private
    generic
-      type T is abstract new Ada.Containers.Vectors.Vector;
+      type T is private;
       --type I is (<>);
       --type A is array (I) of T;
       --with function To_String (X : E) return String;
