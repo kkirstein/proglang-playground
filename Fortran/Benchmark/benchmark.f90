@@ -1,4 +1,4 @@
-! benchmark.f
+! benchmark.f90
 ! A selection of micro-benchmarks for Fortran
 !
 ! vim: set ft=fortran sw=4 ts=4 :
@@ -69,6 +69,12 @@ program benchmark
     call system_clock(toc)
     call to_string(res_pn, res_pn_str)
     write (*,222) "perfect_numbers(", pn_limit, ") = ", res_pn_str, &
+        & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
+    call system_clock(tic)
+    call perfect_numbers_realloc(pn_limit, res_pn)
+    call system_clock(toc)
+    call to_string(res_pn, res_pn_str)
+    write (*,222) "perfect_numbers_realloc(", pn_limit, ") = ", res_pn_str, &
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
     write (*,*) ""

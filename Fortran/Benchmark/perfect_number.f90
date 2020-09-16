@@ -1,11 +1,12 @@
-! perfect_number.f95
+! perfect_number.f90
 ! Calculate Perfect numbers
 !
 ! vim: set ft=fortran sw=2 ts=2 :
 
 module perfect_number
   implicit none
-  save
+  private
+  public :: perfect_numbers, perfect_numbers_realloc, to_string
 
 contains
 
@@ -27,6 +28,27 @@ contains
     is_perfect = (s == n)
 
   end function is_perfect
+
+
+  subroutine perfect_numbers_realloc (n, res)
+    !use ISO_FORTRAN_ENV, only: ERROR_UNIT
+    implicit none
+
+    integer, intent( in ) :: n
+    integer, dimension(:), allocatable, intent( out ) :: res
+    integer :: i
+
+    do i = 1, n
+      if (is_perfect(i)) then
+        if (allocated(res)) then
+          res = [res, i]
+        else
+          res = [i]
+        end if
+      end if
+    end do
+
+  end subroutine perfect_numbers_realloc
 
 
   subroutine perfect_numbers (n, res)
@@ -63,6 +85,7 @@ contains
       write (ERROR_UNIT,*) "Error allocating data"
       stop -1
     end if
+
     idx = 1
     do i = 1, n
       if (flags(i)) then
