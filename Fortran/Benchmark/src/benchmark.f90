@@ -9,7 +9,7 @@ program benchmark
 
     use fibonacci
     use perfect_number
-    !use color_map
+    use image
     use mandelbrot
 
     implicit none
@@ -24,7 +24,7 @@ program benchmark
     integer :: res_int
     integer (kind=pr) :: res_int_pr
     integer, dimension(:), allocatable :: res_pn
-    integer, dimension(:,:,:), allocatable :: res_img
+    type(ImageRGB) :: res_img
 
     character(:), allocatable :: file_name, res_pn_str
 
@@ -83,14 +83,14 @@ program benchmark
     write (*,*) "Mandelbrot set"
     write (*,*) "=============="
     call system_clock(tic)
-    res_img = image(width, height, -0.5, 0.0, 4.0/width)
+    res_img = create(width, height, -0.5, 0.0, 4.0/width)
     call system_clock(toc)
     write (*,333) "mandelbrot_set", &
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
     call system_clock(tic)
     file_name = "mandelbrot.ppm"
-    call write_ppm(width, height, res_img, file_name)
+    call write_ppm(width, height, res_img % data, file_name)
     call system_clock(toc)
     write (*,333) "mandelbrot_set written to file", &
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"

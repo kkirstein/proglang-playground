@@ -1,14 +1,15 @@
+! vim: set ft=fortran sw=4 ts=4 :
+
 ! mandelbrot.f95
 ! Calculate Mandelbrot sets
 !
-! vim: set ft=fortran sw=4 ts=4 :
 
 module mandelbrot
     !use iso_fortran_env, only: int16
 
     implicit none
     private
-    public :: image, write_ppm
+    public :: create, write_ppm
 
     real, parameter :: r_max = 2.0
 
@@ -31,12 +32,12 @@ contains
         z1 = 0
 
         do n = n_end, 0, -1
-        if (abs(z1) > r_max) then
-            pixel_value = n
-            !write (*, *) n
-            return
-        end if
-        z1 = z1**2 + z
+            if (abs(z1) > r_max) then
+                pixel_value = n
+                !write (*, *) n
+                return
+            end if
+            z1 = z1**2 + z
         end do
 
         pixel_value = 0
@@ -53,10 +54,12 @@ contains
     end function calc_rgb
 
     ! generate mandelbrot set
-    function image(width, height, x_center, y_center, pixel_size)
+    function create(width, height, x_center, y_center, pixel_size) result(img)
         use ISO_FORTRAN_ENV, only: ERROR_UNIT
+        use image
 
-        integer, dimension(:,:,:), allocatable :: image
+        !integer, dimension(:,:,:), allocatable :: image
+        type(ImageRGB) :: img
         integer, intent( in ) :: width, height
         real, intent( in ) :: x_center, y_center
         real, intent( in ) :: pixel_size
@@ -64,25 +67,26 @@ contains
         integer :: stat, x, y
         complex :: offset, coord
 
-        allocate(image(3, width, height), stat=stat)
-        if (stat /= 0) then
-            write (ERROR_UNIT,*) "Error allocating data: ", stat
-            stop -1
-        end if
+        !allocate(image(3, width, height), stat=stat)
+        !if (stat /= 0) then
+        !    write (ERROR_UNIT,*) "Error allocating data: ", stat
+        !    stop -1
+        !end if
+        img = ImageRGB(width, height)
 
         offset = cmplx(x_center - 0.5*pixel_size*width, &
             y_center + 0.5*pixel_size*height)
 
         !$omp parallel do private(y, x, coord)
         do y = 1, height
-        do x = 1, width
-        coord = offset + cmplx(x*pixel_size, -y*pixel_size)
-        image(:,x,y) = calc_rgb(pixel_value(coord, 255))
-        end do
+            do x = 1, width
+                coord = offset + cmplx(x*pixel_size, -y*pixel_size)
+                call img % set(x, y, calc_rgb(pixel_value(coord, 255)))
+            end do
         end do
         !$omp end parallel do
 
-    end function image
+    end function create
 
     ! write image data as ppm-file
     subroutine write_ppm (width, height, image, file_name)

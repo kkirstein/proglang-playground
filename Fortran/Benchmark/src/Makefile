@@ -18,7 +18,7 @@ else
 endif
 
 FCFLAGS	= -O3 -Wall -fopenmp -fPIC
-OBJS = mandelbrot.o perfect_number.o fibonacci.o
+OBJS = image.o mandelbrot.o perfect_number.o fibonacci.o
 
 
 .PHONY: all clean
@@ -35,6 +35,7 @@ all: benchmark
 
 # modules
 fibonacci.o: fibonacci.f90
+image.o: image.f90
 mandelbrot.o: mandelbrot.f90
 perfect_number.o: perfect_number.f90
 primes.o: primes.f90
