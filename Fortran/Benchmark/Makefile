@@ -12,3 +12,5 @@ clean:
 	$(MAKE) --directory=src $@
 	$(RM) -f benchmark
 
+.PHONY: benchmark clean
+
