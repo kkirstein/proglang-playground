@@ -9,7 +9,7 @@ module mandelbrot
 
     implicit none
     private
-    public :: create, write_ppm
+    public :: create
 
     real, parameter :: r_max = 2.0
 
@@ -55,7 +55,6 @@ contains
 
     ! generate mandelbrot set
     function create(width, height, x_center, y_center, pixel_size) result(img)
-        use ISO_FORTRAN_ENV, only: ERROR_UNIT
         use image
 
         !integer, dimension(:,:,:), allocatable :: image
@@ -64,14 +63,9 @@ contains
         real, intent( in ) :: x_center, y_center
         real, intent( in ) :: pixel_size
 
-        integer :: stat, x, y
+        integer :: x, y
         complex :: offset, coord
 
-        !allocate(image(3, width, height), stat=stat)
-        !if (stat /= 0) then
-        !    write (ERROR_UNIT,*) "Error allocating data: ", stat
-        !    stop -1
-        !end if
         img = ImageRGB(width, height)
 
         offset = cmplx(x_center - 0.5*pixel_size*width, &
@@ -87,36 +81,5 @@ contains
         !$omp end parallel do
 
     end function create
-
-    ! write image data as ppm-file
-    subroutine write_ppm (width, height, image, file_name)
-        use ISO_FORTRAN_ENV, only: ERROR_UNIT
-
-        integer, intent( in ) :: width
-        integer, intent( in ) :: height
-        integer, dimension(:,:,:), intent( in ) :: image
-        character(:), allocatable, intent( in ) :: file_name
-
-        integer :: stat
-        integer :: fileunit
-
-        ! open ppm file for write
-        open(newunit=fileunit, file=file_name, action='write', iostat=stat)
-        if (stat /= 0) then
-            write (ERROR_UNIT,*) "Could not open file ", file_name
-            stop -1
-        end if
-
-        ! header
-        write (fileunit, '(a)') "P3"
-        write (fileunit, '(i4, 1x, i4, 1x, i3)') width, height, 255
-
-        ! pixel data
-        write (fileunit, *) image
-
-        ! close ppm file
-        close (fileunit)
-
-    end subroutine write_ppm
 
 end module mandelbrot

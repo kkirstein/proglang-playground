@@ -14,6 +14,7 @@ module image
     contains
         procedure, pass(self) :: set
         procedure, pass(self) :: get
+        procedure, pass(self) :: write_ppm
 
     end type ImageRGB
 
@@ -63,6 +64,35 @@ contains
         pixel = self % data(:, x, y)
 
     end function get
+
+    subroutine write_ppm (self, file_name)
+        ! write image data as ppm-file
+        use ISO_FORTRAN_ENV, only: ERROR_UNIT
+
+        class(ImageRGB), intent( in ) :: self
+        character(:), allocatable, intent( in ) :: file_name
+
+        integer :: stat
+        integer :: fileunit
+
+        ! open ppm file for write
+        open(newunit=fileunit, file=file_name, action='write', iostat=stat)
+        if (stat /= 0) then
+            write (ERROR_UNIT,*) "Could not open file ", file_name
+            stop -1
+        end if
+
+        ! header
+        write (fileunit, '(a)') "P3"
+        write (fileunit, '(i4, 1x, i4, 1x, i3)') self % width, self % height, 255
+
+        ! pixel data
+        write (fileunit, *) self % data
+
+        ! close ppm file
+        close (fileunit)
+
+    end subroutine write_ppm
 
 
 end module image

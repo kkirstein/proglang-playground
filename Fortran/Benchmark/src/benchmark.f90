@@ -90,7 +90,7 @@ program benchmark
 
     call system_clock(tic)
     file_name = "mandelbrot.ppm"
-    call write_ppm(width, height, res_img % data, file_name)
+    call res_img % write_ppm(file_name)
     call system_clock(toc)
     write (*,333) "mandelbrot_set written to file", &
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
