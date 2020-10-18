@@ -7,14 +7,36 @@
 
    */
 
-int fib_naive(int n)
-{
-    if (n < 2)
-    {
+#include "fib.h"
+
+int fib_naive (int n) {
+    if (n < 2) {
         return n;
-    }
-    else
-    {
-        return (fib_naive(n - 1) + fib_naive(n - 2));
+    } else {
+        return (fib_naive (n - 1) + fib_naive (n - 2));
     }
 }
+
+void fib_aux (mpz_t res, const mpz_t a, const mpz_t b, int n) {
+
+    mpz_t tmp;
+
+    if (n == 0) {
+        mpz_init_set (res, a);
+    } else {
+        mpz_add(tmp, a, b);
+        fib_aux(res, b, tmp, n-1);
+    }
+}
+
+void fib (mpz_t res, int n) {
+    
+    mpz_t a, b;
+    mpz_init (a);
+    mpz_init (b);
+
+    mpz_set_ui (a, 0);
+    mpz_set_ui (b, 1);
+    fib_aux(res, a, b, n);
+}
+

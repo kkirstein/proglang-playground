@@ -1,5 +1,8 @@
 project('benchmark', 'c')
 
 src = ['main.c', 'fib.c']
-executable('bench', sources: src)
+
+gmp_dep = dependency('gmp')
+
+executable('bench', sources: src, dependencies: gmp_dep)
 

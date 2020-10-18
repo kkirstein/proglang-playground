@@ -25,7 +25,21 @@ int main (int argc, char **argv) {
     toc = clock ();
     printf ("fib_naive(35) = %d (Elapsed %.3fs)\n", res, ((double) (toc - tic)) / CLOCKS_PER_SEC );
 
-    printf ("todo..\n");
+    tic = clock ();
+    mpz_t fib_z;
+    fib (fib_z, 35);
+    toc = clock ();
+    printf ("fib(35) = ");
+    mpz_out_str ( stdout, 10, fib_z);
+    printf (" (Elapsed %.3fs)\n", ((double) (toc - tic)) / CLOCKS_PER_SEC );
+
+    tic = clock ();
+    fib (fib_z, 1000);
+    toc = clock ();
+    printf ("fib(1000) = ");
+    mpz_out_str ( stdout, 10, fib_z);
+    printf(" (Elapsed %.3fs)\n", ((double) (toc - tic)) / CLOCKS_PER_SEC );
+
     printf ("\n");
 
     printf ("Perfect numbers\n");
