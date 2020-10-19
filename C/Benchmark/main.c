@@ -14,6 +14,9 @@
 int main (int argc, char **argv) {
     clock_t tic, toc;
 
+    int fib_i;
+    mpz_t fib_z;
+
     printf ("Benchmark\n");
     printf ("=========\n");
     printf ("\n");
@@ -21,17 +24,17 @@ int main (int argc, char **argv) {
     printf ("Fibonacci numbers\n");
     printf ("-----------------\n");
     tic = clock ();
-    int res = fib_naive (35);
+    fib_i = fib_naive (35);
     toc = clock ();
-    printf ("fib_naive(35) = %d (Elapsed %.3fs)\n", res, ((double) (toc - tic)) / CLOCKS_PER_SEC );
+    printf ("fib_naive(35) = %d (Elapsed %.3fs)\n", fib_i, ((double) (toc - tic)) / CLOCKS_PER_SEC );
 
     tic = clock ();
-    mpz_t fib_z;
     fib (fib_z, 35);
     toc = clock ();
     printf ("fib(35) = ");
     mpz_out_str ( stdout, 10, fib_z);
     printf (" (Elapsed %.3fs)\n", ((double) (toc - tic)) / CLOCKS_PER_SEC );
+    mpz_clear (fib_z);
 
     tic = clock ();
     fib (fib_z, 1000);
@@ -39,6 +42,7 @@ int main (int argc, char **argv) {
     printf ("fib(1000) = ");
     mpz_out_str ( stdout, 10, fib_z);
     printf(" (Elapsed %.3fs)\n", ((double) (toc - tic)) / CLOCKS_PER_SEC );
+    mpz_clear (fib_z);
 
     printf ("\n");
 
