@@ -10,12 +10,16 @@
 #include <time.h>
 
 #include "fib.h"
+#include "perfect_number.h"
 
 int main (int argc, char **argv) {
     clock_t tic, toc;
 
     int fib_i;
     mpz_t fib_z;
+    PerfectNumbers pn;
+    //da_init (pn);
+    int pn_len;
 
     printf ("Benchmark\n");
     printf ("=========\n");
@@ -48,7 +52,14 @@ int main (int argc, char **argv) {
 
     printf ("Perfect numbers\n");
     printf ("---------------\n");
-    printf ("todo..\n");
+    tic = clock ();
+    pn_len = perfect_numbers (&pn, 10000);
+    toc = clock ();
+    printf ("pn(10000) = ");
+    print_perfect_numbers (&pn);
+    printf (" (len = %d)", pn_len);
+    printf(" (Elapsed %.3fs)\n", ((double) (toc - tic)) / CLOCKS_PER_SEC );
+    da_free (pn);
     printf ("\n");
 
     printf ("Prime numbers\n");
