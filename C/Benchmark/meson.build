@@ -1,8 +1,8 @@
-project('benchmark', 'c')
-
-src = ['main.c', 'fib.c']
+project('benchmark', 'c',
+  version: '0.0.1',
+  license: 'MIT')
 
 gmp_dep = dependency('gmp')
 
-executable('bench', sources: src, dependencies: gmp_dep)
+subdir('src')
 
