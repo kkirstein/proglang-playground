@@ -8,6 +8,8 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <gmp.h>
+#include <omp.h>
 
 #include "fib.h"
 #include "perfect_number.h"
@@ -23,6 +25,8 @@ int main (int argc, char **argv) {
 
     printf ("Benchmark\n");
     printf ("=========\n");
+#pragma omp parallel
+    if (omp_get_thread_num() == 0) printf ("OpenMP: Using %d threads.\n", omp_get_num_threads());
     printf ("\n");
 
     printf ("Fibonacci numbers\n");
