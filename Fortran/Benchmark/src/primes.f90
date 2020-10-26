@@ -14,6 +14,8 @@ contains
         integer, intent( in ) :: n
         integer :: i, limit
 
+        is_prime = .true.
+
         if (n < 2) then
           is_prime = .false.
         else
