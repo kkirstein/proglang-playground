@@ -6,11 +6,10 @@
 #include <stdio.h>
 #include "perfect_number.h"
 
-#define DG_DYNARR_IMPLEMENTATION
 #include "dynarr/DG_dynarr.h"
 
 /** perfect number predicate */
-int is_perfect (int n) {
+bool is_perfect (int n) {
   int sum = 0;
   for (int i = 1; i < n; i++) {
     if (n % i == 0) sum += i;

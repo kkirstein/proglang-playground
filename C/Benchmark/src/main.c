@@ -13,6 +13,7 @@
 
 #include "fib.h"
 #include "perfect_number.h"
+#include "primes.h"
 
 int main (int argc, char **argv) {
     clock_t tic, toc;
@@ -20,8 +21,10 @@ int main (int argc, char **argv) {
     int fib_i;
     mpz_t fib_z;
     PerfectNumbers pn;
+    PrimeNumbers pr;
     //da_init (pn);
     int pn_len;
+    int pr_len;
 
     printf ("Benchmark\n");
     printf ("=========\n");
@@ -68,7 +71,14 @@ int main (int argc, char **argv) {
 
     printf ("Prime numbers\n");
     printf ("-------------\n");
-    printf ("todo..\n");
+    tic = clock ();
+    pr_len = prime_numbers (&pr, 10000);
+    toc = clock ();
+    printf ("pr(10000) = {..}");
+    // print_perfect_numbers (&pr);
+    printf (" (len = %d)", pr_len);
+    printf(" (Elapsed %.3fs)\n", ((double) (toc - tic)) / CLOCKS_PER_SEC );
+    da_free (pr);
     printf ("\n");
 
     printf ("Mandelbrot set\n");

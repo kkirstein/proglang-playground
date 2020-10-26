@@ -6,10 +6,12 @@
 #ifndef PERFECT_NUMBER_H
 #define PERFECT_NUMBER_H
 
+#include <stdbool.h>
+
 #include "dynarr/DG_dynarr.h"
 
 /** perfect number predicate */
-int is_perfect (int n);
+bool is_perfect (int n);
 
 DA_TYPEDEF (int, PerfectNumbers);
 
