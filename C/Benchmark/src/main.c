@@ -11,6 +11,7 @@
 #include <gmp.h>
 #include <omp.h>
 
+#include "benchmark_config.h"
 #include "fib.h"
 #include "perfect_number.h"
 #include "primes.h"
@@ -26,8 +27,8 @@ int main (int argc, char **argv) {
     int pn_len;
     int pr_len;
 
-    printf ("Benchmark\n");
-    printf ("=========\n");
+    printf ("Benchmark (%d.%d)\n", Benchmark_VERSION_MAJOR, Benchmark_VERSION_MINOR);
+    printf ("===============\n");
 #pragma omp parallel
     if (omp_get_thread_num() == 0) printf ("OpenMP: Using %d threads.\n", omp_get_num_threads());
     printf ("\n");
