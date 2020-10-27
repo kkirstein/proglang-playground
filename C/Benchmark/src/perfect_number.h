@@ -1,6 +1,6 @@
 /* vim: set ft=c sw=4 ts=4: */
 
-/* perfect_number.c
+/* perfect_number.h
  * Header file for perfect number calculation in C */
 
 #ifndef PERFECT_NUMBER_H
