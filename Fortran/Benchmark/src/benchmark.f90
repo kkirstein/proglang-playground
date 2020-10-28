@@ -6,6 +6,7 @@
 program benchmark
 
     use iso_fortran_env, only: compiler_version, compiler_options 
+    use omp_lib, only: omp_get_thread_num, omp_get_num_threads
 
     use fibonacci
     use perfect_number
@@ -30,17 +31,26 @@ program benchmark
 
     call system_clock(count_rate = rate)
 
+    write (*, *) "Benchmark"
+    write (*, *) "========="
+
 #ifdef __GFORTRAN__
     write (*, *) "Compiler infos"
-    write (*, *) "=============="
+    write (*, *) "--------------"
 
     write (*, *) 'Compiler version: ', compiler_version()
     write (*, *) 'Compiler options: ', compiler_options()
-    write (*, *)
 #endif
 
+    !$omp parallel
+    !$omp master
+    write (*, '(x, a, i2)') "OpenMP threads: ", omp_get_num_threads()
+    !$omp end master
+    !$omp end parallel
+    write (*, *)
+
     write (*,*) "Fibonacci numbers"
-    write (*,*) "================="
+    write (*,*) "-----------------"
     call system_clock(tic)
     res_int = fib_naive(35)
     call system_clock(toc)
@@ -63,7 +73,7 @@ program benchmark
 
 
     write (*,*) "Perfect numbers"
-    write (*,*) "==============="
+    write (*,*) "---------------"
     call system_clock(tic)
     call perfect_numbers(pn_limit, res_pn)
     call system_clock(toc)
@@ -81,7 +91,7 @@ program benchmark
 
 
     write (*,*) "Mandelbrot set"
-    write (*,*) "=============="
+    write (*,*) "--------------"
     call system_clock(tic)
     res_img = create(width, height, -0.5, 0.0, 4.0/width)
     call system_clock(toc)
