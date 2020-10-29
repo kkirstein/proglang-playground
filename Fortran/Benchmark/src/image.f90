@@ -47,7 +47,7 @@ contains
 
         class(ImageRGB), intent( inout ) :: self
         integer, intent( in ) :: x, y
-        integer, dimension(3), intent(in ) :: pix
+        integer, dimension(3), intent( in ) :: pix
 
         self % data(:, x, y) = pix
 
