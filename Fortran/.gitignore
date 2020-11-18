@@ -2,6 +2,8 @@
 *~
 *.swp
 
+# build folder
+**/*_build
 
 # compiler output
 *.mod
