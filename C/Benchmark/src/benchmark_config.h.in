@@ -1,4 +1,3 @@
 // configured options
-#define Benchmark_VERSION_MAJOR @Benchmark_VERSION_MAJOR@
-#define Benchmark_VERSION_MINOR @Benchmark_VERSION_MINOR@
+#define Benchmark_VERSION "@version@"
 
