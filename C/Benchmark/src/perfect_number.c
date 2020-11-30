@@ -9,9 +9,9 @@
 #include "dynarr/DG_dynarr.h"
 
 /** perfect number predicate */
-bool is_perfect (int n) {
-  int sum = 0;
-  for (int i = 1; i < n; i++) {
+bool is_perfect (unsigned n) {
+  unsigned sum = 0;
+  for (unsigned i = 1; i < n; i++) {
     if (n % i == 0) sum += i;
   }
 
@@ -19,11 +19,11 @@ bool is_perfect (int n) {
 }
 
 /** find perfect number < limit */
-int perfect_numbers (PerfectNumbers *pn, int limit) {
+unsigned perfect_numbers (PerfectNumbers *pn, unsigned limit) {
 
 	da_init (*pn);
 
-	for (int i = 1; i < limit; i++) {
+	for (unsigned i = 1; i < limit; i++) {
 		if (is_perfect (i)) {
 			da_push (*pn, i);
 		}
@@ -35,11 +35,11 @@ int perfect_numbers (PerfectNumbers *pn, int limit) {
 /** pretty-print perfect numbers */
 void print_perfect_numbers (PerfectNumbers const * const pn) {
 
-	int len = da_count (*pn);
+	unsigned len = da_count (*pn);
 
 	printf ("{");
 	if (len > 0) printf (" %d", pn->p[0]);
-	for (int i = 1; i < len; i++) {
+	for (unsigned i = 1; i < len; i++) {
 		printf (", %d", pn->p[i]);
 	}
 	printf (" }");

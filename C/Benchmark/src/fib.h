@@ -12,11 +12,11 @@
 
 #include <gmp.h>
 
-int fib_naive (int n);
+unsigned fib_naive (unsigned n);
 
-void fib (mpz_t res, int n);
+void fib (mpz_t res, unsigned n);
 
-void fib_iter (mpz_t res, int n);
+void fib_iter (mpz_t res, unsigned n);
 
 #endif
 

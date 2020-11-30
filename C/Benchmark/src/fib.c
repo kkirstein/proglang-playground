@@ -9,7 +9,7 @@
 
 #include "fib.h"
 
-int fib_naive (int n) {
+unsigned fib_naive (unsigned n) {
     if (n < 2) {
         return n;
     } else {
@@ -17,7 +17,7 @@ int fib_naive (int n) {
     }
 }
 
-void fib_aux (mpz_t res, const mpz_t a, const mpz_t b, int n) {
+void fib_aux (mpz_t res, const mpz_t a, const mpz_t b, unsigned n) {
 
     mpz_t tmp;
 
@@ -31,7 +31,7 @@ void fib_aux (mpz_t res, const mpz_t a, const mpz_t b, int n) {
     }
 }
 
-void fib (mpz_t res, int n) {
+void fib (mpz_t res, unsigned n) {
     
     mpz_t a, b;
     mpz_init (a);

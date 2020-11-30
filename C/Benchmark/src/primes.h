@@ -11,16 +11,16 @@
 #include "dynarr/DG_dynarr.h"
 
 /** predicate, whether given number is a prime */
-bool is_prime (int n);
+bool is_prime (unsigned n);
 
 /** predicate, whether given number is a prime */
 bool is_prime_mpz (mpz_t n);
 
-DA_TYPEDEF (int, PrimeNumbers);
+DA_TYPEDEF (unsigned, PrimeNumbers);
 
 /** generate a dynamic array of primes < limit
  * return: number of found primes */
-int prime_numbers (PrimeNumbers *pn, int limit);
+unsigned prime_numbers (PrimeNumbers *pn, unsigned limit);
 
 #endif
 
