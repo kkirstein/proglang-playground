@@ -8,13 +8,13 @@
 
 #include <math.h>
 
-bool is_prime (int n) {
+bool is_prime (unsigned n) {
 
 	if (n < 2) return false;
 
-	int limit = (int) sqrtf((float) n);
+	unsigned limit = (unsigned) sqrtf((float) n);
 
-	for (int i = 2; i < limit; i++) {
+	for (unsigned i = 2; i < limit; i++) {
 		if (n % i == 0) return false;
 	}
 
@@ -27,11 +27,11 @@ bool is_prime_mpz (mpz_t n) {
 	return false;
 }
 
-int prime_numbers (PrimeNumbers *pn, int limit) {
+unsigned prime_numbers (PrimeNumbers *pn, unsigned limit) {
 
 	da_init (*pn);
 
-	for (int i = 2; i < limit; i++) {
+	for (unsigned i = 2; i < limit; i++) {
 		if (is_prime (i)) {
 			da_push (*pn, i);
 		}

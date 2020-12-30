@@ -11,12 +11,12 @@
 #include "dynarr/DG_dynarr.h"
 
 /** perfect number predicate */
-bool is_perfect (int n);
+bool is_perfect (unsigned n);
 
-DA_TYPEDEF (int, PerfectNumbers);
+DA_TYPEDEF (unsigned, PerfectNumbers);
 
 /** finds perfect number < limit */
-int perfect_numbers (PerfectNumbers *pn, int limit);
+unsigned perfect_numbers (PerfectNumbers *pn, unsigned limit);
 
 /** pretty-prints an array of perfect numbers */
 void print_perfect_numbers (PerfectNumbers const * const pn);
