@@ -2,17 +2,16 @@
 
 /// A set of (micro-) benchmarks for the zig programming language
 const std = @import("std");
-const format = std.fmt.format;
-const warn = std.debug.warn;
+//const format = std.fmt.format;
+//const warn = std.debug.warn;
 const print = std.debug.print;
+const allocator = std.heap.page_allocator;
 
 const fib = @import("fib.zig");
 const perfect = @import("perfect.zig");
 
 /// main entry point
 pub fn main() !void {
-    //const stdout = &std.io.getStdOut().outStream().stream;
-
     var timer = try std.time.Timer.start();
     const ns_per_ms = std.time.ns_per_s / std.time.ms_per_s;
 
@@ -44,28 +43,28 @@ pub fn main() !void {
     print("===============\n", .{});
 
     timer.reset();
-    const pn_u16 = perfect.perfect_numbers(u16, 10000);
+    const pn_u16 = try perfect.perfect_numbers(u16, allocator, 10000);
+    defer pn_u16.deinit();
     elap = timer.read();
     print("perfect_numbers(u16, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        //perfect.to_str(u16, pn_u16),
         "[]",
         @intToFloat(f32, elap / ns_per_ms),
     });
 
     timer.reset();
-    const pn_u32 = perfect.perfect_numbers(u32, 10000);
+    const pn_u32 = try perfect.perfect_numbers(u32, allocator, 10000);
+    defer pn_u32.deinit();
     elap = timer.read();
     print("perfect_numbers(u32, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        //perfect.to_str(u32, pn_u32),
         "[]",
         @intToFloat(f32, elap / ns_per_ms),
     });
 
     timer.reset();
-    const pn_u64 = perfect.perfect_numbers(u64, 10000);
+    const pn_u64 = try perfect.perfect_numbers(u64, allocator, 10000);
+    defer pn_u64.deinit();
     elap = timer.read();
     print("perfect_numbers(u64, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        //perfect.to_str(u64, pn_u64),
         "[]",
         @intToFloat(f32, elap / ns_per_ms),
     });
