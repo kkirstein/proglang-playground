@@ -46,8 +46,10 @@ pub fn main() !void {
     const pn_u16 = try perfect.perfect_numbers(u16, allocator, 10000);
     defer pn_u16.deinit();
     elap = timer.read();
+    const pn_u16_str = try perfect.to_str(u16, allocator, pn_u16);
+    defer pn_u16_str.deinit();
     print("perfect_numbers(u16, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        perfect.to_str(u16, allocator, pn_u16),
+        pn_u16_str.items,
         @intToFloat(f32, elap / ns_per_ms),
     });
 
@@ -55,8 +57,10 @@ pub fn main() !void {
     const pn_u32 = try perfect.perfect_numbers(u32, allocator, 10000);
     defer pn_u32.deinit();
     elap = timer.read();
+    const pn_u32_str = try perfect.to_str(u32, allocator, pn_u32);
+    defer pn_u32_str.deinit();
     print("perfect_numbers(u32, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        perfect.to_str(u32, allocator, pn_u32),
+        pn_u32_str.items,
         @intToFloat(f32, elap / ns_per_ms),
     });
 
@@ -64,8 +68,10 @@ pub fn main() !void {
     const pn_u64 = try perfect.perfect_numbers(u64, allocator, 10000);
     defer pn_u64.deinit();
     elap = timer.read();
+    const pn_u64_str = try perfect.to_str(u64, allocator, pn_u64);
+    defer pn_u64_str.deinit();
     print("perfect_numbers(u64, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        perfect.to_str(u64, allocator, pn_u64),
+        pn_u64_str.items,
         @intToFloat(f32, elap / ns_per_ms),
     });
 }

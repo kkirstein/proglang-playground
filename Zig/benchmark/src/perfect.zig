@@ -32,10 +32,9 @@ pub fn perfect_numbers(comptime T: type, allocator: *std.mem.Allocator, limit: T
 }
 
 /// String representation of perfect numbers array list
-pub fn to_str(comptime T: type, allocator: *std.mem.Allocator, ary: std.ArrayList(T)) ![]u8 {
+pub fn to_str(comptime T: type, allocator: *std.mem.Allocator, ary: std.ArrayList(T)) !std.ArrayList(u8) {
     var buf = std.ArrayList(u8).init(allocator);
     const w = buf.writer();
-    // FIXME: memory leak, when returning buf.items
     const slice = ary.items;
 
     _ = try w.write("[");
@@ -47,7 +46,7 @@ pub fn to_str(comptime T: type, allocator: *std.mem.Allocator, ary: std.ArrayLis
         //try w.print("length: {}", .{slice.len});
     }
     _ = try w.write("]");
-    return buf.items;
+    return buf;
 }
 
 fn print_list_head(comptime T: type, list: std.SinglyLinkedList(T)) void {
