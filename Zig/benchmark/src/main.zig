@@ -47,7 +47,7 @@ pub fn main() !void {
     defer pn_u16.deinit();
     elap = timer.read();
     print("perfect_numbers(u16, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        "[]",
+        perfect.to_str(u16, allocator, pn_u16),
         @intToFloat(f32, elap / ns_per_ms),
     });
 
@@ -56,7 +56,7 @@ pub fn main() !void {
     defer pn_u32.deinit();
     elap = timer.read();
     print("perfect_numbers(u32, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        "[]",
+        perfect.to_str(u32, allocator, pn_u32),
         @intToFloat(f32, elap / ns_per_ms),
     });
 
@@ -65,7 +65,7 @@ pub fn main() !void {
     defer pn_u64.deinit();
     elap = timer.read();
     print("perfect_numbers(u64, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
-        "[]",
+        perfect.to_str(u64, allocator, pn_u64),
         @intToFloat(f32, elap / ns_per_ms),
     });
 }
