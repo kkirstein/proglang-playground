@@ -9,6 +9,7 @@ const allocator = std.heap.page_allocator;
 
 const fib = @import("fib.zig");
 const perfect = @import("perfect.zig");
+const mandel = @import("mandelbrot.zig");
 
 /// main entry point
 pub fn main() !void {
@@ -72,6 +73,22 @@ pub fn main() !void {
     defer pn_u64_str.deinit();
     print("perfect_numbers(u64, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
         pn_u64_str.items,
+        @intToFloat(f32, elap / ns_per_ms),
+    });
+
+    print("\n", .{});
+    print("Mandelbrot set\n", .{});
+    print("==============\n", .{});
+
+    timer.reset();
+    const width = 1920;
+    const height = 1600;
+    const img = try mandel.create(allocator, width, height, -0.5, 0.0, 4.0 / @intToFloat(f32, width));
+    defer allocator.free(img);
+    elap = timer.read();
+    print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
+        width,
+        height,
         @intToFloat(f32, elap / ns_per_ms),
     });
 }
