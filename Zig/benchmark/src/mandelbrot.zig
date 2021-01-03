@@ -18,7 +18,7 @@ const RGB = struct {
 fn pixel_value(z: C32, r_max: f32) u8 {
     var n: u8 = n_max;
     var z1 = C32{ .re = 0, .im = 0 };
-    while (n >= 0) : (n -= 1) {
+    while (n > 0) : (n -= 1) {
         if (std.math.complex.abs(z1) > r_max) return n;
         z1 = C32.add(C32.mul(z1, z1), z);
     }
@@ -44,9 +44,9 @@ pub fn create(allocator: *std.mem.Allocator, width: usize, height: usize, x_cent
         .im = y_center + 0.5 * pixel_size * @intToFloat(f32, height),
     };
 
-    var x: usize = 0;
     var y: usize = 0;
     while (y < height) : (y += 1) {
+        var x: usize = 0;
         while (x < width) : (x += 1) {
             const coord = C32.add(offset, C32{
                 .re = @intToFloat(f32, x) * pixel_size,
@@ -59,4 +59,15 @@ pub fn create(allocator: *std.mem.Allocator, width: usize, height: usize, x_cent
 }
 
 /// writes image as PNM file
-pub fn writePPM(img: std.ArrayList(RGB), file_path: []u8) !void {}
+pub fn writePPM(img: *const []RGB, width: usize, height: usize, file_path: []const u8) !void {
+    const file = try std.fs.cwd().createFile(file_path, .{ .truncate = true });
+    defer file.close();
+    const w = file.writer();
+
+    try w.print("P3\n", .{});
+    try w.print("{} {} {}\n", .{ width, height, 255 });
+    for (img.*) |pix, i| {
+        try w.print("{} {} {} ", .{ pix.r, pix.g, pix.b });
+        if (i % 8 == 7) try w.print("\n", .{});
+    }
+}

@@ -91,6 +91,15 @@ pub fn main() !void {
         height,
         @intToFloat(f32, elap / ns_per_ms),
     });
+
+    timer.reset();
+    try mandel.writePPM(&img, width, height, "mandelbrot.ppm");
+    elap = timer.read();
+    print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
+        width,
+        height,
+        @intToFloat(f32, elap / ns_per_ms),
+    });
 }
 
 test "benchmark" {
