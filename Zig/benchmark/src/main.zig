@@ -93,7 +93,7 @@ pub fn main() !void {
     });
 
     timer.reset();
-    try mandel.writePPM(&img, width, height, "mandelbrot.ppm");
+    try mandel.writePPM(allocator, &img, width, height, "mandelbrot.ppm");
     elap = timer.read();
     print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
         width,

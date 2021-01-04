@@ -59,15 +59,28 @@ pub fn create(allocator: *std.mem.Allocator, width: usize, height: usize, x_cent
 }
 
 /// writes image as PNM file
-pub fn writePPM(img: *const []RGB, width: usize, height: usize, file_path: []const u8) !void {
+pub fn writePPM(allocator: *std.mem.Allocator, img: *const []RGB, width: usize, height: usize, file_path: []const u8) !void {
     const file = try std.fs.cwd().createFile(file_path, .{ .truncate = true });
     defer file.close();
     const w = file.writer();
 
+    var line_buf = std.ArrayList(u8).init(allocator);
+    defer line_buf.deinit();
+    var buf_writer = line_buf.writer();
+
     try w.print("P3\n", .{});
     try w.print("{} {} {}\n", .{ width, height, 255 });
     for (img.*) |pix, i| {
-        try w.print("{} {} {} ", .{ pix.r, pix.g, pix.b });
-        if (i % 8 == 7) try w.print("\n", .{});
+        try buf_writer.print("{} {} {} ", .{ pix.r, pix.g, pix.b });
+        if (i % 8 == 13) {
+            _ = try buf_writer.write("\n");
+            _ = try w.write(line_buf.items);
+            line_buf.shrinkRetainingCapacity(0);
+        }
+    }
+    // make sure remaining pixels are written to file
+    if (line_buf.items.len > 0) {
+            _ = try buf_writer.write("\n");
+            _ = try w.write(line_buf.items);
     }
 }
