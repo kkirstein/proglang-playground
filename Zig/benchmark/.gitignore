@@ -5,4 +5,5 @@ kernel32.*
 NtDll.*
 main.*
 
-
+# vscode settings
+.vscode/*
