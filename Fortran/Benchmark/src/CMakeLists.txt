@@ -6,7 +6,7 @@ set(sources "benchmark.f90" "fibonacci.f90" "perfect_number.f90" "image.f90" "ma
 add_executable(Benchmark "${sources}")
 
 #target_include_directories(Benchmark PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
-target_compile_options(Benchmark PRIVATE -fopenmp -cpp)
+target_compile_options(Benchmark PRIVATE -O3 -fopenmp -cpp)
 #target_link_libraries(Benchmark gmp m)
 target_link_options(Benchmark PRIVATE -fopenmp)
 
