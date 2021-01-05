@@ -59,7 +59,7 @@ pub fn create(allocator: *std.mem.Allocator, width: usize, height: usize, x_cent
 }
 
 /// writes image as PNM file
-pub fn writePPM(allocator: *std.mem.Allocator, img: *const []RGB, width: usize, height: usize, file_path: []const u8) !void {
+pub fn writePPM(allocator: *std.mem.Allocator, img: []RGB, width: usize, height: usize, file_path: []const u8) !void {
     const file = try std.fs.cwd().createFile(file_path, .{ .truncate = true });
     defer file.close();
     const w = file.writer();
@@ -70,7 +70,7 @@ pub fn writePPM(allocator: *std.mem.Allocator, img: *const []RGB, width: usize, 
 
     try w.print("P3\n", .{});
     try w.print("{} {} {}\n", .{ width, height, 255 });
-    for (img.*) |pix, i| {
+    for (img) |pix, i| {
         try buf_writer.print("{} {} {} ", .{ pix.r, pix.g, pix.b });
         if (i % 8 == 13) {
             _ = try buf_writer.write("\n");
@@ -80,7 +80,40 @@ pub fn writePPM(allocator: *std.mem.Allocator, img: *const []RGB, width: usize, 
     }
     // make sure remaining pixels are written to file
     if (line_buf.items.len > 0) {
-            _ = try buf_writer.write("\n");
-            _ = try w.write(line_buf.items);
+        _ = try buf_writer.write("\n");
+        _ = try w.write(line_buf.items);
     }
+}
+
+const testing = std.testing;
+
+test "write image as PPM" {
+    const test_allocator = std.testing.allocator;
+
+    var img = [_]RGB{
+        RGB{ .r = 0, .g = 0, .b = 0 },
+        RGB{ .r = 128, .g = 0, .b = 0 },
+        RGB{ .r = 255, .g = 0, .b = 0 },
+        RGB{ .r = 0, .g = 0, .b = 0 },
+        RGB{ .r = 0, .g = 128, .b = 0 },
+        RGB{ .r = 0, .g = 255, .b = 0 },
+        RGB{ .r = 0, .g = 0, .b = 0 },
+        RGB{ .r = 0, .g = 0, .b = 128 },
+        RGB{ .r = 0, .g = 0, .b = 255 },
+    };
+    const img_slice: []RGB = img[0..];
+
+    try writePPM(test_allocator, img_slice, 3, 3, "test_image.ppm");
+    //defer try std.fs.cwd().deleteFile("test_image.ppm");
+
+    //const file = std.fs.cwd().openFile("test_image.ppm");
+    //defer file.close();
+
+    //const contents = try file.reader().readAllAlloc(
+        //test_allocator,
+        //120,
+    //);
+    //defer test_allocator.free(contents);
+
+    //testing.expect(std.mem.eql(u8, contents, ""));
 }
