@@ -104,16 +104,16 @@ test "write image as PPM" {
     const img_slice: []RGB = img[0..];
 
     try writePPM(test_allocator, img_slice, 3, 3, "test_image.ppm");
-    //defer try std.fs.cwd().deleteFile("test_image.ppm");
+    defer std.fs.cwd().deleteFile("test_image.ppm") catch unreachable;
 
-    //const file = std.fs.cwd().openFile("test_image.ppm");
-    //defer file.close();
+    const file = try std.fs.cwd().openFile("test_image.ppm", .{ .read = true });
+    defer file.close();
 
-    //const contents = try file.reader().readAllAlloc(
-        //test_allocator,
-        //120,
-    //);
-    //defer test_allocator.free(contents);
+    const contents = try file.reader().readAllAlloc(
+        test_allocator,
+        120,
+    );
+    defer test_allocator.free(contents);
 
-    //testing.expect(std.mem.eql(u8, contents, ""));
+    testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
 }
