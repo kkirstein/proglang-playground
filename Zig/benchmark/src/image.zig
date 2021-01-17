@@ -10,7 +10,7 @@ const testing = std.testing;
 
 /// RGB values for a single pixel
 pub fn RGB(comptime T: type) type {
-    if (@TypeOf(T) == u8 or @TypeOf(T) == f32) {
+    if (T == u8 or T == f32) {
         return struct {
             r: T,
             g: T,
@@ -22,17 +22,18 @@ pub fn RGB(comptime T: type) type {
 }
 
 /// Image struct, paramterized with pixel and storage types
-pub fn Image(comptime TArray: type, comptime TPixel: type) type {
+pub fn Image(comptime TPixel: type, comptime TData: type) type {
     // TODO: assert valid types
     return struct {
         const Self = @This();
 
         /// Pixel type
         const TPixel = TPixel;
-        const num_channel = TPixel.num_channel;
+        //const num_channel = num_channel;
+        const num_channel = 3;
 
         /// array of pixel values
-        data: []TPixel,
+        data: []TData,
 
         /// image width & height
         width: usize,
@@ -52,7 +53,7 @@ pub fn Image(comptime TArray: type, comptime TPixel: type) type {
                 .width = width,
                 .height = height,
                 .channels = num_channel,
-                .data = try allocator.alloc(TArray, width * height * num_channel),
+                .data = try allocator.alloc(TData, width * height * num_channel),
             };
         }
 
@@ -64,8 +65,8 @@ pub fn Image(comptime TArray: type, comptime TPixel: type) type {
 }
 
 test "Image(RGB).init()" {
-    var img = try Image(RGB(u8), u8).init(testing.allocator);
+    var img = try Image(RGB(u8), u8).init(testing.allocator, 640, 480);
     defer img.deinit();
 
-    testing.expect(img.data.len == 640*480*3);
+    testing.expect(img.data.len == 640 * 480 * 3);
 }
