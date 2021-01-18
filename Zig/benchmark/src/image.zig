@@ -15,22 +15,27 @@ pub fn RGB(comptime T: type) type {
             r: T,
             g: T,
             b: T,
-
-            pub const num_channel = 3;
         };
     } else unreachable;
 }
 
+/// Determines the number of channels for each pixel data type
+fn num_channel(comptime T: fn (type) type) usize {
+    return if (T == RGB) 3 else unreachable;
+}
+
 /// Image struct, paramterized with pixel and storage types
-pub fn Image(comptime TPixel: type, comptime TData: type) type {
+pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
     // TODO: assert valid types
     return struct {
         const Self = @This();
 
         /// Pixel type
-        const TPixel = TPixel;
-        //const num_channel = num_channel;
-        const num_channel = 3;
+        const TPixel = TPixel(TData);
+        const TData = TData;
+
+        const chans = num_channel(TPixel);
+        //const chans = 3;
 
         /// array of pixel values
         data: []TData,
@@ -52,8 +57,8 @@ pub fn Image(comptime TPixel: type, comptime TData: type) type {
                 .allocator = allocator,
                 .width = width,
                 .height = height,
-                .channels = num_channel,
-                .data = try allocator.alloc(TData, width * height * num_channel),
+                .channels = chans,
+                .data = try allocator.alloc(TData, width * height * chans),
             };
         }
 
@@ -65,7 +70,7 @@ pub fn Image(comptime TPixel: type, comptime TData: type) type {
 }
 
 test "Image(RGB).init()" {
-    var img = try Image(RGB(u8), u8).init(testing.allocator, 640, 480);
+    var img = try Image(RGB, u8).init(testing.allocator, 640, 480);
     defer img.deinit();
 
     testing.expect(img.data.len == 640 * 480 * 3);
