@@ -15,13 +15,38 @@ pub fn RGB(comptime T: type) type {
             r: T,
             g: T,
             b: T,
+
+            /// generate a slice of pixel values
+            pub fn to_slice(self: Self) []T {
+                const s = []T{ r, g, b };
+                return s[0..];
+            }
+
+            pub fn from_slice(s: []T) Self {
+                if (s.len != 3) return error.InvalidLength else return Self{ .r = s[0], .g = s[1], .b = s[2] };
+            }
+        };
+    } else unreachable;
+}
+
+/// Mono value for a single pixel
+pub fn Mono(comptime T: type) type {
+    if (T == u8 or T == f32) {
+        return struct {
+            i: T,
+
+            /// generate a slice of pixel values
+            pub fn to_slice(self: Self) []T {
+                const s = []T{i};
+                return s[0..];
+            }
         };
     } else unreachable;
 }
 
 /// Determines the number of channels for each pixel data type
 fn num_channel(comptime T: fn (type) type) usize {
-    return if (T == RGB) 3 else unreachable;
+    return if (T == RGB) 3 else if (T == Mono) 1 else unreachable;
 }
 
 /// Image struct, paramterized with pixel and storage types
@@ -66,6 +91,12 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
         pub fn deinit(self: Self) void {
             self.allocator.free(self.data);
         }
+
+        /// set pixel value
+        pub fn set_pixel(self.Self, w: usize, h: usize, value: TPixel) !void {
+            // TODO: check coordinates
+            if (w > self.width or h > self.height) return error.OutOfBound;
+        }
     };
 }
 
@@ -74,4 +105,11 @@ test "Image(RGB).init()" {
     defer img.deinit();
 
     testing.expect(img.data.len == 640 * 480 * 3);
+}
+
+test "Image(Mono).init()" {
+    var img = try Image(Mono, u8).init(testing.allocator, 640, 480);
+    defer img.deinit();
+
+    testing.expect(img.data.len == 640 * 480);
 }
