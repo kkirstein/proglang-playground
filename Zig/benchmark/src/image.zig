@@ -124,6 +124,40 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             const s = self.data[stride .. stride + self.channels];
             return TPixel(TData).from_slice(s);
         }
+
+        /// write image data as PNM file
+        pub fn writePPM(self: Self, allocator: *std.mem.Allocator, file_path: []const u8) !void {
+            if (TData != u8) return error.UnsupportedDataType;
+
+            const file = try std.fs.cwd().createFile(file_path, .{ .truncate = true });
+            defer file.close();
+            const w = file.writer();
+
+            var line_buf = std.ArrayList(u8).init(allocator);
+            defer line_buf.deinit();
+            var buf_writer = line_buf.writer();
+
+            try w.print("P3\n", .{});
+            try w.print("{} {} {}\n", .{ self.width, self.height, 255 });
+
+            var idx: usize = 0;
+            while (idx < self.width * self.height * self.channels) : (idx += self.channels) {
+                var ichan: usize = 0;
+                while (ichan < self.channels) : (ichan += 1) {
+                    try buf_writer.print("{} ", .{ self.data[idx+ichan] });
+                }
+                if (idx % 8 == 13) {
+                    _ = try buf_writer.write("\n");
+                    _ = try w.write(line_buf.items);
+                    line_buf.shrinkRetainingCapacity(0);
+                }
+            }
+            // make sure remaining pixels are written to file
+            if (line_buf.items.len > 0) {
+                _ = try buf_writer.write("\n");
+                _ = try w.write(line_buf.items);
+            }
+        }
     };
 }
 
@@ -170,4 +204,42 @@ test "Image(RGB).set_pixel()" {
         const act = try img.get_pixel(x, y);
         testing.expect(act.eql(p));
     }
+}
+
+test "Image(RGB).writePPM" {
+    const test_allocator = std.testing.allocator;
+
+    var img = try Image(RGB, u8).init(testing.allocator, 3, 3);
+    defer img.deinit();
+    const RGB24 = RGB(u8);
+    var pixel = [_]RGB24{
+        RGB24{ .r = 0, .g = 0, .b = 0 },
+        RGB24{ .r = 128, .g = 0, .b = 0 },
+        RGB24{ .r = 255, .g = 0, .b = 0 },
+        RGB24{ .r = 0, .g = 0, .b = 0 },
+        RGB24{ .r = 0, .g = 128, .b = 0 },
+        RGB24{ .r = 0, .g = 255, .b = 0 },
+        RGB24{ .r = 0, .g = 0, .b = 0 },
+        RGB24{ .r = 0, .g = 0, .b = 128 },
+        RGB24{ .r = 0, .g = 0, .b = 255 },
+    };
+    for (pixel) |p, i| {
+        const x = i % 3;
+        const y = i / 3;
+        try img.set_pixel(x, y, p);
+    }
+
+    try img.writePPM(test_allocator, "test_image.ppm");
+    defer std.fs.cwd().deleteFile("test_image.ppm") catch unreachable;
+
+    const file = try std.fs.cwd().openFile("test_image.ppm", .{ .read = true });
+    defer file.close();
+
+    const contents = try file.reader().readAllAlloc(
+        test_allocator,
+        120,
+    );
+    defer test_allocator.free(contents);
+
+    testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
 }
