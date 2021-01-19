@@ -81,10 +81,10 @@ pub fn main() !void {
     print("==============\n", .{});
 
     timer.reset();
-    const width = 1920;
-    const height = 1600;
+    const width = 160;
+    const height = 120;
     const img = try mandel.create(allocator, width, height, -0.5, 0.0, 4.0 / @intToFloat(f32, width));
-    defer allocator.free(img);
+    defer img.deinit();
     elap = timer.read();
     print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
         width,
@@ -92,8 +92,10 @@ pub fn main() !void {
         @intToFloat(f32, elap / ns_per_ms),
     });
 
+    print("x: {}, y: {}, RGB: {}\n", .{width-1, height-1, img.get_pixel(width-1, height-1)});
+
     timer.reset();
-    try mandel.writePPM(allocator, img, width, height, "mandelbrot.ppm");
+    try img.writePPM(allocator, "mandelbrot.ppm");
     elap = timer.read();
     print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
         width,

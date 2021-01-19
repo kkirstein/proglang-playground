@@ -66,7 +66,6 @@ fn num_channel(comptime T: fn (type) type) usize {
 
 /// Image struct, paramterized with pixel and storage types
 pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
-    // TODO: assert valid types
     return struct {
         const Self = @This();
         /// Pixel type
@@ -146,7 +145,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
                 while (ichan < self.channels) : (ichan += 1) {
                     try buf_writer.print("{} ", .{ self.data[idx+ichan] });
                 }
-                if (idx % 8 == 13) {
+                if (idx % 8 == 0) {
                     _ = try buf_writer.write("\n");
                     _ = try w.write(line_buf.items);
                     line_buf.shrinkRetainingCapacity(0);
@@ -241,5 +240,5 @@ test "Image(RGB).writePPM" {
     );
     defer test_allocator.free(contents);
 
-    testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
+    testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 \n128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
 }
