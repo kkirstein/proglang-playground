@@ -91,12 +91,13 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
 
         /// initialize memory for image data
         pub fn init(allocator: *Allocator, width: usize, height: usize) !Self {
+            const data_mem = try allocator.alloc(TData, width * height * chans);
             return Self{
                 .allocator = allocator,
                 .width = width,
                 .height = height,
                 .channels = chans,
-                .data = try allocator.alloc(TData, width * height * chans),
+                .data = data_mem,
             };
         }
 
@@ -106,7 +107,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
         }
 
         /// set pixel value
-        pub fn set_pixel(self: Self, x: usize, y: usize, value: TPixel(TData)) !void {
+        pub fn set_pixel(self: *Self, x: usize, y: usize, value: TPixel(TData)) !*Self {
             if (x > self.width or y > self.height) return error.OutOfBound;
             const stride = (x + self.width * y) * self.channels;
             const values = value.to_slice();
@@ -114,10 +115,11 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             while (i < self.channels) : (i += 1) {
                 self.data[stride + i] = values[i];
             }
+            return self;
         }
 
         /// get pixel data
-        pub fn get_pixel(self: Self, x: usize, y: usize) !TPixel(TData) {
+        pub fn get_pixel(self: *Self, x: usize, y: usize) !TPixel(TData) {
             if (x > self.width or y > self.height) return error.OutOfBound;
             const stride = (x + self.width * y) * self.channels;
             const s = self.data[stride .. stride + self.channels];
@@ -143,7 +145,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             while (idx < self.width * self.height * self.channels) : (idx += self.channels) {
                 var ichan: usize = 0;
                 while (ichan < self.channels) : (ichan += 1) {
-                    try buf_writer.print("{} ", .{ self.data[idx+ichan] });
+                    try buf_writer.print("{} ", .{self.data[idx + ichan]});
                 }
                 if (idx % 8 == 0) {
                     _ = try buf_writer.write("\n");
@@ -191,18 +193,27 @@ test "Image(RGB).set_pixel()" {
         RGB24{ .r = 0, .g = 0, .b = 255 },
     };
 
+    var img2: *Image(RGB, u8) = undefined;
+    std.debug.print("Setting pixel values ..", .{});
     for (pixel) |p, i| {
         const x = i % 3;
         const y = i / 3;
-        try img.set_pixel(x, y, p);
+        img2 = try img.set_pixel(x, y, p);
     }
+
+    std.debug.print("image: {}\n", .{img2.*});
+
+    std.debug.print(" done.\n Testing pixel values ..", .{});
 
     for (pixel) |p, i| {
         const x = i % 3;
         const y = i / 3;
         const act = try img.get_pixel(x, y);
+        std.debug.print("x: {}, y: {}, val: {}\n", .{ x, y, act });
         testing.expect(act.eql(p));
     }
+
+    std.debug.print(" done.\n", .{});
 }
 
 test "Image(RGB).writePPM" {
@@ -225,7 +236,7 @@ test "Image(RGB).writePPM" {
     for (pixel) |p, i| {
         const x = i % 3;
         const y = i / 3;
-        try img.set_pixel(x, y, p);
+        _ = try img.set_pixel(x, y, p);
     }
 
     try img.writePPM(test_allocator, "test_image.ppm");
