@@ -86,7 +86,7 @@ int img_writePPM(struct image const *const img, char const file_name[1]) {
 
     // write pixel values
     for (size_t i = 0; i < img->width * img->height * img->channels; ++i) {
-        ret = fprintf(fp, "%4u", img->data[i]);
+        ret = fprintf(fp, "%4hhu", img->data[i]);
         if (ret < 0) {
             perror("fprintf() error");
             fclose(fp);
