@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
     printf("Mandelbrot set\n");
     printf("--------------\n");
     tic = clock();
-    img = create(IMG_WIDTH, IMG_HEIGHT, 0.5, 0.0, 4.0 / IMG_WIDTH);
+    img = create(IMG_WIDTH, IMG_HEIGHT, -0.5, 0.0, 4.0 / IMG_WIDTH);
     toc = clock();
     printf("mandelbrot(%d, %d) (Elapsed %.3fs)\n", IMG_WIDTH, IMG_HEIGHT,
            ((double)(toc - tic)) / CLOCKS_PER_SEC);

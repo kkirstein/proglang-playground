@@ -9,7 +9,7 @@
 #define R_MAX 2.0
 #define N_MAX 255
 
-unsigned char calc_value(double complex const z0) {
+unsigned calc_value(double complex const z0) {
 
     double complex z = 0 + 0 * I;
 
@@ -22,7 +22,7 @@ unsigned char calc_value(double complex const z0) {
     return 0;
 }
 
-void to_rgb(unsigned char const val, char rgb[3]) {
+void to_rgb(unsigned const val, char rgb[3]) {
 
     rgb[0] = 5 * (val % 15);
     rgb[1] = 32 * (val % 7);
@@ -34,6 +34,7 @@ struct image *create(size_t const width, size_t const height,
                      double const pixel_size) {
 
     struct image *img = 0;
+    unsigned val;
     char rgb[3];
 
     img = img_create(width, height, 3);
@@ -46,8 +47,9 @@ struct image *create(size_t const width, size_t const height,
 
     for (size_t y = 0; y < height; ++y) {
         for (size_t x = 0; x < width; ++x) {
-            double complex z = x + y * I + offset;
-            to_rgb(calc_value(z), rgb);
+            double complex z = x * pixel_size - y * pixel_size * I + offset;
+            val = calc_value(z);
+            to_rgb(val, rgb);
             img_set_pixel(img, x, y, rgb);
         }
     }
