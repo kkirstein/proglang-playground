@@ -9,8 +9,7 @@
 #include "image.h"
 
 /** generate mandelbrot set for given coordinates */
-void create (struct image *img, const int width, const int height,
-		const double x_center, const double y_center, const double pixel_size);
+struct image *create(size_t const width, size_t const height, double const x_center,
+                     double const y_center, double const pixel_size);
 
 #endif
-

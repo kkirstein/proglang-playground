@@ -1,5 +1,6 @@
 # build benchmark executable
-set(sources "main.c" "fib.c" "perfect_number.c" "primes.c" "dynarr.c")
+set(sources "main.c" "fib.c" "perfect_number.c" "primes.c"
+    "dynarr.c" "image.c" "mandelbrot.c")
 
 configure_file(benchmark_config.h.in benchmark_config.h)
 
