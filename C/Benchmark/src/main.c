@@ -18,8 +18,8 @@
 #include "perfect_number.h"
 #include "primes.h"
 
-#define IMG_WIDTH 640
-#define IMG_HEIGHT 480
+#define IMG_WIDTH 1920
+#define IMG_HEIGHT 1600
 
 int main(int argc, char **argv) {
     clock_t tic, toc;

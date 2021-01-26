@@ -34,7 +34,6 @@ struct image *create(size_t const width, size_t const height,
                      double const pixel_size) {
 
     struct image *img = 0;
-    unsigned val;
     char rgb[3];
 
     img = img_create(width, height, 3);
@@ -48,8 +47,7 @@ struct image *create(size_t const width, size_t const height,
     for (size_t y = 0; y < height; ++y) {
         for (size_t x = 0; x < width; ++x) {
             double complex z = x * pixel_size - y * pixel_size * I + offset;
-            val = calc_value(z);
-            to_rgb(val, rgb);
+            to_rgb(calc_value(z), rgb);
             img_set_pixel(img, x, y, rgb);
         }
     }
