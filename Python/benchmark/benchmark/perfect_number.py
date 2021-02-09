@@ -3,8 +3,10 @@
 # perfect_number.py
 # Calculate perfect numbers in Python (V3)
 
+from typing import List
+
 # predicate to check for perfect numbers
-def is_perfect(n):
+def is_perfect(n: int) -> bool:
     sum = 0
     for i in range(1, n):
         if (n % i) == 0:
@@ -15,7 +17,7 @@ def is_perfect(n):
 
 # generates a list of perfect numbers for given
 # upper bound
-def perfect_numbers(limit):
+def perfect_numbers(limit: int) -> List[int]:
     pn = []
     for i in range(1, limit):
         if is_perfect(i):
@@ -32,7 +34,7 @@ def perfect_numbers_coroutine():
         counter += 1
 
 
-def perfect_numbers_async(count):
+def perfect_numbers_async(count: int) -> List[int]:
     pn = []
     gen = perfect_numbers_coroutine()
     # pn.append(next(gen))
