@@ -19,8 +19,9 @@ pub fn RGB(comptime T: type) type {
             b: T,
 
             /// generate a slice of pixel values
-            pub fn to_slice(self: Self) []T {
-                const s = &[_]T{ self.r, self.g, self.b };
+            pub fn to_slice(self: Self) []const T {
+                const s = [_]T{ self.r, self.g, self.b };
+                std.debug.print("array: {any}\n", .{s});
                 return s[0..];
             }
 
@@ -91,7 +92,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
 
         /// initialize memory for image data
         pub fn init(allocator: *Allocator, width: usize, height: usize) !Self {
-            const data_mem = try allocator.alloc(TData, width * height * chans);
+            var data_mem = try allocator.alloc(TData, width * height * chans);
             return Self{
                 .allocator = allocator,
                 .width = width,
@@ -107,15 +108,17 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
         }
 
         /// set pixel value
-        pub fn set_pixel(self: *Self, x: usize, y: usize, value: TPixel(TData)) !*Self {
+        pub fn set_pixel(self: *Self, x: usize, y: usize, value: TPixel(TData)) !void {
             if (x > self.width or y > self.height) return error.OutOfBound;
             const stride = (x + self.width * y) * self.channels;
             const values = value.to_slice();
             var i: usize = 0;
+            // TODO: use mem.copy() instead of while loop
             while (i < self.channels) : (i += 1) {
                 self.data[stride + i] = values[i];
             }
-            return self;
+            //std.mem.copy(TData, self.data[stride .. stride + self.channels], values);
+            //std.debug.print("Setting pixel {}:{} ({any})\n", .{ x, y, self.data[stride .. stride + self.channels] });
         }
 
         /// get pixel data
@@ -162,6 +165,16 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
     };
 }
 
+test "RGB(u8)" {
+    var pix = RGB(u8){ .r = 128, .g = 255, .b = 12 };
+    const pix_slice = pix.to_slice();
+
+    testing.expect(pix.eql(RGB(u8){ .r = 128, .g = 255, .b = 12 }));
+    testing.expect(pix_slice.len == 3);
+    std.debug.print("pix_slice: {any}\n", .{pix_slice});
+    testing.expect(std.mem.eql(u8, pix_slice, &[_]u8{ 128, 255, 12 }));
+}
+
 test "Image(RGB).init()" {
     var img = try Image(RGB, u8).init(testing.allocator, 640, 480);
     defer img.deinit();
@@ -193,17 +206,15 @@ test "Image(RGB).set_pixel()" {
         RGB24{ .r = 0, .g = 0, .b = 255 },
     };
 
-    var img2: *Image(RGB, u8) = undefined;
-    std.debug.print("Setting pixel values ..", .{});
+    std.debug.print("Setting pixel values:\n", .{});
     for (pixel) |p, i| {
         const x = i % 3;
         const y = i / 3;
-        img2 = try img.set_pixel(x, y, p);
+        try img.set_pixel(x, y, p);
     }
 
-    std.debug.print("image: {}\n", .{img2.*});
-
-    std.debug.print(" done.\n Testing pixel values ..", .{});
+    std.debug.print("Pixel values: {any}\n", .{img.data});
+    std.debug.print(" done.\nTesting pixel values:\n", .{});
 
     for (pixel) |p, i| {
         const x = i % 3;
@@ -236,7 +247,7 @@ test "Image(RGB).writePPM" {
     for (pixel) |p, i| {
         const x = i % 3;
         const y = i / 3;
-        _ = try img.set_pixel(x, y, p);
+        try img.set_pixel(x, y, p);
     }
 
     try img.writePPM(test_allocator, "test_image.ppm");
