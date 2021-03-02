@@ -20,9 +20,10 @@ pub fn RGB(comptime T: type) type {
 
             /// generate a slice of pixel values
             pub fn to_slice(self: Self) []const T {
-                const s = [_]T{ self.r, self.g, self.b };
+                const ary = [_]T{ self.r, self.g, self.b };
                 //std.debug.print("array: {any}\n", .{s});
-                return s[0..3];
+                const slice = ary[0..];
+                return slice;
             }
 
             /// generate pixel struct from slice of values
@@ -48,8 +49,9 @@ pub fn Mono(comptime T: type) type {
 
             /// generate a slice of pixel values
             pub fn to_slice(self: Self) []const T {
-                const s = [_]T{self.i};
-                return s[0..];
+                const ary = [_]T{self.i};
+                const slice = ary[0..];
+                return slice;
             }
 
             /// equality predicate
