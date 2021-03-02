@@ -21,8 +21,8 @@ pub fn RGB(comptime T: type) type {
             /// generate a slice of pixel values
             pub fn to_slice(self: Self) []const T {
                 const s = [_]T{ self.r, self.g, self.b };
-                std.debug.print("array: {any}\n", .{s});
-                return s[0..];
+                //std.debug.print("array: {any}\n", .{s});
+                return s[0..3];
             }
 
             /// generate pixel struct from slice of values
@@ -47,8 +47,8 @@ pub fn Mono(comptime T: type) type {
             i: T,
 
             /// generate a slice of pixel values
-            pub fn to_slice(self: Self) []T {
-                const s = []T{i};
+            pub fn to_slice(self: Self) []const T {
+                const s = [_]T{self.i};
                 return s[0..];
             }
 
@@ -169,10 +169,22 @@ test "RGB(u8)" {
     var pix = RGB(u8){ .r = 128, .g = 255, .b = 12 };
     const pix_slice = pix.to_slice();
 
+    std.debug.print("pix_slice: {any}\n", .{pix_slice});
+
     testing.expect(pix.eql(RGB(u8){ .r = 128, .g = 255, .b = 12 }));
     testing.expect(pix_slice.len == 3);
-    std.debug.print("pix_slice: {any}\n", .{pix_slice});
     testing.expect(std.mem.eql(u8, pix_slice, &[_]u8{ 128, 255, 12 }));
+}
+
+test "Mono(u8)" {
+    var pix = Mono(u8){ .i = 128 };
+    const pix_slice = pix.to_slice();
+
+    std.debug.print("pix_slice: {any}\n", .{pix_slice});
+
+    testing.expect(pix.eql(Mono(u8){ .i = 128 }));
+    testing.expect(pix_slice.len == 1);
+    testing.expect(std.mem.eql(u8, pix_slice, &[_]u8{128}));
 }
 
 test "Image(RGB).init()" {
@@ -206,7 +218,6 @@ test "Image(RGB).set_pixel()" {
         RGB24{ .r = 0, .g = 0, .b = 255 },
     };
 
-    std.debug.print("Setting pixel values:\n", .{});
     for (pixel) |p, i| {
         const x = i % 3;
         const y = i / 3;
@@ -214,7 +225,6 @@ test "Image(RGB).set_pixel()" {
     }
 
     std.debug.print("Pixel values: {any}\n", .{img.data});
-    std.debug.print(" done.\nTesting pixel values:\n", .{});
 
     for (pixel) |p, i| {
         const x = i % 3;
@@ -223,8 +233,6 @@ test "Image(RGB).set_pixel()" {
         std.debug.print("x: {}, y: {}, val: {}\n", .{ x, y, act });
         testing.expect(act.eql(p));
     }
-
-    std.debug.print(" done.\n", .{});
 }
 
 test "Image(RGB).writePPM" {
