@@ -53,7 +53,6 @@ pub fn create(allocator: *std.mem.Allocator, width: usize, height: usize, x_cent
                 .im = -@intToFloat(f32, y) * pixel_size,
             });
             const p = to_rgb(pixel_value(coord, 2.0));
-            std.debug.print("x: {}, y: {}, RGB: {}\n", .{x, y, p});
             try img.set_pixel(x, y, p);
         }
     }
