@@ -18,11 +18,14 @@ pub fn RGB(comptime T: type) type {
             g: T,
             b: T,
 
-            /// generate a slice of pixel values
-            pub fn to_slice(self: Self) []const T {
-                const s = [_]T{ self.r, self.g, self.b };
-                std.debug.print("array: {any}\n", .{s});
-                return s[0..];
+            /// access pixel data by index
+            pub fn get_idx(self: Self, idx: usize) !T {
+                return switch (idx) {
+                    0 => self.r,
+                    1 => self.g,
+                    2 => self.b,
+                    else => error.OutOfBounds,
+                };
             }
 
             /// generate pixel struct from slice of values
@@ -46,10 +49,12 @@ pub fn Mono(comptime T: type) type {
 
             i: T,
 
-            /// generate a slice of pixel values
-            pub fn to_slice(self: Self) []T {
-                const s = []T{i};
-                return s[0..];
+            /// access pixel data by index
+            pub fn get_idx(self: Self, idx: usize) !T {
+                return if (idx == 0)
+                    self.i
+                else
+                    error.OutOfBounds;
             }
 
             /// equality predicate
@@ -111,14 +116,10 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
         pub fn set_pixel(self: *Self, x: usize, y: usize, value: TPixel(TData)) !void {
             if (x > self.width or y > self.height) return error.OutOfBound;
             const stride = (x + self.width * y) * self.channels;
-            const values = value.to_slice();
             var i: usize = 0;
-            // TODO: use mem.copy() instead of while loop
             while (i < self.channels) : (i += 1) {
-                self.data[stride + i] = values[i];
+                self.data[stride + i] = try value.get_idx(i);
             }
-            //std.mem.copy(TData, self.data[stride .. stride + self.channels], values);
-            //std.debug.print("Setting pixel {}:{} ({any})\n", .{ x, y, self.data[stride .. stride + self.channels] });
         }
 
         /// get pixel data
@@ -167,12 +168,20 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
 
 test "RGB(u8)" {
     var pix = RGB(u8){ .r = 128, .g = 255, .b = 12 };
-    const pix_slice = pix.to_slice();
+    const pix_ary = [_]u8{ try pix.get_idx(0), try pix.get_idx(1), try pix.get_idx(2) };
 
     testing.expect(pix.eql(RGB(u8){ .r = 128, .g = 255, .b = 12 }));
-    testing.expect(pix_slice.len == 3);
-    std.debug.print("pix_slice: {any}\n", .{pix_slice});
-    testing.expect(std.mem.eql(u8, pix_slice, &[_]u8{ 128, 255, 12 }));
+    testing.expect(pix_ary.len == 3);
+    testing.expect(std.mem.eql(u8, &pix_ary, &[_]u8{ 128, 255, 12 }));
+}
+
+test "Mono(u8)" {
+    var pix = Mono(u8){ .i = 128 };
+    const pix_ary = [_]u8{try pix.get_idx(0)};
+
+    testing.expect(pix.eql(Mono(u8){ .i = 128 }));
+    testing.expect(pix_ary.len == 1);
+    testing.expect(std.mem.eql(u8, &pix_ary, &[_]u8{128}));
 }
 
 test "Image(RGB).init()" {
@@ -206,25 +215,18 @@ test "Image(RGB).set_pixel()" {
         RGB24{ .r = 0, .g = 0, .b = 255 },
     };
 
-    std.debug.print("Setting pixel values:\n", .{});
     for (pixel) |p, i| {
         const x = i % 3;
         const y = i / 3;
         try img.set_pixel(x, y, p);
     }
 
-    std.debug.print("Pixel values: {any}\n", .{img.data});
-    std.debug.print(" done.\nTesting pixel values:\n", .{});
-
     for (pixel) |p, i| {
         const x = i % 3;
         const y = i / 3;
         const act = try img.get_pixel(x, y);
-        std.debug.print("x: {}, y: {}, val: {}\n", .{ x, y, act });
         testing.expect(act.eql(p));
     }
-
-    std.debug.print(" done.\n", .{});
 }
 
 test "Image(RGB).writePPM" {

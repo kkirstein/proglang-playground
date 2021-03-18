@@ -49,7 +49,7 @@ pub fn main() !void {
     elap = timer.read();
     const pn_u16_str = try perfect.to_str(u16, allocator, pn_u16);
     defer pn_u16_str.deinit();
-    print("perfect_numbers(u16, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
+    print("perfect_numbers(u16, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u16_str.items,
         @intToFloat(f32, elap / ns_per_ms),
     });
@@ -60,7 +60,7 @@ pub fn main() !void {
     elap = timer.read();
     const pn_u32_str = try perfect.to_str(u32, allocator, pn_u32);
     defer pn_u32_str.deinit();
-    print("perfect_numbers(u32, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
+    print("perfect_numbers(u32, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u32_str.items,
         @intToFloat(f32, elap / ns_per_ms),
     });
@@ -71,7 +71,7 @@ pub fn main() !void {
     elap = timer.read();
     const pn_u64_str = try perfect.to_str(u64, allocator, pn_u64);
     defer pn_u64_str.deinit();
-    print("perfect_numbers(u64, 10000) = {} (Elapsed: {d:.3}ms).\n", .{
+    print("perfect_numbers(u64, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u64_str.items,
         @intToFloat(f32, elap / ns_per_ms),
     });
@@ -81,8 +81,8 @@ pub fn main() !void {
     print("==============\n", .{});
 
     timer.reset();
-    const width = 160;
-    const height = 120;
+    const width = 1920;
+    const height = 1600;
     const img = try mandel.create(allocator, width, height, -0.5, 0.0, 4.0 / @intToFloat(f32, width));
     defer img.deinit();
     elap = timer.read();
@@ -92,7 +92,7 @@ pub fn main() !void {
         @intToFloat(f32, elap / ns_per_ms),
     });
 
-    print("x: {}, y: {}, RGB: {}\n", .{width-1, height-1, img.get_pixel(width-1, height-1)});
+    //print("x: {}, y: {}, RGB: {}\n", .{width-1, height-1, img.get_pixel(width-1, height-1)});
 
     timer.reset();
     try img.writePPM(allocator, "mandelbrot.ppm");
