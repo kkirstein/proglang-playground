@@ -1,4 +1,5 @@
 {
     "FSharp.fsacRuntime": "netcore",
-    "FSharp.workspaceMode": "directory"
+    "FSharp.workspaceMode": "directory",
+    "cmake.configureOnOpen": false
 }
