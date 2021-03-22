@@ -37,7 +37,7 @@
 ;; get rgb value for given pixel coordinates
 ;;
 (defun pixel-value-rgb (X Y X-OFFSET Y-OFFSET PIXEL-SIZE)
-  "Calculate RGB vallue for given pixel coordinates and scaling"
+  "Calculate RGB value for given pixel coordinates and scaling"
   (let* ((x-val (+ (* X PIXEL-SIZE) X-OFFSET))
 	(y-val (- (* Y PIXEL-SIZE) Y-OFFSET))
 	(val (pixel-value (complex x-val y-val))))
