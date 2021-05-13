@@ -10,6 +10,7 @@ const allocator = std.heap.page_allocator;
 const fib = @import("fib.zig");
 const perfect = @import("perfect.zig");
 const mandel = @import("mandelbrot.zig");
+const mc = @import("montecarlo.zig");
 
 /// main entry point
 pub fn main() !void {
@@ -92,14 +93,27 @@ pub fn main() !void {
         @intToFloat(f32, elap / ns_per_ms),
     });
 
-    //print("x: {}, y: {}, RGB: {}\n", .{width-1, height-1, img.get_pixel(width-1, height-1)});
-
     timer.reset();
     try img.writePPM(allocator, "mandelbrot.ppm");
     elap = timer.read();
     print("mandelbrot({}, {}) written as PPM (Elapsed: {d:.3}ms).\n", .{
         width,
         height,
+        @intToFloat(f32, elap / ns_per_ms),
+    });
+
+    print("\n", .{});
+    print("Monte-Carlo simulations\n", .{});
+    print("=======================\n", .{});
+
+    timer.reset();
+    const count = 100_000_000;
+    const pi_value = mc.simulatePi(count);
+    elap = timer.read();
+    print("mc_pi({}) = {} Error: {e:.3} (Elapsed: {d:.3}ms.)\n", .{
+        count,
+        pi_value,
+        std.math.absFloat(pi_value - std.math.pi),
         @intToFloat(f32, elap / ns_per_ms),
     });
 }
@@ -109,4 +123,5 @@ test "benchmark" {
     _ = @import("perfect.zig");
     _ = @import("image.zig");
     _ = @import("mandelbrot.zig");
+    _ = @import("montecarlo.zig");
 }
