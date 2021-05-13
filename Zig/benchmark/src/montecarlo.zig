@@ -4,6 +4,33 @@ const std = @import("std");
 
 const Result = struct { success: usize, failed: usize };
 
+/// type of generator for a stimulus of type T of a Monte-Carlo run
+fn Generator(comptime T: type) type {
+    return fn (*std.rand.Random) T;
+}
+
+/// type of Monte-Carlo simulation evaluator
+fn Evaluator(comptime T: type) type {
+    return fn (T) bool;
+}
+
+/// runs a Monte-Carlo simulation with given number of runs
+fn runner(comptime T: type, gen: Generator(T), eval: Evaluator(T), rand: *std.rand.Random, n: usize) Result {
+    var res = Result{ .success = 0, .failed = 0 };
+    var i: usize = 0;
+
+    while (i < n) : (i += 1) {
+        const stimulus = gen(rand);
+        if (eval(stimulus)) {
+            res.success += 1;
+        } else {
+            res.failed += 1;
+        }
+    }
+
+    return res;
+}
+
 /// montecarlo.zig
 /// Module to perform some Monte-Carlo simulations in Zig
 ///
@@ -34,6 +61,31 @@ pub fn simulatePi(count: usize) f64 {
     return res;
 }
 
+fn pi_gen(rnd: *std.rand.Random) f64 {
+    const x = 2.0 * rnd.float(f64) - 2.0;
+    const y = 2.0 * rnd.float(f64) - 2.0;
+    return x * x + y * y;
+}
+
+fn pi_eval(val: f64) bool {
+    return (val < 1.0);
+}
+
+pub fn simulatePi2(count: usize) f64 {
+
+    // init random generator
+    var prng = std.rand.DefaultPrng.init(0);
+    const rnd = &prng.random;
+
+    const stat = runner(f64, pi_gen, pi_eval, rnd, count);
+
+    std.debug.print("\n", .{});
+    std.debug.print("stat: {}\n", .{stat});
+
+    const res = 4 * @intToFloat(f64, stat.success) / @intToFloat(f64, count);
+    return res;
+}
+
 // testing
 const testing = std.testing;
 
@@ -48,5 +100,13 @@ test "calulate Pi" {
     const res = simulatePi(count);
 
     //std.debug.print("res: {}", .{res});
+    testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
+}
+
+test "calulate Pi 2" {
+    const count = 1_000_000;
+    const res = simulatePi2(count);
+
+    std.debug.print("res: {}\n", .{res});
     testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
 }
