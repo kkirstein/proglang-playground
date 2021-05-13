@@ -97,7 +97,7 @@ pub fn main() !void {
     timer.reset();
     try img.writePPM(allocator, "mandelbrot.ppm");
     elap = timer.read();
-    print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
+    print("mandelbrot({}, {}) written as PPM (Elapsed: {d:.3}ms).\n", .{
         width,
         height,
         @intToFloat(f32, elap / ns_per_ms),
