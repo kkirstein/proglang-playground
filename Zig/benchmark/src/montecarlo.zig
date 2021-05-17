@@ -62,8 +62,9 @@ pub fn simulatePi(count: usize) f64 {
 }
 
 fn pi_gen(rnd: *std.rand.Random) f64 {
-    const x = 2.0 * rnd.float(f64) - 2.0;
-    const y = 2.0 * rnd.float(f64) - 2.0;
+    const x = 2.0 * rnd.float(f64) - 1.0;
+    const y = 2.0 * rnd.float(f64) - 1.0;
+
     return x * x + y * y;
 }
 
@@ -78,9 +79,6 @@ pub fn simulatePi2(count: usize) f64 {
     const rnd = &prng.random;
 
     const stat = runner(f64, pi_gen, pi_eval, rnd, count);
-
-    std.debug.print("\n", .{});
-    std.debug.print("stat: {}\n", .{stat});
 
     const res = 4 * @intToFloat(f64, stat.success) / @intToFloat(f64, count);
     return res;

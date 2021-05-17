@@ -106,14 +106,24 @@ pub fn main() !void {
     print("Monte-Carlo simulations\n", .{});
     print("=======================\n", .{});
 
-    timer.reset();
     const count = 100_000_000;
+    timer.reset();
     const pi_value = mc.simulatePi(count);
     elap = timer.read();
     print("mc_pi({}) = {} Error: {e:.3} (Elapsed: {d:.3}ms.)\n", .{
         count,
         pi_value,
         std.math.absFloat(pi_value - std.math.pi),
+        @intToFloat(f32, elap / ns_per_ms),
+    });
+
+    timer.reset();
+    const pi_value2 = mc.simulatePi2(count);
+    elap = timer.read();
+    print("mc_pi2({}) = {} Error: {e:.3} (Elapsed: {d:.3}ms.)\n", .{
+        count,
+        pi_value2,
+        std.math.absFloat(pi_value2 - std.math.pi),
         @intToFloat(f32, elap / ns_per_ms),
     });
 }
