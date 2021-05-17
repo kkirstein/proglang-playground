@@ -116,16 +116,6 @@ pub fn main() !void {
         std.math.absFloat(pi_value - std.math.pi),
         @intToFloat(f32, elap / ns_per_ms),
     });
-
-    timer.reset();
-    const pi_value2 = mc.simulatePi2(count);
-    elap = timer.read();
-    print("mc_pi2({}) = {} Error: {e:.3} (Elapsed: {d:.3}ms.)\n", .{
-        count,
-        pi_value2,
-        std.math.absFloat(pi_value2 - std.math.pi),
-        @intToFloat(f32, elap / ns_per_ms),
-    });
 }
 
 test "benchmark" {

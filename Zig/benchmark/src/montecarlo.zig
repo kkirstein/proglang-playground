@@ -1,7 +1,11 @@
 // vim: set ft=zig sw=4 ts=4:
 
+/// montecarlo.zig
+/// Module to perform some Monte-Carlo simulations in Zig
+///
 const std = @import("std");
 
+/// result statistic for Monte-Carlo simulations
 const Result = struct { success: usize, failed: usize };
 
 /// type of generator for a stimulus of type T of a Monte-Carlo run
@@ -31,54 +35,29 @@ fn runner(comptime T: type, gen: Generator(T), eval: Evaluator(T), rand: *std.ra
     return res;
 }
 
-/// montecarlo.zig
-/// Module to perform some Monte-Carlo simulations in Zig
-///
-/// approximate Pi by counting points inside of a unit circle and
-/// its surrounding square
-/// returns a tuple of number of points inside & outside unit circle
-pub fn simulatePi(count: usize) f64 {
-    var inside: usize = 0;
-    var outside: usize = 0;
-
-    // init random generator
-    var prng = std.rand.DefaultPrng.init(0);
-    const rnd = &prng.random;
-
-    var i: usize = 0;
-    while (i < count) : (i += 1) {
-        const x = 2.0 * rnd.float(f64) - 1.0;
-        const y = 2.0 * rnd.float(f64) - 1.0;
-
-        if (x * x + y * y < 1.0) {
-            inside += 1;
-        } else {
-            outside += 1;
-        }
-    }
-
-    const res = 4 * @intToFloat(f64, inside) / @intToFloat(f64, count);
-    return res;
-}
-
-fn pi_gen(rnd: *std.rand.Random) f64 {
+/// generate random distance for pi simulation
+fn piGen(rnd: *std.rand.Random) f64 {
     const x = 2.0 * rnd.float(f64) - 1.0;
     const y = 2.0 * rnd.float(f64) - 1.0;
 
     return x * x + y * y;
 }
 
-fn pi_eval(val: f64) bool {
+/// check whether distance is within unit circle
+fn piEval(val: f64) bool {
     return (val < 1.0);
 }
 
-pub fn simulatePi2(count: usize) f64 {
+/// approximate Pi by counting points inside of a unit circle and
+/// its surrounding square
+/// returns a tuple of number of points inside & outside unit circle
+pub fn simulatePi(count: usize) f64 {
 
     // init random generator
     var prng = std.rand.DefaultPrng.init(0);
     const rnd = &prng.random;
 
-    const stat = runner(f64, pi_gen, pi_eval, rnd, count);
+    const stat = runner(f64, piGen, piEval, rnd, count);
 
     const res = 4 * @intToFloat(f64, stat.success) / @intToFloat(f64, count);
     return res;
@@ -101,10 +80,10 @@ test "calulate Pi" {
     try testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
 }
 
-test "calulate Pi 2" {
-    const count = 1_000_000;
-    const res = simulatePi2(count);
-
-    //std.debug.print("res: {}\n", .{res});
-    try testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
-}
+//test "calulate Pi 2" {
+//    const count = 1_000_000;
+//    const res = simulatePi2(count);
+//
+//    //std.debug.print("res: {}\n", .{res});
+//    try testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
+//}
