@@ -105,6 +105,6 @@ test "calulate Pi 2" {
     const count = 1_000_000;
     const res = simulatePi2(count);
 
-    std.debug.print("res: {}\n", .{res});
+    //std.debug.print("res: {}\n", .{res});
     try testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
 }
