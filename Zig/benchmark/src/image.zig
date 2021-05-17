@@ -170,32 +170,32 @@ test "RGB(u8)" {
     var pix = RGB(u8){ .r = 128, .g = 255, .b = 12 };
     const pix_ary = [_]u8{ try pix.get_idx(0), try pix.get_idx(1), try pix.get_idx(2) };
 
-    testing.expect(pix.eql(RGB(u8){ .r = 128, .g = 255, .b = 12 }));
-    testing.expect(pix_ary.len == 3);
-    testing.expect(std.mem.eql(u8, &pix_ary, &[_]u8{ 128, 255, 12 }));
+    try testing.expect(pix.eql(RGB(u8){ .r = 128, .g = 255, .b = 12 }));
+    try testing.expect(pix_ary.len == 3);
+    try testing.expect(std.mem.eql(u8, &pix_ary, &[_]u8{ 128, 255, 12 }));
 }
 
 test "Mono(u8)" {
     var pix = Mono(u8){ .i = 128 };
     const pix_ary = [_]u8{try pix.get_idx(0)};
 
-    testing.expect(pix.eql(Mono(u8){ .i = 128 }));
-    testing.expect(pix_ary.len == 1);
-    testing.expect(std.mem.eql(u8, &pix_ary, &[_]u8{128}));
+    try testing.expect(pix.eql(Mono(u8){ .i = 128 }));
+    try testing.expect(pix_ary.len == 1);
+    try testing.expect(std.mem.eql(u8, &pix_ary, &[_]u8{128}));
 }
 
 test "Image(RGB).init()" {
     var img = try Image(RGB, u8).init(testing.allocator, 640, 480);
     defer img.deinit();
 
-    testing.expect(img.data.len == 640 * 480 * 3);
+    try testing.expect(img.data.len == 640 * 480 * 3);
 }
 
 test "Image(Mono).init()" {
     var img = try Image(Mono, u8).init(testing.allocator, 640, 480);
     defer img.deinit();
 
-    testing.expect(img.data.len == 640 * 480);
+    try testing.expect(img.data.len == 640 * 480);
 }
 
 test "Image(RGB).set_pixel()" {
@@ -225,7 +225,7 @@ test "Image(RGB).set_pixel()" {
         const x = i % 3;
         const y = i / 3;
         const act = try img.get_pixel(x, y);
-        testing.expect(act.eql(p));
+        try testing.expect(act.eql(p));
     }
 }
 
@@ -264,5 +264,5 @@ test "Image(RGB).writePPM" {
     );
     defer test_allocator.free(contents);
 
-    testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 \n128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
+    try testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 \n128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
 }

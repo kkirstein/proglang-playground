@@ -38,26 +38,26 @@ pub fn fib_iter(comptime T: type, n: u64) !T {
 const testing = @import("std").testing;
 
 test "fib_naive" {
-    testing.expect(fib_naive(1) == 1);
-    testing.expect(fib_naive(2) == 1);
-    testing.expect(fib_naive(3) == 2);
-    testing.expect(fib_naive(35) == 9227465);
+    try testing.expect(fib_naive(1) == 1);
+    try testing.expect(fib_naive(2) == 1);
+    try testing.expect(fib_naive(3) == 2);
+    try testing.expect(fib_naive(35) == 9227465);
 }
 
 test "fib_iter" {
-    testing.expect((try fib_iter(u64, 1)) == 1);
-    testing.expect((try fib_iter(u64, 2)) == 1);
-    testing.expect((try fib_iter(u64, 3)) == 2);
-    testing.expect((try fib_iter(u32, 35)) == 9227465);
-    testing.expect((try fib_iter(u64, 35)) == 9227465);
-    testing.expect((try fib_iter(u128, 35)) == 9227465);
+    try testing.expect((try fib_iter(u64, 1)) == 1);
+    try testing.expect((try fib_iter(u64, 2)) == 1);
+    try testing.expect((try fib_iter(u64, 3)) == 2);
+    try testing.expect((try fib_iter(u32, 35)) == 9227465);
+    try testing.expect((try fib_iter(u64, 35)) == 9227465);
+    try testing.expect((try fib_iter(u128, 35)) == 9227465);
 }
 
 test "fib" {
-    testing.expect((try fib(u64, 1)) == 1);
-    testing.expect((try fib(u64, 2)) == 1);
-    testing.expect((try fib(u64, 3)) == 2);
-    testing.expect((try fib(u32, 35)) == 9227465);
-    testing.expect((try fib(u64, 35)) == 9227465);
-    testing.expect((try fib(u128, 35)) == 9227465);
+    try testing.expect((try fib(u64, 1)) == 1);
+    try testing.expect((try fib(u64, 2)) == 1);
+    try testing.expect((try fib(u64, 3)) == 2);
+    try testing.expect((try fib(u32, 35)) == 9227465);
+    try testing.expect((try fib(u64, 35)) == 9227465);
+    try testing.expect((try fib(u128, 35)) == 9227465);
 }

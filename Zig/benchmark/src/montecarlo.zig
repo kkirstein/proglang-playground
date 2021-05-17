@@ -100,7 +100,7 @@ test "calulate Pi" {
     const res = simulatePi(count);
 
     //std.debug.print("res: {}", .{res});
-    testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
+    try testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
 }
 
 test "calulate Pi 2" {
@@ -108,5 +108,5 @@ test "calulate Pi 2" {
     const res = simulatePi2(count);
 
     std.debug.print("res: {}\n", .{res});
-    testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
+    try testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
 }

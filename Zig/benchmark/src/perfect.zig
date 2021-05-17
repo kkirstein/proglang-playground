@@ -102,14 +102,14 @@ pub fn perfect_number_list(comptime T: type, limit: T) std.SinglyLinkedList(T) {
 const testing = std.testing;
 
 test "is perfect" {
-    testing.expect(!is_perfect(u32, 1));
-    testing.expect(!is_perfect(u32, 2));
-    testing.expect(!is_perfect(u32, 3));
-    testing.expect(!is_perfect(u32, 4));
-    testing.expect(!is_perfect(u32, 5));
-    testing.expect(is_perfect(u32, 6));
-    testing.expect(!is_perfect(u32, 7));
-    testing.expect(is_perfect(u32, 28));
+    try testing.expect(!is_perfect(u32, 1));
+    try testing.expect(!is_perfect(u32, 2));
+    try testing.expect(!is_perfect(u32, 3));
+    try testing.expect(!is_perfect(u32, 4));
+    try testing.expect(!is_perfect(u32, 5));
+    try testing.expect(is_perfect(u32, 6));
+    try testing.expect(!is_perfect(u32, 7));
+    try testing.expect(is_perfect(u32, 28));
 }
 
 test "perfect numbers" {
@@ -118,7 +118,7 @@ test "perfect numbers" {
     var res = try perfect_numbers(u32, test_allocator, 1000);
     defer res.deinit();
 
-    testing.expect(std.mem.eql(u32, res.items, exp[0..]));
+    try testing.expect(std.mem.eql(u32, res.items, exp[0..]));
 }
 
 //test "perfect number list" {
@@ -157,7 +157,7 @@ test "string representation of perfect numbers list" {
     const res_2_str = try to_str(u32, test_allocator, res_2);
     defer res_2_str.deinit();
 
-    testing.expect(std.mem.eql(u8, res_0_str.items, "[]"));
-    testing.expect(std.mem.eql(u8, res_1_str.items, "[6]"));
-    testing.expect(std.mem.eql(u8, res_2_str.items, "[6, 28]"));
+    try testing.expect(std.mem.eql(u8, res_0_str.items, "[]"));
+    try testing.expect(std.mem.eql(u8, res_1_str.items, "[6]"));
+    try testing.expect(std.mem.eql(u8, res_2_str.items, "[6, 28]"));
 }
