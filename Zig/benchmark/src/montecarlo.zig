@@ -66,24 +66,33 @@ pub fn simulatePi(count: usize) f64 {
 // testing
 const testing = std.testing;
 
-//test "no samples" {
-//    const res = simulatePi(0);
-//
-//    testing.expect(res == 0);
-//}
+fn simpleSampler(rnd: *std.rand.Random) u8 {
+    return rnd.intRangeAtMost(u8, 0, 1);
+}
+fn trueEval(val: u8) bool {
+    return (val > 0);
+}
+
+test "no samples" {
+    var prng = std.rand.DefaultPrng.init(0);
+    const rnd = &prng.random;
+    const res = runner(u8, simpleSampler, trueEval, rnd, 0);
+
+    try testing.expect(res.success == 0);
+    try testing.expect(res.failed == 0);
+}
+
+test "100 samples" {
+    var prng = std.rand.DefaultPrng.init(0);
+    const rnd = &prng.random;
+    const res = runner(u8, simpleSampler, trueEval, rnd, 100);
+
+    try testing.expect(res.success + res.failed == 100);
+}
 
 test "calulate Pi" {
     const count = 1_000_000;
     const res = simulatePi(count);
 
-    //std.debug.print("res: {}", .{res});
     try testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
 }
-
-//test "calulate Pi 2" {
-//    const count = 1_000_000;
-//    const res = simulatePi2(count);
-//
-//    //std.debug.print("res: {}\n", .{res});
-//    try testing.expect(std.math.absFloat(res - std.math.pi) < 1e-4);
-//}
