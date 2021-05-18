@@ -5,7 +5,7 @@ const std = @import("std");
 //const format = std.fmt.format;
 //const warn = std.debug.warn;
 const print = std.debug.print;
-const allocator = std.heap.page_allocator;
+var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 
 const fib = @import("fib.zig");
 const perfect = @import("perfect.zig");
@@ -45,10 +45,10 @@ pub fn main() !void {
     print("===============\n", .{});
 
     timer.reset();
-    const pn_u16 = try perfect.perfect_numbers(u16, allocator, 10000);
+    const pn_u16 = try perfect.perfect_numbers(u16, &gpa.allocator, 10000);
     defer pn_u16.deinit();
     elap = timer.read();
-    const pn_u16_str = try perfect.to_str(u16, allocator, pn_u16);
+    const pn_u16_str = try perfect.to_str(u16, &gpa.allocator, pn_u16);
     defer pn_u16_str.deinit();
     print("perfect_numbers(u16, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u16_str.items,
@@ -56,10 +56,10 @@ pub fn main() !void {
     });
 
     timer.reset();
-    const pn_u32 = try perfect.perfect_numbers(u32, allocator, 10000);
+    const pn_u32 = try perfect.perfect_numbers(u32, &gpa.allocator, 10000);
     defer pn_u32.deinit();
     elap = timer.read();
-    const pn_u32_str = try perfect.to_str(u32, allocator, pn_u32);
+    const pn_u32_str = try perfect.to_str(u32, &gpa.allocator, pn_u32);
     defer pn_u32_str.deinit();
     print("perfect_numbers(u32, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u32_str.items,
@@ -67,10 +67,10 @@ pub fn main() !void {
     });
 
     timer.reset();
-    const pn_u64 = try perfect.perfect_numbers(u64, allocator, 10000);
+    const pn_u64 = try perfect.perfect_numbers(u64, &gpa.allocator, 10000);
     defer pn_u64.deinit();
     elap = timer.read();
-    const pn_u64_str = try perfect.to_str(u64, allocator, pn_u64);
+    const pn_u64_str = try perfect.to_str(u64, &gpa.allocator, pn_u64);
     defer pn_u64_str.deinit();
     print("perfect_numbers(u64, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u64_str.items,
@@ -84,7 +84,7 @@ pub fn main() !void {
     timer.reset();
     const width = 1920;
     const height = 1600;
-    const img = try mandel.create(allocator, width, height, -0.5, 0.0, 4.0 / @intToFloat(f32, width));
+    const img = try mandel.create(&gpa.allocator, width, height, -0.5, 0.0, 4.0 / @intToFloat(f32, width));
     defer img.deinit();
     elap = timer.read();
     print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
@@ -94,7 +94,7 @@ pub fn main() !void {
     });
 
     timer.reset();
-    try img.writePPM(allocator, "mandelbrot.ppm");
+    try img.writePPM(&gpa.allocator, "mandelbrot.ppm");
     elap = timer.read();
     print("mandelbrot({}, {}) written as PPM (Elapsed: {d:.3}ms).\n", .{
         width,
