@@ -4,6 +4,7 @@ pub fn build(b: *Builder) void {
     const mode = b.standardReleaseOptions();
     const exe = b.addExecutable("benchmark", "src/main.zig");
     exe.setBuildMode(mode);
+    exe.linkLibC();
 
     const run_cmd = exe.run();
 

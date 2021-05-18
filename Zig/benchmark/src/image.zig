@@ -5,6 +5,10 @@
 /// and image data.
 const std = @import("std");
 const Allocator = std.mem.Allocator;
+const stbImageWrite = @cImport({
+    @cDefine("STB_IMAGE_WRITE_IMPLEMENTATION", {});
+    @cInclude("stb_image_write.h");
+});
 
 const testing = std.testing;
 
@@ -163,6 +167,30 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
                 _ = try w.write(line_buf.items);
             }
         }
+
+        /// write image data to binary image file
+        /// Currently, only PNG with 8-bit channel values is supported
+        pub fn write(self: Self, allocator: *std.mem.Allocator, file_path: []const u8) !void {
+            // check for supported image data
+            if (TData != u8) return error.UnsupportedDataType;
+
+            const c_width = @intCast(c_int, self.width);
+            const c_height = @intCast(c_int, self.height);
+            const c_chans = @intCast(c_int, self.channels);
+
+            //const c_file_path: [file_path.len + 1:0]u8 = undefined;
+            const c_file_path = try allocator.alloc(u8, file_path.len + 1);
+            defer allocator.free(c_file_path);
+            std.mem.copy(u8, c_file_path, file_path);
+            c_file_path[c_file_path.len] = 0;
+
+            const stride = self.width * self.channels;
+            const res = stbImageWrite.stbi_write_png(c_file_path, c_width, c_height, c_chans, &self.data, stride);
+
+            if (res == 0) {
+                return error.WriteError;
+            }
+        }
     };
 }
 
@@ -265,4 +293,31 @@ test "Image(RGB).writePPM" {
     defer test_allocator.free(contents);
 
     try testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 \n128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
+}
+
+test "Image(RGB).write" {
+    const test_allocator = std.testing.allocator;
+
+    var img = try Image(RGB, u8).init(testing.allocator, 3, 3);
+    defer img.deinit();
+    const RGB24 = RGB(u8);
+    var pixel = [_]RGB24{
+        RGB24{ .r = 0, .g = 0, .b = 0 },
+        RGB24{ .r = 128, .g = 0, .b = 0 },
+        RGB24{ .r = 255, .g = 0, .b = 0 },
+        RGB24{ .r = 0, .g = 0, .b = 0 },
+        RGB24{ .r = 0, .g = 128, .b = 0 },
+        RGB24{ .r = 0, .g = 255, .b = 0 },
+        RGB24{ .r = 0, .g = 0, .b = 0 },
+        RGB24{ .r = 0, .g = 0, .b = 128 },
+        RGB24{ .r = 0, .g = 0, .b = 255 },
+    };
+    for (pixel) |p, i| {
+        const x = i % 3;
+        const y = i / 3;
+        try img.set_pixel(x, y, p);
+    }
+
+    try img.write(test_allocator, "test_image.ppm");
+    defer std.fs.cwd().deleteFile("test_image.ppm") catch unreachable;
 }
