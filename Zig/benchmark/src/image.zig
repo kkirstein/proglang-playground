@@ -177,6 +177,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             const c_width = @intCast(c_int, self.width);
             const c_height = @intCast(c_int, self.height);
             const c_chans = @intCast(c_int, self.channels);
+            const c_stride = @intCast(c_int, self.width * self.channels);
 
             //const c_file_path: [file_path.len + 1:0]u8 = undefined;
             const c_file_path = try allocator.alloc(u8, file_path.len + 1);
@@ -184,12 +185,13 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             std.mem.copy(u8, c_file_path, file_path);
             c_file_path[c_file_path.len] = 0;
 
-            const stride = self.width * self.channels;
-            const res = stbImageWrite.stbi_write_png(c_file_path, c_width, c_height, c_chans, &self.data, stride);
+            //const res = stbImageWrite.stbi_write_png(@ptrCast([*:0]const u8, c_file_path), c_width, c_height, c_chans, @ptrCast(*c_void, &self.data), c_stride);
+            const fname: [*:0]const u8 = "test.png";
+            const res = stbImageWrite.stbi_write_png(fname, c_width, c_height, c_chans, self.data.ptr, c_stride);
 
-            if (res == 0) {
-                return error.WriteError;
-            }
+            //if (res == 0) {
+            //    return error.WriteError;
+            //}
         }
     };
 }
