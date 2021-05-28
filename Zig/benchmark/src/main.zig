@@ -102,6 +102,15 @@ pub fn main() !void {
         @intToFloat(f32, elap / ns_per_ms),
     });
 
+    timer.reset();
+    try img.write(&gpa.allocator, "mandelbrot.png");
+    elap = timer.read();
+    print("mandelbrot({}, {}) written as PNG (Elapsed: {d:.3}ms).\n", .{
+        width,
+        height,
+        @intToFloat(f32, elap / ns_per_ms),
+    });
+
     print("\n", .{});
     print("Monte-Carlo simulations\n", .{});
     print("=======================\n", .{});

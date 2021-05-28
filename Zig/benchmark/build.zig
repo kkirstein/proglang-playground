@@ -5,6 +5,7 @@ pub fn build(b: *Builder) void {
     const windows = b.option(bool, "windows", "create windows build") orelse false;
 
     const exe = b.addExecutable("benchmark", "src/main.zig");
+    exe.addCSourceFile("src/stb_image_impl.c", &[_][]const u8{"-std=c99"});
     exe.setBuildMode(mode);
     exe.linkLibC();
     exe.addIncludeDir("./src");
