@@ -1,12 +1,12 @@
 [package]
 name = "benchmark"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
 edition = "2018"
 
 [dependencies]
-num = "^0.2"
-num-complex = "^0.2"
-image = "*"
+num = "^0.4"
+num-complex = "^0.4"
+image = "^0.23"
 rayon = "^1.0"
 
