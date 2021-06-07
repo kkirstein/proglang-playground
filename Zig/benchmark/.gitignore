@@ -8,3 +8,8 @@ main.*
 
 # vscode settings
 .vscode/*
+
+# other generated files
+*.ppm
+*.png
+

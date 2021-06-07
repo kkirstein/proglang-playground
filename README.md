@@ -65,6 +65,10 @@ Haxe is statically typed and supports algebraic data types ala Haskell.
 
 [Julia](https://julialang.org) is a dynamically-typed programming language well suited for scientific and data science related applications. It is JIT-compiled with the help of the LLVM framework.
 
+# Koka
+
+[Koka]() is a strongly-typed functional-style programming language developed by Microsoft Research. It features algebraic effects and compiles to very efficient C-code by using techniques called evidence passing, which makes a garbage collector unnecessary..
+
 # Kotlin
 
 [Kotlin](http://kotlinlang.org) is a statically-typed object-oriented programming language, targetting the Java Virtual Machine (JVM) and now also compiles to JavaScript. Its main goal is to reduce the complexity (aka boilerplate) and avoid some pitfalls, like null pointers, of the Java programming language.
