@@ -17,6 +17,7 @@ mod fibonacci;
 mod mandelbrot;
 mod perfect_number;
 mod primes;
+mod montecarlo;
 
 // a helper function to time closures
 fn time_it<F, T>(fun: F) -> (T, Duration)
