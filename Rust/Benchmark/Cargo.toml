@@ -5,7 +5,6 @@ authors = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
 edition = "2018"
 
 [dependencies]
-time = "^0.1"
 num = "^0.2"
 num-complex = "^0.2"
 image = "*"
