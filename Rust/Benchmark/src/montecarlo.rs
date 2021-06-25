@@ -12,7 +12,6 @@ use rand::distributions::Uniform;
 use rand::prelude::*;
 
 /// Run a given number of simulations to estimate the value of Pi
-#[allow(dead_code)]
 pub fn simulate_pi(n: usize) -> f64 {
     // random generator
     let mut rng = SmallRng::seed_from_u64(1234);
@@ -35,13 +34,20 @@ pub fn simulate_pi(n: usize) -> f64 {
 // unit tests
 #[cfg(test)]
 mod test {
+    extern crate float_cmp;
     use crate::montecarlo::simulate_pi;
+    use float_cmp::approx_eq;
 
     #[test]
     fn test_sim_pi() {
         let pi_approx = simulate_pi(100_000);
 
         println!("pi_approx: {}", pi_approx);
-        assert!(f64::abs(pi_approx - std::f64::consts::PI) < 0.001);
+        assert!(approx_eq!(
+            f64,
+            pi_approx,
+            std::f64::consts::PI,
+            epsilon = 0.001
+        ));
     }
 }

@@ -118,6 +118,14 @@ fn main() {
     );
     println!();
 
+    println!("Monte-Carlo simulations:");
+    println!("------------------------");
+
+    let mc_count = 10_000_000;
+    let (res, elap) = time_it(|| montecarlo::simulate_pi(mc_count));
+    println!("simulate_pi({}) = {}\tElapsed: {}ms", mc_count, res, elap.as_millis());
+    println!();
+
     println!("------------------");
     println!("Done!");
 }

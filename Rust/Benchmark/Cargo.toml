@@ -11,3 +11,5 @@ image = "^0.23"
 rayon = "^1.0"
 rand = {version = "^0.8.3", features = ["small_rng"]}
 
+[dev-dependencies]
+float-cmp = "^0.8.0"
