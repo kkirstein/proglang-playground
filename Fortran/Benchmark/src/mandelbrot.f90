@@ -9,7 +9,7 @@ module mandelbrot
 
     implicit none
     private
-    public :: create
+    public :: create, create_omp
 
     real, parameter :: r_max = 2.0
 
@@ -53,8 +53,8 @@ contains
 
     end function calc_rgb
 
-    ! generate mandelbrot set
-    function create(width, height, x_center, y_center, pixel_size) result(img)
+    ! generate mandelbrot set (OpenMP version)
+    function create_omp(width, height, x_center, y_center, pixel_size) result(img)
         use image
 
         !integer, dimension(:,:,:), allocatable :: image
@@ -79,6 +79,33 @@ contains
             end do
         end do
         !$omp end parallel do
+
+    end function create_omp
+
+    ! generate mandelbrot set
+    function create(width, height, x_center, y_center, pixel_size) result(img)
+        use image
+
+        !integer, dimension(:,:,:), allocatable :: image
+        type(ImageRGB) :: img
+        integer, intent( in ) :: width, height
+        real, intent( in ) :: x_center, y_center
+        real, intent( in ) :: pixel_size
+
+        integer :: x, y
+        complex :: offset, coord
+
+        img = ImageRGB(width, height)
+
+        offset = cmplx(x_center - 0.5*pixel_size*width, &
+            y_center + 0.5*pixel_size*height)
+
+        do y = 1, height
+            do x = 1, width
+                coord = offset + cmplx(x*pixel_size, -y*pixel_size)
+                call img % set(x, y, calc_rgb(pixel_value(coord, 255)))
+            end do
+        end do
 
     end function create
 

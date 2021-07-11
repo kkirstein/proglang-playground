@@ -99,6 +99,12 @@ program benchmark
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
     call system_clock(tic)
+    res_img = create_omp(width, height, -0.5, 0.0, 4.0/width)
+    call system_clock(toc)
+    write (*,333) "mandelbrot_set (OpenMP)", &
+        & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
+
+    call system_clock(tic)
     file_name = "mandelbrot.ppm"
     call res_img % write_ppm(file_name)
     call system_clock(toc)
