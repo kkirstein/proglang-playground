@@ -317,5 +317,5 @@ test "Image(RGB).write" {
     }
 
     try img.write(test_allocator, "test_image.png");
-    //defer std.fs.cwd().deleteFile("test_image.png") catch unreachable;
+    defer std.fs.cwd().deleteFile("test_image.png") catch unreachable;
 }
