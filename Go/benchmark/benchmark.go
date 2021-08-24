@@ -73,7 +73,7 @@ func main() {
 	mbAsync := mandelbrot.MandelbrotAsync(1920, 1200, -0.5, 0.0, 4.0/1920)
 	img3 := <-mbAsync
 	toc = time.Now()
-	fmt.Printf("Mandelbrot(%d x %d)\tElapsed time: %fs\n",
+	fmt.Printf("MandelbrotAsync(%d x %d)\tElapsed time: %fs\n",
 		img3.Rect.Max.X, img3.Rect.Max.Y, toc.Sub(tic).Seconds())
 
 	tic = time.Now()
