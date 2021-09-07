@@ -18,6 +18,7 @@
 #include "perfect_number.h"
 #include "primes.h"
 
+/* image size for Mandelbrot set */
 #define IMG_WIDTH 1920
 #define IMG_HEIGHT 1600
 

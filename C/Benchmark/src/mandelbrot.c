@@ -21,8 +21,8 @@ unsigned calc_value(dcplx const z0) {
     dcplx z = _Cbuild(0.0, 0.0);
 
     for (unsigned n = N_MAX; n > 0; --n) {
-        z = _Cbuild(z._Val[0] * z._Val[0] - z._Val[1] * z._Val[1] + z0._Val[0],
-                    z._Val[0] * z._Val[1] - z._Val[1] * z._Val[0] + z0._Val[1]);
+        z = _Cbuild(creal(z) * creal(z) - cimag(z) * cimag(z) + creal(z0),
+                    2 * creal(z) * cimag(z) + cimag(z0));
         if (cabs(z) > R_MAX)
             return n;
     }
@@ -32,7 +32,7 @@ unsigned calc_value(dcplx const z0) {
 #else
 unsigned calc_value(dcplx const z0) {
 
-    dcplx const z = 0 + 0 * I;
+    dcplx z = 0 + 0 * I;
 
     for (unsigned n = N_MAX; n > 0; --n) {
         z = z * z + z0;
@@ -70,11 +70,13 @@ struct image *create(size_t const width, size_t const height,
                          I * (y_center + 0.5 * pixel_size * (double)height);
 #endif
 
-    for (size_t y = 0; y < height; ++y) {
+    size_t y;
+#pragma omp parallel for private(y)
+    for (y = 0; y < height; ++y) {
         for (size_t x = 0; x < width; ++x) {
 #ifdef _MSC_VER
-            dcplx z = _Cbuild(x * pixel_size + offset._Val[0],
-                              -y * pixel_size + offset._Val[1]);
+            dcplx z = _Cbuild((double)x * pixel_size + creal(offset),
+                              -(double)y * pixel_size + cimag(offset));
 #else
             dcplx z = x * pixel_size - y * pixel_size * I + offset;
 #endif
