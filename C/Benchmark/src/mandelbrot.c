@@ -6,12 +6,33 @@
 #include "mandelbrot.h"
 #include <complex.h>
 
+#ifdef _MSC_VER
+typedef _Dcomplex dcplx;
+#else
+typedef double complex dcplx;
+#endif
+
 #define R_MAX 2.0
 #define N_MAX 255
 
-unsigned calc_value(double complex const z0) {
+#ifdef _MSC_VER
+unsigned calc_value(dcplx const z0) {
 
-    double complex z = 0 + 0 * I;
+    dcplx z = _Cbuild(0.0, 0.0);
+
+    for (unsigned n = N_MAX; n > 0; --n) {
+        z = _Cbuild(z._Val[0] * z._Val[0] - z._Val[1] * z._Val[1] + z0._Val[0],
+                    z._Val[0] * z._Val[1] - z._Val[1] * z._Val[0] + z0._Val[1]);
+        if (cabs(z) > R_MAX)
+            return n;
+    }
+
+    return 0;
+}
+#else
+unsigned calc_value(dcplx const z0) {
+
+    dcplx const z = 0 + 0 * I;
 
     for (unsigned n = N_MAX; n > 0; --n) {
         z = z * z + z0;
@@ -21,6 +42,7 @@ unsigned calc_value(double complex const z0) {
 
     return 0;
 }
+#endif
 
 void to_rgb(unsigned const val, char rgb[3]) {
 
@@ -40,13 +62,22 @@ struct image *create(size_t const width, size_t const height,
     if (!img)
         return 0;
 
-    const double complex offset =
-        x_center - 0.5 * pixel_size * (double)width +
-        I * (y_center + 0.5 * pixel_size * (double)height);
+#ifdef _MSC_VER
+    const dcplx offset = _Cbuild(x_center - 0.5 * pixel_size * (double)width,
+                                 y_center + 0.5 * pixel_size * (double)height);
+#else
+    const dcplx offset = x_center - 0.5 * pixel_size * (double)width +
+                         I * (y_center + 0.5 * pixel_size * (double)height);
+#endif
 
     for (size_t y = 0; y < height; ++y) {
         for (size_t x = 0; x < width; ++x) {
-            double complex z = x * pixel_size - y * pixel_size * I + offset;
+#ifdef _MSC_VER
+            dcplx z = _Cbuild(x * pixel_size + offset._Val[0],
+                              -y * pixel_size + offset._Val[1]);
+#else
+            dcplx z = x * pixel_size - y * pixel_size * I + offset;
+#endif
             to_rgb(calc_value(z), rgb);
             img_set_pixel(img, x, y, rgb);
         }
