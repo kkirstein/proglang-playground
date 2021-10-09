@@ -95,20 +95,20 @@ program benchmark
     call system_clock(tic)
     res_img = create(width, height, -0.5, 0.0, 4.0/width)
     call system_clock(toc)
-    write (*,333) "mandelbrot_set", &
+    write (*,333) "mandelbrot_set (", width, ", ", height, ")", &
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
     call system_clock(tic)
     res_img = create_omp(width, height, -0.5, 0.0, 4.0/width)
     call system_clock(toc)
-    write (*,333) "mandelbrot_set (OpenMP)", &
+    write (*,333) "mandelbrot_set (OpenMP) (", width, ", ", height, ")", &
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
     call system_clock(tic)
     file_name = "mandelbrot.ppm"
     call res_img % write_ppm(file_name)
     call system_clock(toc)
-    write (*,333) "mandelbrot_set written to file", &
+    write (*,444) "mandelbrot_set written to file", &
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
     write (*,*) ""
@@ -117,6 +117,7 @@ program benchmark
 
     111 format (A25, I20, A, F0.3, A)
     222 format (A25, I8, A, A, /, A, F0.3, A)
-    333 format (A35, 10X, A, F0.3, A)
+    333 format (A35, I5, A, I5, A, 10X, A, F0.3, A)
+    444 format (A35, 10X, A, F0.3, A)
 
 end program benchmark
