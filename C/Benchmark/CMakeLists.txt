@@ -12,6 +12,8 @@ if (MINGW)
 elseif (MSVC)
 	#find_package(gmp REQUIRED CONFIG)
 endif ()
+	find_package(PkgConfig REQUIRED)
+	pkg_check_modules(GMP REQUIRED gmp)
 
 add_subdirectory("./src")
 
