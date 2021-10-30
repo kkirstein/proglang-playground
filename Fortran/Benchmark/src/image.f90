@@ -5,7 +5,12 @@
 !
 
 module image
+    use, intrinsic :: ISO_Fortran_env, only: ERROR_UNIT
+    use, intrinsic :: ISO_C_Binding, only: c_ptr, c_int
     implicit none
+    private
+
+    public ImageRGB
 
     type :: ImageRGB
         integer :: width, height
@@ -23,9 +28,8 @@ module image
     end interface ImageRGB
 
 contains
-    type(ImageRGB) function imagergb_constructor(width, height) result(img)
-        use ISO_FORTRAN_ENV, only: ERROR_UNIT
 
+    type(ImageRGB) function imagergb_constructor(width, height) result(img)
         integer, intent( in ) :: width, height
 
         integer, dimension(:,:,:), allocatable :: img_data
@@ -94,6 +98,14 @@ contains
 
     end subroutine write_ppm
 
+    integer(c_int) function stbi_write_png (filename, w, h, comp, data, stride) result(res)
+        character(len=*), intent(in) :: filename
+        integer(c_int), intent(in) :: w, h, comp, stride
+        type(c_ptr), intent(in) :: data
+
+        res = 0
+
+    endfunction stbi_write_png
 
 end module image
 
