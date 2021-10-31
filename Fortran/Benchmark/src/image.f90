@@ -107,8 +107,8 @@ contains
         integer(kind=c_int) :: res
 
         res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, self%data, 3 * self%width)
-        if (res /= 0) then
-            write (ERROR_UNIT,*) "Could not write PNG file: ", res
+        if (res == 0) then
+            write (ERROR_UNIT,*) "Could not write PNG file"
             stop -1
         end if
 
