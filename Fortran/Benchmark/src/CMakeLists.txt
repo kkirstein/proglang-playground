@@ -6,9 +6,9 @@ set(c_sources "stb_image/stb_image_impl.c")
 
 add_executable(Benchmark "${sources}" "${c_sources}")
 
-#target_include_directories(Benchmark PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+target_include_directories(Benchmark PUBLIC "stb_image")
 target_compile_options(Benchmark PRIVATE -O3 -fopenmp -cpp)
-#target_link_libraries(Benchmark gmp m)
+target_link_libraries(Benchmark stbi)
 target_link_options(Benchmark PRIVATE -fopenmp)
 
-
+add_subdirectory(stb_image)

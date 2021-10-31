@@ -47,7 +47,7 @@ contains
     ! calculate RGB for pixel value
     pure function calc_rgb(n)
         integer, intent(in) :: n
-        integer, dimension(3) :: calc_rgb
+        integer(kind=1), dimension(3) :: calc_rgb
 
         calc_rgb = [5 * mod(n, 15), 32 * mod(n, 7), 8 * mod(n, 31)]
 
@@ -75,7 +75,7 @@ contains
         do y = 1, height
             do x = 1, width
                 coord = offset + cmplx(x*pixel_size, -y*pixel_size)
-                call img % set(x, y, calc_rgb(pixel_value(coord, 255)))
+                call img%set(x, y, calc_rgb(pixel_value(coord, 255)))
             end do
         end do
         !$omp end parallel do
