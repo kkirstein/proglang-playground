@@ -18,7 +18,7 @@ module stbi
             import :: c_int, c_int8_t, c_ptr, c_char
             character(kind=c_char), intent(in)      :: filename(*)
             integer(kind=c_int), intent(in), value  :: w, h, comp, stride
-            integer(kind=c_int8_t), intent(in)         :: data(:,:,:)
+            integer(kind=c_int8_t), intent(in)      :: data(:)
             !integer(kind=c_int) :: stbi_write_png
 
         endfunction stbi_write_png

@@ -5,10 +5,10 @@
 !
 
 module mandelbrot
-    !use iso_fortran_env, only: int16
-
+    use image, only: ImageRGB, pixel_kind
     implicit none
     private
+
     public :: create, create_omp
 
     real, parameter :: r_max = 2.0
@@ -47,7 +47,7 @@ contains
     ! calculate RGB for pixel value
     pure function calc_rgb(n)
         integer, intent(in) :: n
-        integer(kind=1), dimension(3) :: calc_rgb
+        integer(kind=pixel_kind), dimension(3) :: calc_rgb
 
         calc_rgb = [5 * mod(n, 15), 32 * mod(n, 7), 8 * mod(n, 31)]
 

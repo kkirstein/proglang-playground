@@ -6,16 +6,19 @@
 
 module image
     use, intrinsic :: ISO_Fortran_env, only: ERROR_UNIT
-    use, intrinsic :: ISO_C_Binding, only: c_ptr, c_int, c_null_char
+    use, intrinsic :: ISO_C_Binding, only: c_ptr, c_int, c_int8_t, c_null_char
     use stbi, only: stbi_write_png
     implicit none
     private
 
+    public pixel_kind
     public ImageRGB
+
+    integer, parameter :: pixel_kind = 2
 
     type :: ImageRGB
         integer :: width, height
-        integer(kind=1), dimension(:,:,:), allocatable :: data
+        integer(kind=pixel_kind), dimension(:,:,:), allocatable :: data
 
     contains
         procedure, pass(self) :: set
@@ -30,14 +33,13 @@ module image
     end interface ImageRGB
 
 contains
-
     type(ImageRGB) function imagergb_constructor(width, height) result(img)
         integer, intent(in) :: width, height
 
-        integer(kind=1), dimension(:,:,:), allocatable :: img_data
+        integer(kind=pixel_kind), dimension(:,:,:), allocatable :: img_data
         integer :: stat
 
-        allocate(img_data(3, width, height), stat=stat)
+        allocate(img_data(width, height, 3), stat=stat)
         if (stat /= 0) then
             write (ERROR_UNIT,*) "Error allocating image data: ", stat
             stop -1
@@ -53,9 +55,9 @@ contains
 
         class(ImageRGB), intent(inout) :: self
         integer, intent(in) :: x, y
-        integer(kind=1), dimension(3), intent(in) :: pix
+        integer(kind=pixel_kind), dimension(3), intent(in) :: pix
 
-        self%data(:, x, y) = pix
+        self%data(x, y, :) = pix
 
     end subroutine set
 
@@ -65,9 +67,9 @@ contains
 
         class(ImageRGB), intent(in) :: self
         integer, intent(in) :: x, y
-        integer(kind=1), dimension(3) :: pixel
+        integer(kind=pixel_kind), dimension(3) :: pixel
 
-        pixel = self % data(:, x, y)
+        pixel = self%data(x, y, :)
 
     end function get
 
@@ -78,6 +80,15 @@ contains
 
         integer :: stat
         integer :: fileunit
+        integer :: x, y
+        integer(kind=pixel_kind), allocatable :: pixel_data(:, :, :)
+
+        ! allocate pixel data
+        allocate(pixel_data(3, self%width, self%height), stat=stat)
+        if (stat /= 0) then
+            write (ERROR_UNIT,*) "Error allocating image data: ", stat
+            stop -1
+        end if
 
         ! open ppm file for write
         open(newunit=fileunit, file=file_name, action='write', iostat=stat)
@@ -88,13 +99,19 @@ contains
 
         ! header
         write (fileunit, '(a)') "P3"
-        write (fileunit, '(i4, 1x, i4, 1x, i3)') self % width, self % height, 255
+        write (fileunit, '(i4, 1x, i4, 1x, i3)') self%width, self%height, 255
 
         ! pixel data
-        write (fileunit, *) self % data
+        do y = 1, self%height
+            do x = 1, self%width
+                pixel_data(:, x, y) = self%data(x, y, :)
+            end do
+        end do
+        write (fileunit, *) pixel_data
 
         ! close ppm file
         close (fileunit)
+        deallocate(pixel_data)
 
     end subroutine write_ppm
 
@@ -104,13 +121,33 @@ contains
         class(ImageRGB), intent(in) :: self
         character(:), allocatable, intent(in) :: file_name
 
+        integer :: stat
+        integer :: x, y, c
+        integer(kind=c_int8_t), allocatable :: pixel_data(:)
         integer(kind=c_int) :: res
 
-        res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, self%data, 3 * self%width)
-        if (res == 0) then
-            write (ERROR_UNIT,*) "Could not write PNG file"
+        ! copy pixel data in correct order to a buffer
+        allocate(pixel_data(3 * self%width * self%height), stat=stat)
+        if (stat /= 0) then
+            write (ERROR_UNIT,*) "Error allocating image data: ", stat
             stop -1
         end if
+        do y = 1, self%height
+            do x = 1, self%width
+                do c = 1, 3
+                    pixel_data(c + (3 * (x-1)) + (self%width * (y-1))) = self%data(x, y, c)
+                end do
+            end do
+        end do
+
+        res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, pixel_data, 3 * self%width)
+        if (res == 0) then
+            write (ERROR_UNIT,*) "Could not write PNG file"
+            deallocate(pixel_data)
+            stop -1
+        end if
+
+        deallocate(pixel_data)
 
     end subroutine write_png
 
