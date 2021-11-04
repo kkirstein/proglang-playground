@@ -135,7 +135,8 @@ contains
         do y = 1, self%height
             do x = 1, self%width
                 do c = 1, 3
-                    pixel_data(c + (3 * (x-1)) + (self%width * (y-1))) = self%data(x, y, c)
+                    pixel_data(c + (3 * (x-1)) + (self%width * (y-1))) = &
+                        int(self%data(x, y, c), kind=c_int8_t)
                 end do
             end do
         end do
