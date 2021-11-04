@@ -1,0 +1,9 @@
+{
+    "fortran.includePaths": [
+        "/usr/local/include",
+        "/usr/local",
+        "${workspaceFolder}/build/src",
+        "${workspaceFolder}/build/src/stb_image"
+    ],
+    "cmake.configureOnOpen": true
+}
