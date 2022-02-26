@@ -6,7 +6,7 @@
 
 module image
     use, intrinsic :: ISO_Fortran_env, only: ERROR_UNIT
-    use, intrinsic :: ISO_C_Binding, only: c_ptr, c_int, c_int8_t, c_null_char
+    use, intrinsic :: ISO_C_Binding, only: c_ptr, c_loc, c_int, c_int8_t, c_null_char
     use stbi, only: stbi_write_png
     implicit none
     private
@@ -123,7 +123,8 @@ contains
 
         integer :: stat
         integer :: x, y, c
-        integer(kind=c_int8_t), allocatable :: pixel_data(:)
+        integer(kind=c_int8_t), allocatable, target :: pixel_data(:)
+        type(c_ptr) :: pixel_data_ptr
         integer(kind=c_int) :: res
 
         ! copy pixel data in correct order to a buffer
@@ -140,8 +141,9 @@ contains
                 end do
             end do
         end do
+        pixel_data_ptr = c_loc(pixel_data)
 
-        res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, pixel_data, 3 * self%width)
+        res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, pixel_data, self%width)
         if (res == 0) then
             write (ERROR_UNIT,*) "Could not write PNG file"
             deallocate(pixel_data)
