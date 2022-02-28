@@ -15,6 +15,8 @@ program benchmark
 
     implicit none
 
+    integer, parameter :: width_small = 640
+    integer, parameter :: height_small = 480
     integer, parameter :: width = 1920
     integer, parameter :: height = 1600
 
@@ -25,7 +27,7 @@ program benchmark
     integer :: res_int
     integer (kind=pr) :: res_int_pr
     integer, dimension(:), allocatable :: res_pn
-    type(ImageRGB) :: res_img
+    type(ImageRGB) :: res_img, res_img_small
 
     character(:), allocatable :: file_name, res_pn_str
 
@@ -93,6 +95,12 @@ program benchmark
     write (*,*) "Mandelbrot set"
     write (*,*) "--------------"
     call system_clock(tic)
+    res_img_small = create(width_small, height_small, -0.5, 0.0, 4.0/width_small)
+    call system_clock(toc)
+    write (*,333) "mandelbrot_set (", width_small, ", ", height_small, ")", &
+        & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
+
+    call system_clock(tic)
     res_img = create(width, height, -0.5, 0.0, 4.0/width)
     call system_clock(toc)
     write (*,333) "mandelbrot_set (", width, ", ", height, ")", &
@@ -112,6 +120,13 @@ program benchmark
         & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
 
     call system_clock(tic)
+    file_name = "mandelbrot_small.png"
+    call res_img_small%write_png(file_name)
+    call system_clock(toc)
+    write (*,444) "mandelbrot_set (small) written to file(PNG)", &
+        & " Elapsed time: ", float(toc-tic)/rate * 1000, "ms"
+
+    call system_clock(tic)
     file_name = "mandelbrot.png"
     call res_img%write_png(file_name)
     call system_clock(toc)
@@ -125,6 +140,6 @@ program benchmark
     111 format (A25, I20, A, F0.3, A)
     222 format (A25, I8, A, A, /, A, F0.3, A)
     333 format (A35, I5, A, I5, A, 10X, A, F0.3, A)
-    444 format (A40, 10X, A, F0.3, A)
+    444 format (A48, 10X, A, F0.3, A)
 
 end program benchmark
