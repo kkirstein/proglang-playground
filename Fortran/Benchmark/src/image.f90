@@ -143,7 +143,7 @@ contains
         end do
         pixel_data_ptr = c_loc(pixel_data(1))
 
-        res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, pixel_data_ptr, self%width)
+        res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, pixel_data_ptr, 0)
         if (res == 0) then
             write (ERROR_UNIT,*) "Could not write PNG file"
             deallocate(pixel_data)
