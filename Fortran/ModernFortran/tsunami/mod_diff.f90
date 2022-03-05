@@ -13,7 +13,7 @@ module mod_diff
   
     pure function diffc(x) result(dx)
       ! Returns a centered difference of a 1-d array,
-      ! with periodic boundary condition.
+      ! with periodic boundary conditions.
       real(real32), dimension(:), intent(in) :: x
       real(real32), dimension(:), allocatable :: dx
       integer :: i, idm
