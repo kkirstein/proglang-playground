@@ -70,6 +70,7 @@ program tsunami
     sync all
 
     h(ils:ile) = h_init(is:ie)[1]
+    ! FIXME: update halos, too
     sync all
 
     ! set initial speed to zero
