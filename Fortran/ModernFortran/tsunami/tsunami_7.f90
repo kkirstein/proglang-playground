@@ -44,13 +44,17 @@ program tsunami
     integer(int32) :: ims, ime  ! local tile indices including halo
 
     ! setup local arrays
+    if (mod(grid_size, num_images()) /= 0) &
+        stop "grid_size must be divisible by number of images"
     neighbors = tile_neighbors()
     left = neighbors(1)
     right = neighbors(2)
 
     indices = tile_indices(grid_size)
-    ils = indices(1)
-    ile = indices(2)    ! TODO: to be checked
+    is = indices(1)
+    ie = indices(2)    ! TODO: to be checked
+    ils = 1
+    ile = grid_size / num_images()
     ims = ils - 1
     ime = ile + 1
 
@@ -80,7 +84,7 @@ program tsunami
     hmean = 10
 
     ! write initial state to screen
-    if (this_image() == 1) write(output_unit, *) 0, h
+    if (this_image() == 1) write(output_unit, *) 0, h_init
 
 
     time_loop: do n = 1, num_time_steps
