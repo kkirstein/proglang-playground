@@ -7,5 +7,4 @@
     "fortran.linterExtraArgs": [
         "-Wall",
         "-fcoarray=lib"
-    ]
-}
+    ]}
