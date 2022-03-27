@@ -5,11 +5,11 @@ module mod_parallel
     implicit none
 
     private
-    public :: tile_indices, tile_neighbors
+    public :: tile_indices_1d, tile_neighbors
 
 contains
 
-    pure function tile_indices(dims)
+    pure function tile_indices_1d(dims) result(tile_indices)
         integer, intent(in) :: dims
         integer :: tile_indices(2)
         integer :: offset, tile_size
@@ -27,7 +27,9 @@ contains
             tile_indices(2) = tile_indices(2) + this_image() - offset
         end if
 
-    end function tile_indices
+    end function tile_indices_1d
+
+    ! TODO: tile_indices_2d()
 
     pure function tile_neighbors()
         integer :: tile_neighbors(2)
