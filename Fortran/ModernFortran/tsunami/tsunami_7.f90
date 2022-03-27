@@ -13,7 +13,7 @@ program tsunami
 
     use iso_fortran_env, only: int32, real32, output_unit
     use mod_diff, only: diff => diffc
-    use mod_parallel, only: tile_neighbors, tile_indices => tile_indices_1d
+    use mod_parallel, only: tile_neighbors, tile_indices
 
     implicit none
 
