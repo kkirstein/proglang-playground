@@ -7,12 +7,58 @@ module mod_parallel
     implicit none
 
     private
-    public :: tile_indices, tile_neighbors
+    public :: tile_indices, tile_neighbors_1d
 
     interface tile_indices
         module procedure tile_indices, tile_indices_1d, tile_indices_2d
     end interface tile_indices
 contains
+
+    pure function denominators(n)
+        ! Returns denominators of an integer number,
+        ! used internally in 'num_tiles'
+        integer(int32), intent(in) :: n
+        integer(int32), allocatable :: denominators(:)
+        integer(int32) :: i
+
+        denominators = [integer(int32) ::]
+        do i = 1, n
+            if (mod(n, i) == 0) denominators = [denominators, i]
+        end do
+    end function denominators
+
+
+    pure function num_tiles(n)
+        ! Returns the optimal number of 2-D images, given the total
+        ! number of images
+        integer(int32), intent(in) :: n
+        integer(int32) :: num_tiles(2)
+        integer(int32), allocatable :: denoms(:)
+        integer(int32), allocatable :: dim1(:), dim2(:)
+        integer(int32) :: i, j, n1, n2
+
+        denoms = denominators(n)
+
+        dim1 = [integer(int32) ::]
+        dim2 = [integer(int32) ::]
+        do j = 1, size(denoms)
+            do i = 1, size(denoms)
+                if (denoms(i) * denoms(j) == n) then
+                    dim1 = [dim1, denoms(i)]
+                    dim2 = [dim2, denoms(j)]
+                end if
+            end do
+        end do
+
+        num_tiles = [dim1(1), dim2(1)]
+        ! check for 'squareness'
+        do i = 2, size(dim1)
+            n1 = norm2([dim1(i), dim2(i)] - sqrt(real(n)))
+            n2 = norm2(num_tiles - sqrt(real(n)))
+            if (n1 < n2) num_tiles = [dim1(i), dim2(i)]
+        end do
+    end function num_tiles
+
 
     pure function tile_indices(dims)
         integer, intent(in) :: dims
@@ -36,6 +82,7 @@ contains
 
 
     pure function tile_indices_1d(dims, i, n) result(indices)
+        ! Returns the start and end indices of a parallel image, in 1-D
         integer(int32), intent(in) :: dims, i, n
         integer(int32) :: indices(2)
         integer(int32) :: offset, tile_size
@@ -57,16 +104,23 @@ contains
 
 
     pure function tile_indices_2d(dims) result(indices)
+        ! Returns the start and end indices of a parallel image in 2-D
         integer, intent(in) :: dims(2)
         integer(int32) :: indices(4)
+        integer(int32) :: tiles(2), tiles_ij(2)
 
-        ! TODO: tile_indices_2d()
-        indices = 0
+        tiles = num_tiles(num_images())
+        tiles_ij = tile_n2ij(this_image())
+
+        indices(1:2) = tile_indices_1d(dims(1), tiles_ij(1), tiles(1))
+        indices(3:4) = tile_indices_1d(dims(2), tiles_ij(2), tiles(2))
     end function tile_indices_2d
 
 
-    pure function tile_neighbors()
-        integer :: tile_neighbors(2)
+    pure function tile_neighbors_1d() result(neighbors)
+        ! Returns the neighbor image indices, including wrap around
+        ! for 1-D decomposition
+        integer :: neighbors(2)
         integer :: left, right
 
         if (num_images() > 1) then
@@ -82,9 +136,7 @@ contains
             right = 1
         end if
 
-        tile_neighbors(1) = left
-        tile_neighbors(2) = right
-
-    end function tile_neighbors
+        neighbors = [left, right]
+    end function tile_neighbors_1d
 
 end module mod_parallel
