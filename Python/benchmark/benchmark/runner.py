@@ -36,6 +36,10 @@ def run():
     res = pn.perfect_numbers_async(4)
     toc = perf_counter()
     print("perfect_numbers_async(4) = {} (Elapsed: {:.3f}s.)".format(res, toc-tic))
+    tic = perf_counter()
+    res = pn.perfect_numbers_mp(10000)
+    toc = perf_counter()
+    print("perfect_numbers_mp(10000) = {} (Elapsed: {:.3f}s.)".format(res, toc-tic))
     print()
 
     print("Mandelbrot set")
