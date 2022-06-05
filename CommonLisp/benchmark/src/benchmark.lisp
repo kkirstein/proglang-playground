@@ -15,10 +15,11 @@
     (format t "Fibonacci series:~%")
     (format t "-----------------~%")
     
-    (format t "Fibonacci series (double recursive approach):~%")
-    (time (format t "(fib-naive 35) = ~a~%" (fibonacci:fibonacci-2 35)))
-    (format t "Fibonacci series (linear recursive approach):~%")
-    (time (format t "(fib 10000) = ~a~%" (fibonacci:fibonacci 10000)))
+		(format t "Fibonacci series (double recursive approach):~%")
+		(format t "(fib-naive 35) = ~a~%" (time (fibonacci:fibonacci-2 35)))
+    (format t "~%")
+		(format t "Fibonacci series (linear recursive approach):~%")
+    (format t "(fib 10000) = ~a~%" (time (fibonacci:fibonacci 10000)))
     (format t "~%")
     
 
@@ -27,7 +28,7 @@
     ;;
     (format t "Perfect numbers:~%")
     (format t "----------------~%")
-    (time (format t "(perfect-numbers 10000) = ~a~%" (perfect-numbers:make-perfect-numbers 10000)))
+    (format t "(perfect-numbers 10000) = ~a~%" (time (perfect-numbers:make-perfect-numbers 10000)))
     (format t "~%")
 
     ;;

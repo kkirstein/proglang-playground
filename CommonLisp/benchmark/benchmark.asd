@@ -6,7 +6,7 @@
 (asdf:defsystem #:benchmark
     :serial t
     :description "Basic benchmarks to compare different programming languages"
-    :author "Kay-uwe Kirstein <kayuwe.kirstein@uster.com>"
+    :author "Kay-Uwe Kirstein <kayuwe.kirstein@uster.com>"
     :license "MIT"
     :components ((:module "src"
                           :serial t
