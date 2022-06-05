@@ -1,9 +1,13 @@
 {
-    "fortran.includePaths": [
+    "fortran.formatting.findentArgs": [
+        "--indent=4"
+    ],
+    "fortran.linter.includePaths": [
         "/usr/local/include",
         "/usr/local",
         "${workspaceFolder}/build/src",
         "${workspaceFolder}/build/src/stb_image"
     ],
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "cmake.buildDirectory": "${workspaceFolder}/_build"
 }
