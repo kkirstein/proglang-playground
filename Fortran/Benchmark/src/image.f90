@@ -122,7 +122,7 @@ contains
         character(:), allocatable, intent(in) :: file_name
 
         integer :: stat
-        integer :: x, y, c
+        integer :: x, y, c, idx
         integer(kind=c_int8_t), allocatable, target :: pixel_data(:)
         type(c_ptr) :: pixel_data_ptr
         integer(kind=c_int) :: res
@@ -136,14 +136,15 @@ contains
         do y = 1, self%height
             do x = 1, self%width
                 do c = 1, 3
-                    pixel_data(c + (3 * (x-1)) + (self%width * (y-1))) = &
+                    idx = c + (3 * (x-1)) + (3 * self%width * (y-1))
+                    pixel_data(idx) = &
                         int(self%data(x, y, c), kind=c_int8_t)
                 end do
             end do
         end do
         pixel_data_ptr = c_loc(pixel_data(1))
 
-        res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, pixel_data_ptr, 0)
+        res = stbi_write_png(file_name // c_null_char, self%width, self%height, 3, pixel_data_ptr, self%width * 3)
         if (res == 0) then
             write (ERROR_UNIT,*) "Could not write PNG file"
             deallocate(pixel_data)
