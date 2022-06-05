@@ -7,3 +7,5 @@ benchmark
 *.pdb
 *.dwf
 
+*.png
+*.ppm
