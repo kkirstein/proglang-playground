@@ -49,7 +49,7 @@ contains
         integer, intent(in) :: n
         integer(kind=pixel_kind), dimension(3) :: calc_rgb
 
-        calc_rgb = [5 * mod(n, 15), 32 * mod(n, 7), 8 * mod(n, 31)]
+        calc_rgb = int([5 * mod(n, 15), 32 * mod(n, 7), 8 * mod(n, 31)], kind=pixel_kind)
 
     end function calc_rgb
 
