@@ -1,4 +1,6 @@
 
+#![allow(dead_code)]
+
 #[derive(Debug, Copy, Clone)]
 struct CubeSat {
     id: u64,
