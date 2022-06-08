@@ -5,7 +5,7 @@
     "fortran.linter.includePaths": [
         "/usr/local/include",
         "/usr/local",
-        "${workspaceFolder}/_build/src",
+        "${workspaceFolder}/_build/include",
         "${workspaceFolder}/_build/src/stb_image"
     ],
     "cmake.configureOnOpen": true,
