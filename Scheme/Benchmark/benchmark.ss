@@ -4,20 +4,22 @@
 
 (import (rnrs))
 
-(display "Hello World!")
 
 (define benchmark
+  (lambda ()
 
-  (display "Fibonacci Numbers")
-  (display "=================")
-  (newline)
+    (display "Fibonacci Numbers\n")
+    (display "=================\n")
+    (newline)
 
-  (display "Perfect Numbers")
-  (display "===============")
-  (newline)
+    (display "Perfect Numbers\n")
+    (display "===============\n")
+    (newline)
 
 
-  (display "Mandelbrot Set")
-  (display "===============")
-  (newline))
+    (display "Mandelbrot Set\n")
+    (display "===============\n")
+    (newline)))
+
+(benchmark)
 
