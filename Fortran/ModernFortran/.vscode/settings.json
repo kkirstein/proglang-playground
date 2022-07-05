@@ -1,10 +1,11 @@
 {
     "cmake.configureOnOpen": true,
     "cmake.buildDirectory": "${workspaceFolder}/_build",
-    "fortran.formatting.args": [
+    "fortran.formatting.findentArgs": [
         "-i 4"
     ],
-    "fortran.linterExtraArgs": [
+    "fortran.linter.extraArgs": [
         "-Wall",
         "-fcoarray=lib"
-    ]}
+    ]
+}
