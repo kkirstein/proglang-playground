@@ -36,7 +36,7 @@
 ;;
 ;; get rgb value for given pixel coordinates
 ;;
-(defun pixel-value-rgb (X Y X-OFFSET Y-OFFSET PIXEL-SIZE)
+(defun pixel-value-rgb-map (X Y X-OFFSET Y-OFFSET PIXEL-SIZE)
   "Calculate RGB value for given pixel coordinates and scaling"
   (let* ((x-val (+ (* X PIXEL-SIZE) X-OFFSET))
 	(y-val (- (* Y PIXEL-SIZE) Y-OFFSET))
@@ -44,6 +44,17 @@
     (if (zerop val)
       '(0 0 0)
       (elt *color-map* val))))
+
+;;
+;; calculate rgb values for given pixel coordinates
+;;
+(defun pixel-value-rgb (x y x-offset y-offset pixel-size)
+  "Calculate RGB value for given pixel coordinated and scaling"
+  (let* ((x-val (+ (* x pixel-size) x-offset))
+         (y-val (- (* y pixel-size) y-offset))
+         (val (pixel-value (complex x-val y-val))))
+    (list (* 5 (mod val 15)) (* 32 (mod val 7)) (* 8 (mod val 31)))))
+
 
 ;;
 ;; generate b/w PGM file
