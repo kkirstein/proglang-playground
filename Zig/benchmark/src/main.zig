@@ -38,7 +38,7 @@ pub fn main() !void {
     timer.reset();
     const res_2 = try fib.fib_iter(u1024, 1000);
     elap = timer.read();
-    print("fib_iter(1000) = {} (Elapsed: {d:.3}ms).\n", .{ 0, @intToFloat(f32, elap / ns_per_ms) });
+    print("fib_iter(1000) = {} (Elapsed: {d:.3}ms).\n", .{ res_2, @intToFloat(f32, elap / ns_per_ms) });
 
     print("\n", .{});
     print("Perfect numbers\n", .{});
