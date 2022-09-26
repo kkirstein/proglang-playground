@@ -1,4 +1,4 @@
-src = ['main.c', 'fib.c', 'perfect_number.c', 'primes.c', 'dynarr.c']
+src = ['main.c', 'fib.c', 'perfect_number.c', 'primes.c', 'dynarr.c', 'image.c', 'mandelbrot.c']
 
 conf_data = configuration_data()
 conf_data.set('version', '0.0.1')
