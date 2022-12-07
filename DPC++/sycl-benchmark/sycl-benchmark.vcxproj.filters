@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$projectname$.cpp">
+    <ClCompile Include="sycl-benchmark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fibonacci.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
