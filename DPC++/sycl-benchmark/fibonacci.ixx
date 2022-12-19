@@ -1,27 +1,14 @@
-
-module;
-
 /// <summary>
 /// Fibonacci module contains differnt implemntation to calculate Fibbonacci numbers
 /// </summary>
-module fibonacci;
+export module fibonacci;
 
-namespace fib {
+export namespace fib {
 
 	/// <summary>
 	/// Naive recursive implementation of Fibbonacci numbers
 	/// </summary>
 	/// <param name="n">Index of Fibonacci number to be calculated</param>
 	/// <returns>nth FIbonacci number</returns>
-	int fib_naive(const int n) {
-
-		if (n < 2) {
-			return n;
-		}
-		else {
-			return fib_naive(n - 1) + fib_naive(n - 2);
-		}
-		return 0;
-	}
+	export int fib_naive(const int n);
 }
-
