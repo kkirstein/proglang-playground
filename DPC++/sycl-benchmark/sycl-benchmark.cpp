@@ -15,6 +15,7 @@
 //#if FPGA || FPGA_EMULATOR
 //#include <sycl/ext/intel/fpga_extensions.hpp>
 //#endif
+#include <functional>
 #include <chrono>
 
 import fibonacci;
@@ -30,18 +31,19 @@ using namespace std::chrono;
 template<typename T>
 struct result {
 	T result;
-	//duration<milliseconds> elapsed;
+	milliseconds elapsed;
 };
 
-//template<typename T>
-//result<T> time_it([]() -> T fun) {
-//	auto tic = high_resolution_clock::now();
-//	auto res = fun();
-//	auto toc = high_resolution_clock::now();
-//	auto elapsed = duration_cast<milliseconds>(toc - tic);
-//
-//	return result{ result = res, elapsed = elapsed };
-//};
+template<typename T>
+result<T> time_it(std::function<T(void)> fun) {
+	auto tic = high_resolution_clock::now();
+	auto res = fun();
+	//auto res = 42;
+	auto toc = high_resolution_clock::now();
+	auto elapsed = duration_cast<milliseconds>(toc - tic);
+
+	return result{ result = res, elapsed = elapsed };
+};
 
 //************************************
 // Main entry point
@@ -50,14 +52,15 @@ int main(int argc, char* argv[]) {
 
 	std::cout << "Fibonacci Numbers" << std::endl;
 	std::cout << "-----------------" << std::endl;
-	auto tic = high_resolution_clock::now();
-	auto res = fib::fib_naive(35);
-	auto toc = high_resolution_clock::now();
-	auto elapsed = duration_cast<milliseconds>(toc - tic);
+	//auto tic = high_resolution_clock::now();
+	//auto res = fib::fib_naive(35);
+	//auto toc = high_resolution_clock::now();
+	//auto elapsed = duration_cast<milliseconds>(toc - tic);
 
-	auto fun = []() {return fib::fib_naive(35); };
+	auto res = time_it<int>([]() { return fib::fib_naive(35);});
 
-	std::cout << "fib_naive(35) = " << res << " (elapsed: " << elapsed << ")" << std::endl;
+	std::cout << "fib_naive(35) = " << res.result << " (elapsed: " << res.elapsed << ")" << std::endl;
+	//std::cout << "fib_naive(35) = " << res << " (elapsed: " << elapsed << ")" << std::endl;
 	std::cout << std::endl;
 
 	std::cout << "Perfect Numbers" << std::endl;
