@@ -35,14 +35,13 @@ struct result {
 };
 
 template<typename T>
-result<T> time_it(std::function<T(void)> fun) {
+result<T> time_it(T (*fun)(void)) {
 	auto tic = high_resolution_clock::now();
 	auto res = fun();
-	//auto res = 42;
 	auto toc = high_resolution_clock::now();
 	auto elapsed = duration_cast<milliseconds>(toc - tic);
 
-	return result{ result = res, elapsed = elapsed };
+	return result{ .result = res, .elapsed = elapsed };
 };
 
 //************************************
@@ -52,15 +51,10 @@ int main(int argc, char* argv[]) {
 
 	std::cout << "Fibonacci Numbers" << std::endl;
 	std::cout << "-----------------" << std::endl;
-	//auto tic = high_resolution_clock::now();
-	//auto res = fib::fib_naive(35);
-	//auto toc = high_resolution_clock::now();
-	//auto elapsed = duration_cast<milliseconds>(toc - tic);
 
-	auto res = time_it<int>([]() { return fib::fib_naive(35);});
-
+	const result res = time_it<int>([]() { return fib::fib_naive(35);});
 	std::cout << "fib_naive(35) = " << res.result << " (elapsed: " << res.elapsed << ")" << std::endl;
-	//std::cout << "fib_naive(35) = " << res << " (elapsed: " << elapsed << ")" << std::endl;
+
 	std::cout << std::endl;
 
 	std::cout << "Perfect Numbers" << std::endl;
