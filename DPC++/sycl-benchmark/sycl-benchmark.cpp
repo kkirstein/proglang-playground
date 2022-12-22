@@ -21,7 +21,7 @@
 #include "fibonacci.h"
 
 //using namespace sycl;
-//using fib;
+
 using namespace std::chrono;
 
 /// <summary>
@@ -41,7 +41,7 @@ result<T> time_it(T (*fun)(void)) {
 	auto toc = high_resolution_clock::now();
 	auto elapsed = duration_cast<milliseconds>(toc - tic);
 
-	return result{ .result = res, .elapsed = elapsed };
+	return result<T>{ .result = res, .elapsed = elapsed };
 };
 
 //************************************
