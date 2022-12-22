@@ -11,4 +11,11 @@ export namespace fib {
 	/// <param name="n">Index of Fibonacci number to be calculated</param>
 	/// <returns>nth FIbonacci number</returns>
 	export int fib_naive(const int n);
+
+	/// <summary>
+	/// Tail-call optimized implementation of Fibonacci numbers
+	/// </summary>
+	/// <param name="n">Index of Fibonacci number to be calculated</param>
+	/// <returns>nth FIbonacci number</returns>
+	export int fib(const int n);
 }

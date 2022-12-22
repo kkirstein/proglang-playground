@@ -52,8 +52,11 @@ int main(int argc, char* argv[]) {
 	std::cout << "Fibonacci Numbers" << std::endl;
 	std::cout << "-----------------" << std::endl;
 
-	const result res = time_it<int>([]() { return fib::fib_naive(35);});
-	std::cout << "fib_naive(35) = " << res.result << " (elapsed: " << res.elapsed << ")" << std::endl;
+	const result res_1 = time_it<int>([]() { return fib::fib_naive(35);});
+	std::cout << "fib_naive(35) = " << res_1.result << " (elapsed: " << res_1.elapsed << ")" << std::endl;
+
+	const result res_2 = time_it<int>([]() { return fib::fib(35);});
+	std::cout << "fib(35) = " << res_2.result << " (elapsed: " << res_2.elapsed << ")" << std::endl;
 
 	std::cout << std::endl;
 
