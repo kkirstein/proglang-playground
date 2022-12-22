@@ -18,7 +18,7 @@
 #include <functional>
 #include <chrono>
 
-import fibonacci;
+#include "fibonacci.h"
 
 //using namespace sycl;
 //using fib;

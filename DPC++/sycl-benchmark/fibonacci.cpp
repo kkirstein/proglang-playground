@@ -1,11 +1,9 @@
 
-module;
+#include "fibonacci.h"
 
 /// <summary>
-/// Fibonacci module contains differnt implemntation to calculate Fibbonacci numbers
+/// Fibonacci module contains different implemntations to calculate Fibbonacci numbers
 /// </summary>
-module fibonacci;
-
 namespace fib {
 
 	/// <summary>
