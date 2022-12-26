@@ -83,10 +83,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="fibonacci.cpp" />
+    <ClCompile Include="perfect_number.cpp" />
     <ClCompile Include="sycl-benchmark.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fibonacci.h" />
+    <ClInclude Include="perfect_number.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
