@@ -1,0 +1,6 @@
+# VS config
+.vs
+
+# generated binaries
+x64
+x86
