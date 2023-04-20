@@ -21,5 +21,16 @@
     <ClCompile Include="fibonacci.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="perfect_number.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fibonacci.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="perfect_number.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
