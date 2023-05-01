@@ -11,6 +11,10 @@ A playground for various programming languages.
 
 [ATS](http://www.ats-lang.org) is a statically-typed programming language that support functional and imperative styles. Its type system supports dependent types and enables theorem proofing of its implementations.
 
+# Ballerina
+
+[Ballerina](https://ballerina.io/) is statically typed programming language with emphasis on implementing services. It has good support for concurrency and deployment in the cloud. Ballerina programs also feature a graphical representation with sequence diagrams and seamless conversion between them and textual representation.
+
 # Clojure
 
 Clojure is a LISP-style language for the Java Virtual Machine (JVM).
