@@ -1,4 +1,6 @@
-﻿namespace Benchmark
+﻿using Benchmark.Tasks;
+
+namespace Benchmark
 {
     internal class Program
     {
@@ -8,9 +10,20 @@
             Console.WriteLine("=========");
             Console.WriteLine();
 
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
             Console.WriteLine("Fibonacci Numbers");
             Console.WriteLine("-----------------");
+
+            sw.Restart();
+            var res = Fibonacci.NaiveFib(35);
+            var elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"NaiveFib(35) = {res} (Elapsed: {elapsed} ms)");
+
+            sw.Restart();
+            res = Fibonacci.RecFib(35);
+            elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"RecFib(35) = {res} (Elapsed: {elapsed} ms)");
 
             Console.WriteLine();
 
