@@ -12,6 +12,11 @@ namespace Benchmark.Tasks
     /// </summary>
     public class Fibonacci
     {
+        /// <summary>
+        /// Naive recursive implementation
+        /// </summary>
+        /// <param name="n">nth Fibonacci number to be calculated</param>
+        /// <returns>Calculated nth Fibonacci number</returns>
         public static int NaiveFib(int n)
         {
             if (n < 2) return n;
@@ -31,10 +36,30 @@ namespace Benchmark.Tasks
                 return LoopFib(n - 1, b, a + b);
             }
         }
+
+        private static T LoopFib<T>(int n, T a, T b)
+        {
+            if (n == 0)
+            {
+                return a;
+            }
+            else
+            {
+                return LoopFib(n - 1, b, a + b);
+            }
+
+        }
+
+        /// <summary>
+        /// Tail-call optimized recursive implementation
+        /// </summary>
+        /// <param name="n">nth Fibonacci number to be calculated</param>
+        /// <returns>Calculated nth Fibonacci number</returns>
         public static int RecFib(int n)
         {
             return LoopFib(n, 0, 1);
         }
+
     }
 
 }
