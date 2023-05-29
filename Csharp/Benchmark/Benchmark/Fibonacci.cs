@@ -38,6 +38,7 @@ namespace Benchmark.Tasks
         }
 
         private static T LoopFib<T>(int n, T a, T b)
+            where T : System.Numerics.IAdditionOperators<T, T, T>
         {
             if (n == 0)
             {
