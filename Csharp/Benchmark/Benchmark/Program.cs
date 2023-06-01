@@ -16,14 +16,24 @@ namespace Benchmark
             Console.WriteLine("-----------------");
 
             sw.Restart();
-            var res = Fibonacci.NaiveFib(35);
+            var res_1 = Fibonacci.NaiveFib(35);
             var elapsed = sw.ElapsedMilliseconds;
-            Console.WriteLine($"NaiveFib(35) = {res} (Elapsed: {elapsed} ms)");
+            Console.WriteLine($"NaiveFib(35) = {res_1} (Elapsed: {elapsed} ms)");
 
             sw.Restart();
-            res = Fibonacci.RecFib(35);
+            res_1 = Fibonacci.RecFib(35);
             elapsed = sw.ElapsedMilliseconds;
-            Console.WriteLine($"RecFib(35) = {res} (Elapsed: {elapsed} ms)");
+            Console.WriteLine($"RecFib(35) = {res_1} (Elapsed: {elapsed} ms)");
+
+            sw.Restart();
+            var res_2 = Fibonacci.RecFibBigInt(35);
+            elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"RecFibBigInt(35) = {res_2} (Elapsed: {elapsed} ms)");
+
+            sw.Restart();
+            res_2 = Fibonacci.RecFibBigInt(1000);
+            elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"RecFibBigInt(1000) = {res_2} (Elapsed: {elapsed} ms)");
 
             Console.WriteLine();
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,17 +26,17 @@ namespace Benchmark.Tasks
         }
 
 
-        private static int LoopFib(int n, int a, int b)
-        {
-            if (n == 0)
-            {
-                return a;
-            }
-            else
-            {
-                return LoopFib(n - 1, b, a + b);
-            }
-        }
+        //private static int LoopFib(int n, int a, int b)
+        //{
+        //    if (n == 0)
+        //    {
+        //        return a;
+        //    }
+        //    else
+        //    {
+        //        return LoopFib(n - 1, b, a + b);
+        //    }
+        //}
 
         private static T LoopFib<T>(int n, T a, T b)
             where T : System.Numerics.IAdditionOperators<T, T, T>
@@ -59,6 +60,16 @@ namespace Benchmark.Tasks
         public static int RecFib(int n)
         {
             return LoopFib(n, 0, 1);
+        }
+
+        /// <summary>
+        /// Tail-call optimized recursive implementation, using BigInteger for result
+        /// </summary>
+        /// <param name="n">nth Fibonacci number to be calculated</param>
+        /// <returns>Calculated nth Fibonacci number</returns>
+        public static BigInteger RecFibBigInt(int n)
+        {
+            return LoopFib(n, BigInteger.Zero, BigInteger.One);
         }
 
     }
