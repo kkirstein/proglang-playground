@@ -25,19 +25,14 @@ namespace Benchmark.Tasks
                 return NaiveFib(n - 1) + NaiveFib(n - 2);
         }
 
-
-        //private static int LoopFib(int n, int a, int b)
-        //{
-        //    if (n == 0)
-        //    {
-        //        return a;
-        //    }
-        //    else
-        //    {
-        //        return LoopFib(n - 1, b, a + b);
-        //    }
-        //}
-
+        /// <summary>
+        /// Internal recursive loop fro FIbonacci number calculation
+        /// </summary>
+        /// <typeparam name="T">Numeric result type for calculated Fibonacci number</typeparam>
+        /// <param name="n">nth Fibonacci number to be calculated</param>
+        /// <param name="a">First intermediate sum variable</param>
+        /// <param name="b">Second intermediate sum variable</param>
+        /// <returns></returns>
         private static T LoopFib<T>(int n, T a, T b)
             where T : System.Numerics.IAdditionOperators<T, T, T>
         {
