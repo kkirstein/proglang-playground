@@ -40,6 +40,17 @@ namespace Benchmark
             Console.WriteLine("Perfect Numbers");
             Console.WriteLine("---------------");
 
+            sw.Restart();
+            var res_3 = PerfectNumber.GetPerfectNumbersEnumerable().Take(4).ToList();
+            elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"GetPerfectNumbersEnumarable().Take(4) = {res_3} (Elapsed: {elapsed} ms)");
+
+            sw.Restart();
+            res_3 = PerfectNumber.GetPerfectNumbersList(10000);
+            elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"GetPerfectNumbersList(10000) = {res_3} (Elapsed: {elapsed} ms)");
+
+
             Console.WriteLine();
 
             Console.WriteLine("Prime Numbers");
