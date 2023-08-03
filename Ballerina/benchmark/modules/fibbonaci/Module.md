@@ -1,4 +1,4 @@
-Prints "Hello, World!" with a main function.
+Calculates Fibonacci numbers for benchmarking
 [//]: # (above is the module summary)
 
 # Module Overview
