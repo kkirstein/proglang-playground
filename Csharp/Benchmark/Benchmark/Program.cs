@@ -50,7 +50,6 @@ namespace Benchmark
             elapsed = sw.ElapsedMilliseconds;
             Console.WriteLine($"GetPerfectNumbersList(10000) = {res_3} (Elapsed: {elapsed} ms)");
 
-
             Console.WriteLine();
 
             Console.WriteLine("Prime Numbers");
