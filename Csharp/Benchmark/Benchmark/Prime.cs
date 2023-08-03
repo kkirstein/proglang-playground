@@ -59,8 +59,10 @@ namespace Benchmark.Tasks
         public static List<int> GetPrimesPar(int limit)
         {
             var primes = Enumerable.Range(0, limit).AsParallel().Where(IsPrime);
+            var res = primes.ToList();
+            res.Sort();
 
-            return primes.ToList();
+            return res;
         }
     }
 }

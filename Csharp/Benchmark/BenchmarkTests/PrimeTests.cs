@@ -31,5 +31,12 @@ namespace BenchmarkTests
             CollectionAssert.AreEqual(new int[] { 2, 3, 5, 7, 11, 13, 17 }, Prime.GetPrimes(19));
             CollectionAssert.AreEqual(new int[] { 2, 3, 5, 7, 11, 13, 17, 19 }, Prime.GetPrimes(20));
         }
+
+        [TestMethod]
+        public void TestGetPrimesPar()
+        {
+            CollectionAssert.AreEqual(new int[] { 2, 3, 5, 7, 11, 13, 17 }, Prime.GetPrimesPar(19));
+            CollectionAssert.AreEqual(new int[] { 2, 3, 5, 7, 11, 13, 17, 19 }, Prime.GetPrimesPar(20));
+        }
     }
 }
