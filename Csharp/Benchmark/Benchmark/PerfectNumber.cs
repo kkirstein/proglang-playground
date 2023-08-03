@@ -27,7 +27,7 @@ namespace Benchmark.Tasks
         }
 
 
-        public static IEnumerable<int> GetPerfectNumbersEnumerable()
+        public static IEnumerable<int> GetPerfectNumbersLazy()
         {
             return Enumerable.Range(1, int.MaxValue).Where(IsPerfect);
         }

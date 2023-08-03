@@ -41,7 +41,7 @@ namespace Benchmark
             Console.WriteLine("---------------");
 
             sw.Restart();
-            var res_3 = PerfectNumber.GetPerfectNumbersEnumerable().Take(4).ToList();
+            var res_3 = PerfectNumber.GetPerfectNumbersLazy().Take(4).ToList();
             elapsed = sw.ElapsedMilliseconds;
             Console.WriteLine($"GetPerfectNumbersEnumarable().Take(4) = [{String.Join(", ", res_3)}] (Elapsed: {elapsed} ms)");
 

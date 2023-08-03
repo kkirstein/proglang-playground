@@ -28,7 +28,7 @@ namespace BenchmarkTests
         public void TestPerfectNumbersEnumerable()
         {
             CollectionAssert.AreEqual(new List<int>() { 6, 28 },
-                PerfectNumber.GetPerfectNumbersEnumerable().Take(2).ToList());
+                PerfectNumber.GetPerfectNumbersLazy().Take(2).ToList());
         }
 
         [TestMethod]
