@@ -11,6 +11,16 @@ using System.Xml.Linq;
 
 namespace Benchmark.Tasks
 {
+
+    public enum MandelbrotMethod
+    {
+        Sequential,
+        Parallel
+    }
+
+    /// <summary>
+    /// Generate Mandelbrot sets
+    /// </summary>
     public class Mandelbrot
     {
 
@@ -93,7 +103,7 @@ namespace Benchmark.Tasks
         /// <param name="xCenter">Horizontal center coordinate of Mandelbrot set</param>
         /// <param name="yCenter">Vertical center coordinate of Mandelbrot set</param>
         /// <param name="scale">Pixel size scaling</param>
-        public Mandelbrot(int width, int height, double xCenter, double yCenter, double scale)
+        public Mandelbrot(int width, int height, double xCenter, double yCenter, double scale, MandelbrotMethod method)
         {
             Width = width;
             Height = height;
@@ -112,9 +122,16 @@ namespace Benchmark.Tasks
 
             byte[] data = new byte[byteCount];
 
-            CalcPixelSeq(ref data);
-
-            Marshal.Copy(data, 0, bData.Scan0, data.Length);
+            switch (method)
+            {
+                case MandelbrotMethod.Sequential:
+                    CalcPixelSeq(ref bData);
+                    break;
+                case MandelbrotMethod.Parallel:
+                    CalcPixelPar(ref bData);
+                    break;
+            }
+            CalcPixelSeq(ref bData);
 
             img.UnlockBits(bData);
         }
@@ -127,10 +144,13 @@ namespace Benchmark.Tasks
         /// Calculate Mandelbrot set sequentially
         /// </summary>
         /// <param name="data">Byte array of RGB pixel data</param>
-        public void CalcPixelSeq(ref byte[] data)
+        public void CalcPixelSeq(ref BitmapData data)
         {
             var xOffset = XCenter - 0.5 * Scale * Width;
             var yOffset = YCenter + 0.5 * Scale * Width;
+
+            var byteCount = data.Stride * Height;
+            byte[] buf = new byte[byteCount];
 
             for (int y = 0; y < Height; y++)
             {
@@ -144,11 +164,42 @@ namespace Benchmark.Tasks
 
                     // TODO
                     var baseIdx = 3 * x + stride * y;
-                    data[baseIdx] = rgb[0];
-                    data[baseIdx + 1] = rgb[1];
-                    data[baseIdx + 2] = rgb[2];
+                    buf[baseIdx] = rgb[0];
+                    buf[baseIdx + 1] = rgb[1];
+                    buf[baseIdx + 2] = rgb[2];
                 }
             }
+
+            Marshal.Copy(buf, 0, data.Scan0, buf.Length);
+        }
+
+        public void CalcPixelPar(ref BitmapData data)
+        {
+            var xOffset = XCenter - 0.5 * Scale * Width;
+            var yOffset = YCenter + 0.5 * Scale * Width;
+
+            var byteCount = data.Stride * Height;
+            byte[] buf = new byte[byteCount];
+
+            Parallel.For(0, Height, y =>
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    var xCoord = x * Scale + xOffset;
+                    var yCoord = y * Scale - yOffset;
+
+                    var pixel = PixelValue(xCoord, yCoord);
+                    var rgb = PixelToRgb(pixel);
+
+                    // TODO
+                    var baseIdx = 3 * x + stride * y;
+                    buf[baseIdx] = rgb[0];
+                    buf[baseIdx + 1] = rgb[1];
+                    buf[baseIdx + 2] = rgb[2];
+                }
+            });
+
+            Marshal.Copy(buf, 0, data.Scan0, buf.Length);
         }
 
         /// <summary>

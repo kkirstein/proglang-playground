@@ -71,15 +71,21 @@ namespace Benchmark
             Console.WriteLine("--------------");
 
             sw.Restart();
-            var res_5 = new Mandelbrot(1920, 1600, -0.5, 0.0, 4.0 / 1920);
+            var mandelbrot = new Mandelbrot(1920, 1600, -0.5, 0.0, 4.0 / 1920,
+                MandelbrotMethod.Sequential);
             elapsed = sw.ElapsedMilliseconds;
-            Console.WriteLine($"Mandelbrot(1920, 1600) = <> (Elapsed: {elapsed} ms)");
+            Console.WriteLine($"Mandelbrot(1920, 1600, Seq) = <> (Elapsed: {elapsed} ms)");
+            sw.Restart();
+            mandelbrot = new Mandelbrot(1920, 1600, -0.5, 0.0, 4.0 / 1920,
+                MandelbrotMethod.Parallel);
+            elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"Mandelbrot(1920, 1600, Par) = <> (Elapsed: {elapsed} ms)");
 
             Console.WriteLine();
 
             sw.Restart();
             string filename = @"mandelbrot_1920x1600.png";
-            res_5.Save(filename);
+            mandelbrot.Save(filename);
             elapsed = sw.ElapsedMilliseconds;
             Console.WriteLine($"Manelbrot(1920, 1600) written to {filename} (Elapsed: {elapsed} ms)");
         }
