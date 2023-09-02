@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using System.Xml.Linq;
+﻿using System.Numerics;
+using SkiaSharp;
 
 namespace Benchmark.Tasks
 {
@@ -39,8 +31,8 @@ namespace Benchmark.Tasks
         private static readonly double R_MAX = 2.0;
         private static readonly byte N_MAX = 255;
 
-        private Bitmap img;
-        private int stride;
+        private SKImage img;
+        //private SKBitmap bm;
 
         #endregion
 
@@ -111,29 +103,15 @@ namespace Benchmark.Tasks
             YCenter = yCenter;
             Scale = scale;
 
-            img = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+            var info = new SKImageInfo(Width, Height, SKColorType.Rgb888x);
 
-            var bData = img.LockBits(new Rectangle(0, 0, width, height),
-                ImageLockMode.WriteOnly,
-                PixelFormat.Format24bppRgb);
-
-            var byteCount = bData.Stride * height;
-            stride = bData.Stride;
-
-            byte[] data = new byte[byteCount];
-
-            switch (method)
+            var buf = method switch
             {
-                case MandelbrotMethod.Sequential:
-                    CalcPixelSeq(ref bData);
-                    break;
-                case MandelbrotMethod.Parallel:
-                    CalcPixelPar(ref bData);
-                    break;
-            }
-            CalcPixelSeq(ref bData);
+                MandelbrotMethod.Sequential => CalcPixelSeq(),
+                MandelbrotMethod.Parallel => CalcPixelPar()
+            };
 
-            img.UnlockBits(bData);
+            img = SKImage.FromPixelCopy(info, buf);
         }
 
         #endregion
@@ -144,13 +122,12 @@ namespace Benchmark.Tasks
         /// Calculate Mandelbrot set sequentially
         /// </summary>
         /// <param name="data">Byte array of RGB pixel data</param>
-        public void CalcPixelSeq(ref BitmapData data)
+        public Span<byte> CalcPixelSeq()
         {
             var xOffset = XCenter - 0.5 * Scale * Width;
             var yOffset = YCenter + 0.5 * Scale * Width;
 
-            var byteCount = data.Stride * Height;
-            byte[] buf = new byte[byteCount];
+            byte[] buf = new byte[4 * Width * Height];
 
             for (int y = 0; y < Height; y++)
             {
@@ -162,24 +139,22 @@ namespace Benchmark.Tasks
                     var pixel = PixelValue(xCoord, yCoord);
                     var rgb = PixelToRgb(pixel);
 
-                    // TODO
-                    var baseIdx = 3 * x + stride * y;
+                    // set RGB values, leave alpha out
+                    var baseIdx = 4 * x + 4 * Width * y;
                     buf[baseIdx] = rgb[0];
                     buf[baseIdx + 1] = rgb[1];
                     buf[baseIdx + 2] = rgb[2];
                 }
             }
-
-            Marshal.Copy(buf, 0, data.Scan0, buf.Length);
+            return buf;
         }
 
-        public void CalcPixelPar(ref BitmapData data)
+        public Span<byte> CalcPixelPar()
         {
             var xOffset = XCenter - 0.5 * Scale * Width;
             var yOffset = YCenter + 0.5 * Scale * Width;
 
-            var byteCount = data.Stride * Height;
-            byte[] buf = new byte[byteCount];
+            byte[] buf = new byte[4 * Width * Height];
 
             Parallel.For(0, Height, y =>
             {
@@ -191,15 +166,14 @@ namespace Benchmark.Tasks
                     var pixel = PixelValue(xCoord, yCoord);
                     var rgb = PixelToRgb(pixel);
 
-                    // TODO
-                    var baseIdx = 3 * x + stride * y;
+                    // set RGB values, leave alpha out
+                    var baseIdx = 4 * x + 4 * Width * y;
                     buf[baseIdx] = rgb[0];
                     buf[baseIdx + 1] = rgb[1];
                     buf[baseIdx + 2] = rgb[2];
                 }
             });
-
-            Marshal.Copy(buf, 0, data.Scan0, buf.Length);
+            return buf;
         }
 
         /// <summary>
@@ -208,7 +182,11 @@ namespace Benchmark.Tasks
         /// <param name="filename">File path to be written</param>
         public void Save(string filename)
         {
-            img.Save(filename);
+            using (Stream s = File.Create(filename))
+            {
+                var d = img.Encode(SKEncodedImageFormat.Png, 100);
+                d.SaveTo(s);
+            }
         }
 
         #endregion
