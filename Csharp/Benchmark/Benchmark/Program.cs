@@ -69,6 +69,19 @@ namespace Benchmark
 
             Console.WriteLine("Mandelbrot Set");
             Console.WriteLine("--------------");
+
+            sw.Restart();
+            var res_5 = new Mandelbrot(1920, 1600, -0.5, 0.0, 4.0 / 1920);
+            elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"Mandelbrot(1920, 1600) = <> (Elapsed: {elapsed} ms)");
+
+            Console.WriteLine();
+
+            sw.Restart();
+            string filename = @"mandelbrot_1920x1600.png";
+            res_5.Save(filename);
+            elapsed = sw.ElapsedMilliseconds;
+            Console.WriteLine($"Manelbrot(1920, 1600) written to {filename} (Elapsed: {elapsed} ms)");
         }
     }
 }
