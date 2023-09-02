@@ -131,7 +131,6 @@ namespace Benchmark.Tasks
                     CalcPixelPar(ref bData);
                     break;
             }
-            CalcPixelSeq(ref bData);
 
             img.UnlockBits(bData);
         }
