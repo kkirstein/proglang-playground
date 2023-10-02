@@ -6,10 +6,6 @@
 ; programming language
 ;
 
-(require hyrule [defmacro/g!])
-(import fibonacci [fib-naive fib])
-(import perfect-number [perfect-numbers perfect-numbers-gen])
-
 (defmacro/g! time-it [fun]
   `(do
       (import time)
@@ -22,6 +18,7 @@
 
 ; Fibonacci numbers
 ; =================
+(import [fibonacci [fib-naive fib]])
 (print "Fibonacci Numbers")
 (print "=================")
 (pprint-time-it "fib-naive(35)" (time-it (fib-naive 35)))
@@ -31,6 +28,7 @@
 
 ; Perfect numbers
 ; ===============
+(import [perfect-number [perfect-numbers perfect-numbers-gen]])
 (print "Perfect Numbers")
 (print "===============")
 (pprint-time-it "perfect-numbers(1000)" (time-it (perfect-numbers 1000)))

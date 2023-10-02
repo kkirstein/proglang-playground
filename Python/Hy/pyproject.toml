@@ -6,13 +6,10 @@ authors = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = ">= 3.10,< 3.13"
-hy = "^0.27.0"
-hyrule = "^0.4.0"
+python = "^3.8"
+hy = "^0.20.0"
 
-[tool.poetry.group.dev.dependencies]
-
-[tool.poetry.scripts]
+[tool.poetry.dev-dependencies]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
