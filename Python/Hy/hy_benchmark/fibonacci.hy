@@ -3,7 +3,7 @@
 ; fibonacci.hy
 ;
 
-(require [hy.contrib.loop [loop]])
+(require hyrule [loop])
 
 (defn fib-naive [n]
   "A naive implementation of Fibonacci numbers"

@@ -3,22 +3,23 @@
 ; perfect_number.hy
 ;
 
-(require [hy.contrib.loop [loop]])
+(require hyrule [loop])
+(import itertools [count islice])
 
 (defn perfect? [n]
   "Check whether given number is a 'perfect' number"
   (loop [[i 1] [sum 0]]
     (cond
-      [(= i n) (= sum n)]
-      [(zero? (% n i)) (recur (+ i 1) (+ sum i))]
-      [True (recur (+ i 1) sum)])))
+      (= i n) (= sum n)
+      (= 0 (% n i)) (recur (+ i 1) (+ sum i))
+      True (recur (+ i 1) sum))))
 
 (defn perfect-iter? [n]
   "Check whether given number is 'perfect', non-recursive implementation"
   (do
     (setv sum 0)
     (for [i (range 1 n)]
-      (when (zero? (% n i)) (setv sum (+ sum i))))
+      (when (= 0 (% n i)) (setv sum (+ sum i))))
     (= sum n)))
 
 
@@ -37,5 +38,5 @@
 
 (defn perfect-numbers-gen [n]
   "Calculate 'perfect' numbers by generator function"
-  (list (take n (pn-generator))))
+  (list (islice (pn-generator) n)))
 
