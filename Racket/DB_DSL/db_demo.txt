@@ -1,0 +1,6 @@
+SHOW-DB
+PUT "milk" 1.50
+PUT "water" 1.00
+x = GET "water"
+PRINT x
+SHOW-DB
