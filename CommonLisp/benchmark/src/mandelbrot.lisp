@@ -43,7 +43,7 @@
 	(val (pixel-value (complex x-val y-val))))
     (if (zerop val)
       '(0 0 0)
-      (elt *color-map* val))))
+      (elt +color-map+ val))))
 
 ;;
 ;; calculate rgb values for given pixel coordinates

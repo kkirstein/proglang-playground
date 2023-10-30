@@ -7,7 +7,7 @@
 ;;
 ;; package constants
 ;;
-(defconstant *color-map*
+(defconstant +color-map+
 	     #(
 	       (0 0 0) (0 0 252) (64 0 252) (124 0 252) (188 0 252)
 	       (252 0 252) (252 0 188) (252 0 124) (252 0 64) (252 0 0)
