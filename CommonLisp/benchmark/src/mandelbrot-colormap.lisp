@@ -2,7 +2,7 @@
 ;;; Compute Mandelbrot set in Lisp
 ;;;
 
-(in-package mandelbrot)
+(in-package :benchmark/mandelbrot)
 
 ;;
 ;; package constants

@@ -2,7 +2,7 @@
 ;;; Compute Fibonacci Series in Lisp
 ;;;
 
-(in-package fibonacci)
+(in-package :benchmark/fibonacci)
 
 ;;
 ;; naive double recursive version

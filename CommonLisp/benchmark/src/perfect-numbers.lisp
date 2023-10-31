@@ -2,7 +2,7 @@
 ;;; Compute Perfect Numbers in Lisp
 ;;;
 
-(in-package perfect-numbers)
+(in-package :benchmark/perfect-numbers)
 
 ;;
 ;; check if given number is perfect
