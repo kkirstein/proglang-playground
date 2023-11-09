@@ -19,10 +19,10 @@
    (format t "-----------------~%")
 
    (format t "Fibonacci series (double recursive approach):~%")
-   (format t "(fib-naive 35) = ~a~%" (time (fibonacci:fibonacci-2 35)))
+   (format t "(fib-naive 35) = ~a~%" (time (benchmark/fibonacci:fibonacci-2 35)))
    (format t "~%")
    (format t "Fibonacci series (linear recursive approach):~%")
-   (format t "(fib 10000) = ~a~%" (time (fibonacci:fibonacci 10000)))
+   (format t "(fib 10000) = ~a~%" (time (benchmark/fibonacci:fibonacci 10000)))
    (format t "~%")
 
    ;;
@@ -30,7 +30,7 @@
    ;;
    (format t "Perfect numbers:~%")
    (format t "----------------~%")
-   (format t "(perfect-numbers 10000) = ~a~%" (time (perfect-numbers:make-perfect-numbers 10000)))
+   (format t "(perfect-numbers 10000) = ~a~%" (time (benchmark/perfect-numbers:make-perfect-numbers 10000)))
    (format t "~%")
 
    ;;
@@ -40,9 +40,9 @@
    (defparameter rgb-file "mandelbrot_rgb.ppm")
    (format t "Mandelbrot sets:~%")
    (format t "----------------~%")
-   (time (mandelbrot:write-pgm-bw bw-file 640 480 -0.5 0.0 (/ 4.0 640)))
-   (time (mandelbrot:write-pgm-rgb rgb-file 640 480 -0.5 0.0 (/ 4.0 640)))
-   (time (mandelbrot:write-pgm-rgb rgb-file 1920 1600 -0.5 0.0 (/ 4.0 1920)))
+   (time (benchmark/mandelbrot:write-pgm-bw bw-file 640 480 -0.5 0.0 (/ 4.0 640)))
+   (time (benchmark/mandelbrot:write-pgm-rgb rgb-file 640 480 -0.5 0.0 (/ 4.0 640)))
+   (time (benchmark/mandelbrot:write-pgm-rgb rgb-file 1920 1600 -0.5 0.0 (/ 4.0 1920)))
    (format t "~%")
 
    ;;
