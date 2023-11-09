@@ -5,7 +5,7 @@
 
 ;(use-package #:ltk)
 ; set correct path for windows version of tk
-(setf *wish-pathname* "C:\\Opt\\tcl8.6\\bin\\wish86")
+(setf *wish-pathname* "C:/Users/kayuwe.kirstein/AppData/Local/Apps/Tcl86/bin/wish.exe")
 
 ;; hello world example
 (defun hello-1 ()
