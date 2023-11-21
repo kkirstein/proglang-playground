@@ -27,5 +27,5 @@
 ;; package mandelbrot
 ;;
 (defpackage :benchmark/mandelbrot
-  (:use :cl)
+  (:use :cl :imago)
   (:export :write-pgm-bw :write-pgm-rgb))
