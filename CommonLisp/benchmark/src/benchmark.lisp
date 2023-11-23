@@ -1,7 +1,7 @@
 ;;;; benchmark.lisp
 
 (defpackage :benchmark
-  (:use :cl)
+  (:use :cl :benchmark/mandelbrot)
   (:export :main))
 (in-package :benchmark)
 
@@ -38,11 +38,17 @@
    ;;
    (defparameter bw-file "mandelbrot_bw.pgm")
    (defparameter rgb-file "mandelbrot_rgb.ppm")
+   (defparameter png-file "mandelbrot_rgb.png")
    (format t "Mandelbrot sets:~%")
    (format t "----------------~%")
    (time (benchmark/mandelbrot:write-pgm-bw bw-file 640 480 -0.5 0.0 (/ 4.0 640)))
    (time (benchmark/mandelbrot:write-pgm-rgb rgb-file 640 480 -0.5 0.0 (/ 4.0 640)))
-   (time (benchmark/mandelbrot:write-pgm-rgb rgb-file 1920 1600 -0.5 0.0 (/ 4.0 1920)))
+   ;(time (benchmark/mandelbrot:write-pgm-rgb rgb-file 1920 1600 -0.5 0.0 (/ 4.0 1920)))
+
+   (defvar *img*)
+   (time (setf *img* (benchmark/mandelbrot:make-mandelbrot 1920 1600 -0.5 0.0 (/ 4.0 1920))))
+   (time (imago:write-png *img* png-file))
+
    (format t "~%")
 
    ;;
@@ -54,9 +60,7 @@
    ;;
    ;; clean-up and finish
    ;;
-   (format t "DONE~%"))
-
-  :DONE)
+   (format t "DONE~%")))
 
 ;;
 ;; call main entry point

@@ -28,4 +28,4 @@
 ;;
 (defpackage :benchmark/mandelbrot
   (:use :cl :imago)
-  (:export :write-pgm-bw :write-pgm-rgb))
+  (:export :write-pgm-bw :write-pgm-rgb :make-mandelbrot))

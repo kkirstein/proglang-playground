@@ -64,11 +64,8 @@
   (let ((x-offset (- x-center (* 0.5 pixel-size (1+ width))))
         (y-offset (+ y-center (* 0.5 pixel-size (1+ height))))
         (img (imago:make-rgb-image width height)))
-    (do ((j 1 (1+ j)))
-        ((> j height) nil)
-      (do ((i 1 (1+ i)))
-          ((> i width) nil)
-        (setf (imago:image-pixel img i j) (pixel-value-rgb i j x-offset y-offset pixel-size))))
+    (imago:do-image-pixels (img color x y)
+      (setf color (apply #'imago:make-color (pixel-value-rgb x y x-offset y-offset pixel-size))))
     img))
 
 ;;
