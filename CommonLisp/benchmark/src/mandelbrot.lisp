@@ -57,7 +57,7 @@
 
 
 ;;
-;; genrate Mandelbort set of given size & coordinates
+;; generate Mandelbort set of given size & coordinates
 ;;
 (defun make-mandelbrot (width height x-center y-center pixel-size)
   "Generate Mandelbrot set for given size & coordinates"
