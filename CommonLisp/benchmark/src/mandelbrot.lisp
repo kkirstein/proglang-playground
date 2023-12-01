@@ -42,20 +42,6 @@
     (if (zerop (pixel-value (complex x-val y-val)))
         0
         *color-max*)))
-;;
-;;
-;; get rgb value for given pixel coordinates
-;;
-(defun pixel-value-rgb-map (X Y X-OFFSET Y-OFFSET PIXEL-SIZE)
-  "Calculate RGB value for given pixel coordinates and scaling"
-  (declare (type fixnum X Y)
-           (single-float X-OFFSET Y-OFFSET PIXEL-SIZE))
-  (let* ((x-val (+ (* X PIXEL-SIZE) X-OFFSET))
-         (y-val (- (* Y PIXEL-SIZE) Y-OFFSET))
-         (val (pixel-value (complex x-val y-val))))
-    (if (zerop val)
-        '(0 0 0)
-        (elt *color-map* val))))
 
 ;;
 ;; calculate rgb values for given pixel coordinates
@@ -68,7 +54,6 @@
          (y-val (- (* y pixel-size) y-offset))
          (val (pixel-value (complex x-val y-val))))
     (list (* 5 (mod val 15)) (* 32 (mod val 7)) (* 8 (mod val 31)))))
-
 
 ;;
 ;; generate Mandelbort set of given size & coordinates
