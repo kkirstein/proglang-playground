@@ -2,9 +2,9 @@
 ;;; Compute Mandelbrot set in Lisp
 ;;;
 
-;(defpackage :benchmark/mandelbrot
-;  (:use :cl :imago)
-;  (:export :write-pgm-bw :write-pgm-rgb :make-mandelbrot))
+(defpackage :benchmark/mandelbrot
+  (:use :cl :imago)
+  (:export :make-mandelbrot))
 
 (in-package :benchmark/mandelbrot)
 (declaim (optimize (speed 3) (debug 0) (safety 0)))
@@ -55,7 +55,7 @@
          (val (pixel-value (complex x-val y-val))))
     (if (zerop val)
         '(0 0 0)
-        (elt +color-map+ val))))
+        (elt *color-map* val))))
 
 ;;
 ;; calculate rgb values for given pixel coordinates

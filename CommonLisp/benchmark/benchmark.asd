@@ -14,6 +14,5 @@
                         :components
                         ((:file "fibonacci")
                          (:file "perfect-numbers")
-                         (:file "mandelbrot-colormap")
                          (:file "mandelbrot")
                          (:file "benchmark")))))
