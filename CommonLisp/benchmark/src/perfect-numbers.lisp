@@ -2,6 +2,10 @@
 ;;; Compute Perfect Numbers in Lisp
 ;;;
 
+(defpackage :benchmark/perfect-numbers
+  (:use :cl)
+  (:export :perfectp :make-perfect-numbers))
+
 (in-package :benchmark/perfect-numbers)
 
 ;;

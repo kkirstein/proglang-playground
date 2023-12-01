@@ -2,6 +2,10 @@
 ;;; Compute Mandelbrot set in Lisp
 ;;;
 
+(defpackage :benchmark/mandelbrot
+  (:use :cl :imago)
+  (:export :write-pgm-bw :write-pgm-rgb :make-mandelbrot))
+
 (in-package :benchmark/mandelbrot)
 
 ;;

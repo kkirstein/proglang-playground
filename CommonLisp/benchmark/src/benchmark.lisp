@@ -1,8 +1,12 @@
 ;;;; benchmark.lisp
 
 (defpackage :benchmark
-  (:use :cl :benchmark/mandelbrot)
+  (:use :cl
+        :benchmark/fibonacci
+        :benchmark/perfect-numbers
+        :benchmark/mandelbrot)
   (:export :main))
+
 (in-package :benchmark)
 
 ;;; "benchmark" goes here. Hacks and glory await!

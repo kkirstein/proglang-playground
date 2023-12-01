@@ -12,8 +12,7 @@
   :components ((:module "src"
                         :serial t
                         :components
-                        ((:file "package")
-                         (:file "fibonacci")
+                        ((:file "fibonacci")
                          (:file "perfect-numbers")
                          (:file "mandelbrot-colormap")
                          (:file "mandelbrot")

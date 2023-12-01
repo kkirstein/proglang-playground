@@ -2,6 +2,10 @@
 ;;; Compute Fibonacci Series in Lisp
 ;;;
 
+(defpackage :benchmark/fibonacci
+  (:use :cl)
+  (:export :fibonacci :fibonacci-2))
+
 (in-package :benchmark/fibonacci)
 
 ;;
