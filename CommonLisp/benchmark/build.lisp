@@ -8,7 +8,7 @@
 (asdf:load-asd *asdf-file*)
 (ql:quickload "benchmark")
 (sb-ext:save-lisp-and-die
-  "benchmark.core"
+  "benchmark.exe"
   :compression nil
   :toplevel #'benchmark:main
   :executable t)
