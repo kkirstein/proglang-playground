@@ -24,10 +24,10 @@
 ;;
 (defun pixel-value (Z0)
   "Compute pixel value for complex value Z0"
-  (declare (type complex Z0))
+  (declare (type (complex single-float) Z0))
   (let ((Z Z0))
     (do ((N *n-max* (1- N)))
-        ((or (zerop N) (> (abs Z) *r-max*)) N)
+        ((or (zerop N) (> (abs Z) *r-max*)) (the fixnum N))
       (setf Z (+ (* Z Z) Z0)))))
 
 ;;
