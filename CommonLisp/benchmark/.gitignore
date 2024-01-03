@@ -3,5 +3,6 @@
 *.ppm
 *.png
 
+*.fasl
 *.core
 *.exe
