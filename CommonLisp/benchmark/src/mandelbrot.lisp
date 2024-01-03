@@ -7,7 +7,7 @@
   (:export :make-mandelbrot))
 
 (in-package :benchmark/mandelbrot)
-(declaim (optimize (speed 3) (debug 0) (safety 0)))
+;(declaim (optimize (speed 3) (debug 0) (safety 0)))
 
 ;;
 ;; global variables
@@ -25,10 +25,9 @@
 (defun pixel-value (Z0)
   "Compute pixel value for complex value Z0"
   (declare (type (complex single-float) Z0))
-  (let ((Z Z0))
-    (do ((N *n-max* (1- N)))
-        ((or (zerop N) (> (abs Z) *r-max*)) (the fixnum N))
-      (setf Z (+ (* Z Z) Z0)))))
+  (do ((N *n-max* (1- N))
+       (Z Z0 (+ (* Z Z) Z0)))
+      ((or (zerop N) (> (abs Z) *r-max*)) (the fixnum N))))
 
 ;;
 ;; get b/w value for given pixel coordinates
