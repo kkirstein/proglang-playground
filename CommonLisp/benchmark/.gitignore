@@ -1,2 +1,8 @@
+.vscode
 *.pgm
+*.ppm
+*.png
 
+*.fasl
+*.core
+*.exe
