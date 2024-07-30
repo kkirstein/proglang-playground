@@ -87,7 +87,7 @@ namespace Benchmark
             string filename = @"mandelbrot_1920x1600.png";
             mandelbrot.Save(filename);
             elapsed = sw.ElapsedMilliseconds;
-            Console.WriteLine($"Manelbrot(1920, 1600) written to {filename} (Elapsed: {elapsed} ms)");
+            Console.WriteLine($"Mandelbrot(1920, 1600) written to {filename} (Elapsed: {elapsed} ms)");
         }
     }
 }
