@@ -1,0 +1,10 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "ada.projectFile": "command_line_arguments.gpr"
+    }
+}
