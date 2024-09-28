@@ -1,0 +1,12 @@
+name = "benchmark"
+description = "Micro benchmarks for the Ada programming language"
+version = "0.1.0-dev"
+
+authors = ["Kay-Uwe Kirstein"]
+maintainers = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
+maintainers-logins = ["kkirstein"]
+licenses = "MIT"
+website = ""
+tags = ["benchmark"]
+
+executables = ["benchmark"]
