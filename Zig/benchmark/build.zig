@@ -12,7 +12,7 @@ pub fn build(b: *std.Build) void {
     // executable artifact
     const exe = b.addExecutable(.{ .name = "benchmark", .root_source_file = b.path("./src/main.zig"), .target = target, .optimize = optimize });
     //exe.addCSourceFile("src/stb_image_impl.c", &[_][]const u8{"-std=c99"});
-    exe.addCSourceFiles(.{ .root = b.path("./src"), .files = &.{"stb_image_impl.c"} });
+    exe.addCSourceFiles(.{ .root = b.path("./src"), .files = &.{"stb_image_impl.c"}, .flags = &.{"-std=c99"} });
     exe.addIncludePath(b.path("./src"));
 
     exe.linkLibC();
