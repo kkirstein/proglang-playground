@@ -14,8 +14,10 @@ pub fn fib(comptime T: type, n: u64) !T {
 
 fn fib_aux(comptime T: type, i: u64, a: T, b: T) anyerror!T {
     if (i == 0) return a else {
-        var new_b: T = 0;
-        if (@addWithOverflow(T, a, b, &new_b)) return error.Overflow else return fib_aux(T, i - 1, b, new_b);
+        //var new_b: T = 0;
+        const new_b, const overflow = @addWithOverflow(a, b);
+        if (overflow > 0) return error.Overflow else return fib_aux(T, i - 1, b, new_b);
+        //if (@addWithOverflow(T, a, b, &new_b)) return error.Overflow else return fib_aux(T, i - 1, b, new_b);
     }
 }
 
@@ -27,8 +29,10 @@ pub fn fib_iter(comptime T: type, n: u64) !T {
     while (i > 0) : ({
         i -= 1;
     }) {
-        var new_b: T = 0;
-        if (@addWithOverflow(T, a, b, &new_b)) return error.Overflow;
+        const new_b, const overflow = @addWithOverflow(a, b);
+        if (overflow > 0) return error.Overflow;
+        //var new_b: T = 0;
+        //if (@addWithOverflow(T, a, b, &new_b)) return error.Overflow;
         a = b;
         b = new_b;
     }

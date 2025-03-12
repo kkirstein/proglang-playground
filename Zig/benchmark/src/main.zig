@@ -23,22 +23,22 @@ pub fn main() !void {
     timer.reset();
     var res = fib.fib_naive(35);
     var elap = timer.read();
-    print("fib_naive(35) = {} (Elapsed: {d:.3}ms).\n", .{ res, @intToFloat(f32, elap / ns_per_ms) });
+    print("fib_naive(35) = {} (Elapsed: {d:.3}ms).\n", .{ res, @floatFromInt(elap / ns_per_ms) });
 
     timer.reset();
     res = try fib.fib(u64, 35);
     elap = timer.read();
-    print("fib(35) = {} (Elapsed: {d:.3}ms).\n", .{ res, @intToFloat(f32, elap / ns_per_ms) });
+    print("fib(35) = {} (Elapsed: {d:.3}ms).\n", .{ res, @floatFromInt(elap / ns_per_ms) });
 
     timer.reset();
     res = try fib.fib_iter(u64, 35);
     elap = timer.read();
-    print("fib_iter(35) = {} (Elapsed: {d:.3}ms).\n", .{ res, @intToFloat(f32, elap / ns_per_ms) });
+    print("fib_iter(35) = {} (Elapsed: {d:.3}ms).\n", .{ res, @floatFromInt(elap / ns_per_ms) });
 
     timer.reset();
     const res_2 = try fib.fib_iter(u1024, 1000);
     elap = timer.read();
-    print("fib_iter(1000) = {} (Elapsed: {d:.3}ms).\n", .{ res_2, @intToFloat(f32, elap / ns_per_ms) });
+    print("fib_iter(1000) = {} (Elapsed: {d:.3}ms).\n", .{ res_2, @floatFromInt(elap / ns_per_ms) });
 
     print("\n", .{});
     print("Perfect numbers\n", .{});
@@ -52,7 +52,7 @@ pub fn main() !void {
     defer pn_u16_str.deinit();
     print("perfect_numbers(u16, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u16_str.items,
-        @intToFloat(f32, elap / ns_per_ms),
+        @floatFromInt(elap / ns_per_ms),
     });
 
     timer.reset();
@@ -63,7 +63,7 @@ pub fn main() !void {
     defer pn_u32_str.deinit();
     print("perfect_numbers(u32, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u32_str.items,
-        @intToFloat(f32, elap / ns_per_ms),
+        @floatFromInt(elap / ns_per_ms),
     });
 
     timer.reset();
@@ -74,7 +74,7 @@ pub fn main() !void {
     defer pn_u64_str.deinit();
     print("perfect_numbers(u64, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u64_str.items,
-        @intToFloat(f32, elap / ns_per_ms),
+        @floatFromInt(elap / ns_per_ms),
     });
 
     print("\n", .{});
@@ -84,13 +84,13 @@ pub fn main() !void {
     timer.reset();
     const width = 1920;
     const height = 1600;
-    const img = try mandel.create(&gpa.allocator, width, height, -0.5, 0.0, 4.0 / @intToFloat(f32, width));
+    const img = try mandel.create(&gpa.allocator, width, height, -0.5, 0.0, 4.0 / @as(f32, width));
     defer img.deinit();
     elap = timer.read();
     print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
         width,
         height,
-        @intToFloat(f32, elap / ns_per_ms),
+        @floatFromInt(elap / ns_per_ms),
     });
 
     timer.reset();
@@ -99,7 +99,7 @@ pub fn main() !void {
     print("mandelbrot({}, {}) written as PPM (Elapsed: {d:.3}ms).\n", .{
         width,
         height,
-        @intToFloat(f32, elap / ns_per_ms),
+        @floatFromInt(elap / ns_per_ms),
     });
 
     timer.reset();
@@ -108,7 +108,7 @@ pub fn main() !void {
     print("mandelbrot({}, {}) written as PNG (Elapsed: {d:.3}ms).\n", .{
         width,
         height,
-        @intToFloat(f32, elap / ns_per_ms),
+        @floatFromInt(elap / ns_per_ms),
     });
 
     print("\n", .{});
@@ -123,7 +123,7 @@ pub fn main() !void {
         count,
         pi_value,
         std.math.absFloat(pi_value - std.math.pi),
-        @intToFloat(f32, elap / ns_per_ms),
+        @floatFromInt(elap / ns_per_ms),
     });
 }
 
