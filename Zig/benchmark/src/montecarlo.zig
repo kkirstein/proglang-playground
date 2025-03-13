@@ -59,7 +59,7 @@ pub fn simulatePi(count: usize) f64 {
 
     const stat = runner(f64, piGen, piEval, rnd, count);
 
-    const res = 4 * @intToFloat(f64, stat.success) / @intToFloat(f64, count);
+    const res = 4 * @as(f64, stat.success) / @as(f64, count);
     return res;
 }
 

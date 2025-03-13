@@ -40,8 +40,8 @@ pub fn create(allocator: *std.mem.Allocator, width: usize, height: usize, x_cent
     var img = try ImageRGB24.init(allocator, width, height);
 
     const offset = C32{
-        .re = x_center - 0.5 * pixel_size * @intToFloat(f32, width),
-        .im = y_center + 0.5 * pixel_size * @intToFloat(f32, height),
+        .re = x_center - 0.5 * pixel_size * @as(f32, width),
+        .im = y_center + 0.5 * pixel_size * @as(f32, height),
     };
 
     var y: usize = 0;
@@ -49,8 +49,8 @@ pub fn create(allocator: *std.mem.Allocator, width: usize, height: usize, x_cent
         var x: usize = 0;
         while (x < width) : (x += 1) {
             const coord = C32.add(offset, C32{
-                .re = @intToFloat(f32, x) * pixel_size,
-                .im = -@intToFloat(f32, y) * pixel_size,
+                .re = @as(f32, x) * pixel_size,
+                .im = -@as(f32, y) * pixel_size,
             });
             const p = to_rgb(pixel_value(coord, 2.0));
             try img.set_pixel(x, y, p);
