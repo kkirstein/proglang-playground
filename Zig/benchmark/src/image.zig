@@ -79,7 +79,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
         const Self = @This();
         /// Pixel type
         //const TPixel = TPixel(TData);
-        const TData = TData;
+        //const TData = TData;
 
         const chans = num_channel(TPixel);
         //const chans = 3;
@@ -100,7 +100,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
 
         /// initialize memory for image data
         pub fn init(allocator: *Allocator, width: usize, height: usize) !Self {
-            var data_mem = try allocator.alloc(TData, width * height * chans);
+            const data_mem = try allocator.alloc(TData, width * height * chans);
             return Self{
                 .allocator = allocator,
                 .width = width,
@@ -173,10 +173,10 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             // check for supported image data
             if (TData != u8) return error.UnsupportedDataType;
 
-            const c_width = @intCast(c_int, self.width);
-            const c_height = @intCast(c_int, self.height);
-            const c_chans = @intCast(c_int, self.channels);
-            const c_stride = @intCast(c_int, self.width * self.channels);
+            const c_width = @as(c_int, self.width);
+            const c_height = @as(c_int, self.height);
+            const c_chans = @as(c_int, self.channels);
+            const c_stride = @as(c_int, self.width * self.channels);
 
             const c_file_path = try allocator.alloc(u8, file_path.len + 1);
             defer allocator.free(c_file_path);
@@ -241,13 +241,13 @@ test "Image(RGB).set_pixel()" {
         RGB24{ .r = 0, .g = 0, .b = 255 },
     };
 
-    for (pixel) |p, i| {
+    for (pixel, 0..) |p, i| {
         const x = i % 3;
         const y = i / 3;
         try img.set_pixel(x, y, p);
     }
 
-    for (pixel) |p, i| {
+    for (pixel, 0..) |p, i| {
         const x = i % 3;
         const y = i / 3;
         const act = try img.get_pixel(x, y);
@@ -261,7 +261,7 @@ test "Image(RGB).writePPM" {
     var img = try Image(RGB, u8).init(testing.allocator, 3, 3);
     defer img.deinit();
     const RGB24 = RGB(u8);
-    var pixel = [_]RGB24{
+    const pixel = [_]RGB24{
         RGB24{ .r = 0, .g = 0, .b = 0 },
         RGB24{ .r = 128, .g = 0, .b = 0 },
         RGB24{ .r = 255, .g = 0, .b = 0 },
@@ -272,7 +272,7 @@ test "Image(RGB).writePPM" {
         RGB24{ .r = 0, .g = 0, .b = 128 },
         RGB24{ .r = 0, .g = 0, .b = 255 },
     };
-    for (pixel) |p, i| {
+    for (pixel, 0..) |p, i| {
         const x = i % 3;
         const y = i / 3;
         try img.set_pixel(x, y, p);
@@ -299,7 +299,7 @@ test "Image(RGB).write" {
     var img = try Image(RGB, u8).init(testing.allocator, 3, 3);
     defer img.deinit();
     const RGB24 = RGB(u8);
-    var pixel = [_]RGB24{
+    const pixel = [_]RGB24{
         RGB24{ .r = 0, .g = 0, .b = 0 },
         RGB24{ .r = 128, .g = 0, .b = 0 },
         RGB24{ .r = 255, .g = 0, .b = 0 },
@@ -310,7 +310,7 @@ test "Image(RGB).write" {
         RGB24{ .r = 0, .g = 0, .b = 128 },
         RGB24{ .r = 0, .g = 0, .b = 255 },
     };
-    for (pixel) |p, i| {
+    for (pixel, 0..) |p, i| {
         const x = i % 3;
         const y = i / 3;
         try img.set_pixel(x, y, p);
