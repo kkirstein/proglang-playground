@@ -141,7 +141,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             defer file.close();
             const w = file.writer();
 
-            var line_buf = std.ArrayList(u8).init(allocator);
+            var line_buf = std.ArrayList(u8).init(allocator.*);
             defer line_buf.deinit();
             var buf_writer = line_buf.writer();
 
@@ -173,14 +173,14 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             // check for supported image data
             if (TData != u8) return error.UnsupportedDataType;
 
-            const c_width = @as(c_int, self.width);
-            const c_height = @as(c_int, self.height);
-            const c_chans = @as(c_int, self.channels);
-            const c_stride = @as(c_int, self.width * self.channels);
+            const c_width = @as(c_int, @intCast(self.width));
+            const c_height = @as(c_int, @intCast(self.height));
+            const c_chans = @as(c_int, @intCast(self.channels));
+            const c_stride = @as(c_int, @intCast(self.width * self.channels));
 
             const c_file_path = try allocator.alloc(u8, file_path.len + 1);
             defer allocator.free(c_file_path);
-            std.mem.copy(u8, c_file_path, file_path);
+            std.mem.copyForwards(u8, c_file_path, file_path);
             c_file_path[file_path.len] = 0;
 
             const res = stbImageWrite.stbi_write_png(c_file_path.ptr, c_width, c_height, c_chans, self.data.ptr, c_stride);
