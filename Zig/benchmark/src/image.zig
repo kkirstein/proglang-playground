@@ -211,21 +211,27 @@ test "Mono(u8)" {
 }
 
 test "Image(RGB).init()" {
-    var img = try Image(RGB, u8).init(testing.allocator, 640, 480);
+    var ta = std.testing.allocator;
+
+    var img = try Image(RGB, u8).init(&ta, 640, 480);
     defer img.deinit();
 
     try testing.expect(img.data.len == 640 * 480 * 3);
 }
 
 test "Image(Mono).init()" {
-    var img = try Image(Mono, u8).init(testing.allocator, 640, 480);
+    var ta = std.testing.allocator;
+
+    var img = try Image(Mono, u8).init(&ta, 640, 480);
     defer img.deinit();
 
     try testing.expect(img.data.len == 640 * 480);
 }
 
 test "Image(RGB).set_pixel()" {
-    var img = try Image(RGB, u8).init(testing.allocator, 3, 3);
+    var ta = std.testing.allocator;
+
+    var img = try Image(RGB, u8).init(&ta, 3, 3);
     defer img.deinit();
 
     const RGB24 = RGB(u8);
@@ -256,9 +262,9 @@ test "Image(RGB).set_pixel()" {
 }
 
 test "Image(RGB).writePPM" {
-    const test_allocator = std.testing.allocator;
+    var ta = std.testing.allocator;
 
-    var img = try Image(RGB, u8).init(testing.allocator, 3, 3);
+    var img = try Image(RGB, u8).init(&ta, 3, 3);
     defer img.deinit();
     const RGB24 = RGB(u8);
     const pixel = [_]RGB24{
@@ -278,25 +284,25 @@ test "Image(RGB).writePPM" {
         try img.set_pixel(x, y, p);
     }
 
-    try img.writePPM(test_allocator, "test_image.ppm");
+    try img.writePPM(&ta, "test_image.ppm");
     defer std.fs.cwd().deleteFile("test_image.ppm") catch unreachable;
 
-    const file = try std.fs.cwd().openFile("test_image.ppm", .{ .read = true });
+    const file = try std.fs.cwd().openFile("test_image.ppm", .{ .mode = .read_only });
     defer file.close();
 
     const contents = try file.reader().readAllAlloc(
-        test_allocator,
+        ta,
         120,
     );
-    defer test_allocator.free(contents);
+    defer ta.free(contents);
 
     try testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 \n128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
 }
 
 test "Image(RGB).write" {
-    const test_allocator = std.testing.allocator;
+    var ta = std.testing.allocator;
 
-    var img = try Image(RGB, u8).init(testing.allocator, 3, 3);
+    var img = try Image(RGB, u8).init(&ta, 3, 3);
     defer img.deinit();
     const RGB24 = RGB(u8);
     const pixel = [_]RGB24{
@@ -316,6 +322,6 @@ test "Image(RGB).write" {
         try img.set_pixel(x, y, p);
     }
 
-    try img.write(test_allocator, "test_image.png");
+    try img.write(&ta, "test_image.png");
     defer std.fs.cwd().deleteFile("test_image.png") catch unreachable;
 }
