@@ -20,7 +20,10 @@ pub fn build(b: *std.Build) void {
     run_step.dependOn(&run_exe.step);
 
     // test artifact
-    const tests_exe = b.addTest(.{ .root_source_file = b.path("./src/main.zig"), .target = target, .optimize = optimize });
+    const tests_exe = b.addTest(.{ .root_source_file = b.path("./src/all_tests.zig"), .target = target, .optimize = optimize });
+    tests_exe.addCSourceFiles(.{ .root = b.path("./src"), .files = &.{"stb_image_impl.c"}, .flags = &.{"-std=c99"} });
+    tests_exe.addIncludePath(b.path("./src"));
+    tests_exe.linkLibC();
 
     // ad test step
     const run_tests = b.addRunArtifact(tests_exe);

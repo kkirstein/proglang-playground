@@ -131,11 +131,3 @@ pub fn main() !void {
         elap / ns_per_ms,
     });
 }
-
-test "benchmark" {
-    _ = @import("fib.zig");
-    _ = @import("perfect.zig");
-    _ = @import("image.zig");
-    _ = @import("mandelbrot.zig");
-    _ = @import("montecarlo.zig");
-}
