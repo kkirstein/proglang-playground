@@ -1,4 +1,4 @@
-// fib.js
+// fib.ts
 // Calculate Fibonacci numbers in JavaScript
 //
 // vim: ft=javascript sw=4 ts=4

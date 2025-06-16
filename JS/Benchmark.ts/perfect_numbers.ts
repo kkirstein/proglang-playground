@@ -1,4 +1,4 @@
-// perfect_numbers.js
+// perfect_numbers.ts
 // Calculate perfect numbers in JavaScript
 //
 // vim: ft=javascript sw=4 ts=4
