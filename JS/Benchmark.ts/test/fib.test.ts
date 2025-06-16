@@ -1,10 +1,10 @@
-// fib.test.js
+// fib.test.ts
 // test for fib module
 //
 // vim: ft=typescript sw=4 ts=4
 //
 
-import { fib, fib_naive } from "../fib.js";
+import { fib, fib_naive } from "../fib.ts";
 import { expect, test, describe, it } from "bun:test"
 
 describe('Fibonacci module', function () {
