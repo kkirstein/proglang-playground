@@ -7,14 +7,24 @@
 import { fib, fib_naive } from "./fib.ts";
 import { perfect_numbers, sequence } from "./perfect_numbers.ts";
 import { mandelbrot, mandelbrot_async, writePGM } from "./mandelbrot.ts";
+import { isAsyncFunction } from "node:util/types";
 
 // time_it helper
-async function time_it(fun: (...x: any[]) => any, ...args: any[]): Promise<{ result: any, elapsed: number }> {
+async function time_it(fun: (...x: any[]) => any | Promise<any>, ...args: any[]): Promise<{ result: any, elapsed: number }> {
   return new Promise((resolve, reject) => {
     const tic = new Date();
-    const res = fun(...args);
-    const toc = new Date();
-    resolve({ "result": res, "elapsed": toc.getTime() - tic.getTime() });
+    if (isAsyncFunction(fun)) {
+      fun(...args).then((res: any) => {
+        const toc = new Date();
+        resolve({ result: res, elapsed: toc.getTime() - tic.getTime() });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    } else {
+      const res = fun(...args);
+      const toc = new Date();
+      resolve({ result: res, elapsed: toc.getTime() - tic.getTime() });
+    }
   });
 }
 //async function time_it_async(fun, ...args): Promise<{result: any, elapsed: number}> {
@@ -64,8 +74,10 @@ async function time_it(fun: (...x: any[]) => any, ...args: any[]): Promise<{ res
   const mandel_large = await time_it(mandelbrot, 1920, 1200, -0.5, 0.0, 4.0 / 1920);
   console.log(`Mandelbrot set image: ${mandel_large.result.width}x${mandel_large.result.height} pixels (elapsed: ${mandel_large.elapsed} ms)`);
 
-  //const mandel_async = await time_it(mandelbrot_async, 180, 120, -0.5, 0.0, 4.0 / 180);
-  //console.log(`Mandelbrot set image (async): ${mandel_async.result.width}x${mandel_async.result.height} pixels (elapsed: ${mandel_async.elapsed} ms)`);
+  const mandel_async = await time_it(mandelbrot_async, 180, 120, -0.5, 0.0, 4.0 / 180);
+  console.log(`Mandelbrot set image (async): ${mandel_async.result.width}x${mandel_async.result.height} pixels (elapsed: ${mandel_async.elapsed} ms)`);
+  const mandel_async_large = await time_it(mandelbrot_async, 1920, 1200, -0.5, 0.0, 4.0 / 1920);
+  console.log(`Mandelbrot set image (async): ${mandel_async_large.result.width}x${mandel_async_large.result.height} pixels (elapsed: ${mandel_async_large.elapsed} ms)`);
 
   const image_written = await time_it(writePGM, "mandelbrot.pgm", mandel.result);
   console.log(`Mandelbrot set image written to file (elapsed: ${image_written.elapsed} ms)`);

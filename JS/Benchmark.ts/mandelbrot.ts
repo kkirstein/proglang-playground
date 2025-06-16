@@ -47,7 +47,7 @@ export function mandelbrot(x_max: number, y_max: number, x_center: number, y_cen
 }
 
 // async version using Promise
-export function mandelbrot_async(x_max: number, y_max: number, x_center: number, y_center: number, pixel_size: number): Promise<{ width: number, height: number, pixel: number[][] }> {
+export async function mandelbrot_async(x_max: number, y_max: number, x_center: number, y_center: number, pixel_size: number): Promise<{ width: number, height: number, pixel: number[][] }> {
 	return new Promise(function (resolve, reject) {
 		const x_offset = x_center - 0.5 * pixel_size * (x_max + 1);
 		const y_offset = y_center + 0.5 * pixel_size * (y_max + 1);
