@@ -6,6 +6,7 @@
 
 import { fib, fib_naive } from "./fib.ts";
 import { perfect_numbers, sequence } from "./perfect_numbers.ts";
+import { mandelbrot, mandelbrot_async, writePGM } from "./mandelbrot.ts";
 
 // time_it helper
 async function time_it(fun: (...x: any[]) => any, ...args: any[]): Promise<{ result: any, elapsed: number }> {
@@ -57,6 +58,18 @@ async function time_it(fun: (...x: any[]) => any, ...args: any[]): Promise<{ res
 
   console.log("Mandelbrot set:");
   console.log("---------------");
+
+  const mandel = await time_it(mandelbrot, 180, 120, -0.5, 0.0, 4.0 / 180);
+  console.log(`Mandelbrot set image: ${mandel.result.width}x${mandel.result.height} pixels (elapsed: ${mandel.elapsed} ms)`);
+  const mandel_large = await time_it(mandelbrot, 1920, 1200, -0.5, 0.0, 4.0 / 1920);
+  console.log(`Mandelbrot set image: ${mandel_large.result.width}x${mandel_large.result.height} pixels (elapsed: ${mandel_large.elapsed} ms)`);
+
+  //const mandel_async = await time_it(mandelbrot_async, 180, 120, -0.5, 0.0, 4.0 / 180);
+  //console.log(`Mandelbrot set image (async): ${mandel_async.result.width}x${mandel_async.result.height} pixels (elapsed: ${mandel_async.elapsed} ms)`);
+
+  const image_written = await time_it(writePGM, "mandelbrot.pgm", mandel.result);
+  console.log(`Mandelbrot set image written to file (elapsed: ${image_written.elapsed} ms)`);
+
   console.log();
 
   console.log("------------------");

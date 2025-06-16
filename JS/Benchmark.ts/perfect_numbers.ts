@@ -5,7 +5,7 @@
 //
 
 // predicate to check for perfect number
-export function isperfect(n) {
+export function isperfect(n: number): boolean {
 	var sum = 0;
 	for (var i = 0; i < n; i++) {
 		if ((n % i) === 0) { sum += i; }
@@ -14,7 +14,7 @@ export function isperfect(n) {
 }
 
 // simple generator with fixed upper limit
-export function perfect_numbers (n) {
+export function perfect_numbers (n:number): number[] {
 	var res = [];
 	for (let i = 1; i < n; i++) {
 		if (isperfect(i)) { res.push(i); }
@@ -23,7 +23,7 @@ export function perfect_numbers (n) {
 }
 
 // new (ES6) generator scheme
-export function* sequence () {
+export function* sequence (): Generator<number> {
 	var current = 1;
 	 while (true) {
 		 if (isperfect(current)) { yield current; }
