@@ -36,7 +36,7 @@ fn to_rgb(val: u8) RGB24 {
 }
 
 /// creates a Mandelbrot RGB image of given size
-pub fn create(allocator: *std.mem.Allocator, width: usize, height: usize, x_center: f32, y_center: f32, pixel_size: f32) !ImageRGB24 {
+pub fn create(allocator: std.mem.Allocator, width: usize, height: usize, x_center: f32, y_center: f32, pixel_size: f32) !ImageRGB24 {
     var img = try ImageRGB24.init(allocator, width, height);
 
     const offset = C32{

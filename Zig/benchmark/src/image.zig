@@ -96,10 +96,10 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
         channels: usize,
 
         /// Allocator for image data
-        allocator: *Allocator,
+        allocator: Allocator,
 
         /// initialize memory for image data
-        pub fn init(allocator: *Allocator, width: usize, height: usize) !Self {
+        pub fn init(allocator: Allocator, width: usize, height: usize) !Self {
             const data_mem = try allocator.alloc(TData, width * height * chans);
             return Self{
                 .allocator = allocator,
@@ -134,14 +134,14 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
         }
 
         /// write image data as PNM file
-        pub fn writePPM(self: Self, allocator: *std.mem.Allocator, file_path: []const u8) !void {
+        pub fn writePPM(self: Self, file_path: []const u8) !void {
             if (TData != u8) return error.UnsupportedDataType;
 
             const file = try std.fs.cwd().createFile(file_path, .{ .truncate = true });
             defer file.close();
             const w = file.writer();
 
-            var line_buf = std.ArrayList(u8).init(allocator.*);
+            var line_buf = std.ArrayList(u8).init(self.allocator);
             defer line_buf.deinit();
             var buf_writer = line_buf.writer();
 
@@ -169,7 +169,7 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
 
         /// write image data to binary image file
         /// Currently, only PNG with 8-bit channel values is supported
-        pub fn write(self: Self, allocator: *std.mem.Allocator, file_path: []const u8) !void {
+        pub fn write(self: Self, file_path: []const u8) !void {
             // check for supported image data
             if (TData != u8) return error.UnsupportedDataType;
 
@@ -178,8 +178,8 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             const c_chans = @as(c_int, @intCast(self.channels));
             const c_stride = @as(c_int, @intCast(self.width * self.channels));
 
-            const c_file_path = try allocator.alloc(u8, file_path.len + 1);
-            defer allocator.free(c_file_path);
+            const c_file_path = try self.allocator.alloc(u8, file_path.len + 1);
+            defer self.allocator.free(c_file_path);
             std.mem.copyForwards(u8, c_file_path, file_path);
             c_file_path[file_path.len] = 0;
 
@@ -211,27 +211,27 @@ test "Mono(u8)" {
 }
 
 test "Image(RGB).init()" {
-    var ta = std.testing.allocator;
+    const ta = std.testing.allocator;
 
-    var img = try Image(RGB, u8).init(&ta, 640, 480);
+    var img = try Image(RGB, u8).init(ta, 640, 480);
     defer img.deinit();
 
     try testing.expect(img.data.len == 640 * 480 * 3);
 }
 
 test "Image(Mono).init()" {
-    var ta = std.testing.allocator;
+    const ta = std.testing.allocator;
 
-    var img = try Image(Mono, u8).init(&ta, 640, 480);
+    var img = try Image(Mono, u8).init(ta, 640, 480);
     defer img.deinit();
 
     try testing.expect(img.data.len == 640 * 480);
 }
 
 test "Image(RGB).set_pixel()" {
-    var ta = std.testing.allocator;
+    const ta = std.testing.allocator;
 
-    var img = try Image(RGB, u8).init(&ta, 3, 3);
+    var img = try Image(RGB, u8).init(ta, 3, 3);
     defer img.deinit();
 
     const RGB24 = RGB(u8);
@@ -264,7 +264,7 @@ test "Image(RGB).set_pixel()" {
 test "Image(RGB).writePPM" {
     var ta = std.testing.allocator;
 
-    var img = try Image(RGB, u8).init(&ta, 3, 3);
+    var img = try Image(RGB, u8).init(ta, 3, 3);
     defer img.deinit();
     const RGB24 = RGB(u8);
     const pixel = [_]RGB24{
@@ -284,7 +284,7 @@ test "Image(RGB).writePPM" {
         try img.set_pixel(x, y, p);
     }
 
-    try img.writePPM(&ta, "test_image.ppm");
+    try img.writePPM("test_image.ppm");
     defer std.fs.cwd().deleteFile("test_image.ppm") catch unreachable;
 
     const file = try std.fs.cwd().openFile("test_image.ppm", .{ .mode = .read_only });
@@ -300,9 +300,9 @@ test "Image(RGB).writePPM" {
 }
 
 test "Image(RGB).write" {
-    var ta = std.testing.allocator;
+    const ta = std.testing.allocator;
 
-    var img = try Image(RGB, u8).init(&ta, 3, 3);
+    var img = try Image(RGB, u8).init(ta, 3, 3);
     defer img.deinit();
     const RGB24 = RGB(u8);
     const pixel = [_]RGB24{
@@ -322,6 +322,6 @@ test "Image(RGB).write" {
         try img.set_pixel(x, y, p);
     }
 
-    try img.write(&ta, "test_image.png");
+    try img.write("test_image.png");
     defer std.fs.cwd().deleteFile("test_image.png") catch unreachable;
 }

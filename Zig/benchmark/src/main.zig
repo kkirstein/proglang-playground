@@ -89,7 +89,7 @@ pub fn main() !void {
     timer.reset();
     const width = 1920;
     const height = 1600;
-    const img = try mandel.create(&allocator, width, height, -0.5, 0.0, 4.0 / @as(f32, width));
+    const img = try mandel.create(allocator, width, height, -0.5, 0.0, 4.0 / @as(f32, width));
     defer img.deinit();
     elap = timer.read();
     print("mandelbrot({}, {}) (Elapsed: {d:.3}ms).\n", .{
@@ -99,7 +99,7 @@ pub fn main() !void {
     });
 
     timer.reset();
-    try img.writePPM(&allocator, "mandelbrot.ppm");
+    try img.writePPM("mandelbrot.ppm");
     elap = timer.read();
     print("mandelbrot({}, {}) written as PPM (Elapsed: {d:.3}ms).\n", .{
         width,
@@ -108,7 +108,7 @@ pub fn main() !void {
     });
 
     timer.reset();
-    try img.write(&allocator, "mandelbrot.png");
+    try img.write("mandelbrot.png");
     elap = timer.read();
     print("mandelbrot({}, {}) written as PNG (Elapsed: {d:.3}ms).\n", .{
         width,
