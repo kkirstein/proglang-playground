@@ -23,8 +23,8 @@ pub fn is_perfect(comptime T: type, n: T) bool {
 }
 
 /// Generates perfect number up to given limit [n]
-pub fn perfect_numbers(comptime T: type, allocator: *Allocator, limit: T) !std.ArrayList(T) {
-    var res = std.ArrayList(T).init(allocator.*);
+pub fn perfect_numbers(comptime T: type, allocator: Allocator, limit: T) !std.ArrayList(T) {
+    var res = std.ArrayList(T).init(allocator);
     var i: T = 1;
     while (i <= limit) : (i += 1) {
         if (is_perfect(T, i)) {
@@ -35,8 +35,8 @@ pub fn perfect_numbers(comptime T: type, allocator: *Allocator, limit: T) !std.A
 }
 
 /// String representation of perfect numbers array list
-pub fn to_str(comptime T: type, allocator: *Allocator, ary: std.ArrayList(T)) !std.ArrayList(u8) {
-    var buf = std.ArrayList(u8).init(allocator.*);
+pub fn to_str(comptime T: type, allocator: Allocator, ary: std.ArrayList(T)) !std.ArrayList(u8) {
+    var buf = std.ArrayList(u8).init(allocator);
     const w = buf.writer();
     const slice = ary.items;
 
@@ -114,9 +114,9 @@ test "is perfect" {
 }
 
 test "perfect numbers" {
-    var ta = testing.allocator;
+    const ta = testing.allocator;
     const exp = [_]u32{ 6, 28, 496 };
-    var res = try perfect_numbers(u32, &ta, 1000);
+    var res = try perfect_numbers(u32, ta, 1000);
     defer res.deinit();
 
     try testing.expect(std.mem.eql(u32, res.items, exp[0..]));
@@ -139,23 +139,23 @@ test "perfect numbers" {
 //}
 
 test "string representation of perfect numbers list" {
-    var test_allocator = testing.allocator;
-    const res_0 = try perfect_numbers(u32, &test_allocator, 5);
+    const test_allocator = testing.allocator;
+    const res_0 = try perfect_numbers(u32, test_allocator, 5);
     defer res_0.deinit();
 
-    const res_1 = try perfect_numbers(u32, &test_allocator, 10);
+    const res_1 = try perfect_numbers(u32, test_allocator, 10);
     defer res_1.deinit();
 
-    const res_2 = try perfect_numbers(u32, &test_allocator, 30);
+    const res_2 = try perfect_numbers(u32, test_allocator, 30);
     defer res_2.deinit();
 
-    const res_0_str = try to_str(u32, &test_allocator, res_0);
+    const res_0_str = try to_str(u32, test_allocator, res_0);
     defer res_0_str.deinit();
 
-    const res_1_str = try to_str(u32, &test_allocator, res_1);
+    const res_1_str = try to_str(u32, test_allocator, res_1);
     defer res_1_str.deinit();
 
-    const res_2_str = try to_str(u32, &test_allocator, res_2);
+    const res_2_str = try to_str(u32, test_allocator, res_2);
     defer res_2_str.deinit();
 
     try testing.expect(std.mem.eql(u8, res_0_str.items, "[]"));

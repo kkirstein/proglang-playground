@@ -16,7 +16,7 @@ const mc = @import("montecarlo.zig");
 pub fn main() !void {
     var timer = try std.time.Timer.start();
     const ns_per_ms = std.time.ns_per_s / std.time.ms_per_s;
-    var allocator = gpa.allocator();
+    const allocator = gpa.allocator();
     defer {
         const deinit_status = gpa.deinit();
         if (deinit_status == .leak) @panic("MEMORY LEAKAGE DETECTED!");
@@ -50,10 +50,10 @@ pub fn main() !void {
     print("===============\n", .{});
 
     timer.reset();
-    const pn_u16 = try perfect.perfect_numbers(u16, &allocator, 10000);
+    const pn_u16 = try perfect.perfect_numbers(u16, allocator, 10000);
     defer pn_u16.deinit();
     elap = timer.read();
-    const pn_u16_str = try perfect.to_str(u16, &allocator, pn_u16);
+    const pn_u16_str = try perfect.to_str(u16, allocator, pn_u16);
     defer pn_u16_str.deinit();
     print("perfect_numbers(u16, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u16_str.items,
@@ -61,10 +61,10 @@ pub fn main() !void {
     });
 
     timer.reset();
-    const pn_u32 = try perfect.perfect_numbers(u32, &allocator, 10000);
+    const pn_u32 = try perfect.perfect_numbers(u32, allocator, 10000);
     defer pn_u32.deinit();
     elap = timer.read();
-    const pn_u32_str = try perfect.to_str(u32, &allocator, pn_u32);
+    const pn_u32_str = try perfect.to_str(u32, allocator, pn_u32);
     defer pn_u32_str.deinit();
     print("perfect_numbers(u32, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u32_str.items,
@@ -72,10 +72,10 @@ pub fn main() !void {
     });
 
     timer.reset();
-    const pn_u64 = try perfect.perfect_numbers(u64, &allocator, 10000);
+    const pn_u64 = try perfect.perfect_numbers(u64, allocator, 10000);
     defer pn_u64.deinit();
     elap = timer.read();
-    const pn_u64_str = try perfect.to_str(u64, &allocator, pn_u64);
+    const pn_u64_str = try perfect.to_str(u64, allocator, pn_u64);
     defer pn_u64_str.deinit();
     print("perfect_numbers(u64, 10000) = {s} (Elapsed: {d:.3}ms).\n", .{
         pn_u64_str.items,
