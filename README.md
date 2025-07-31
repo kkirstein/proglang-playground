@@ -39,6 +39,10 @@ A functional programmig language for the Erlang virtual machine. It features mac
 
 Elm is a Haskell-style programming language for web development. It compiles to JavaScript and features Functional Reactive Programming for GUIs.
 
+# Erlang
+
+[Erlang](https://www.erlang.org/) is a functional programming language with focus on concurrency and reliability. It features its on virtual machine, called BEAM.
+
 # Go
 
 Go is a mainly imperative programming language with a static type system. Go has a strong emphasis on concurrency via channels, aka goroutines.
