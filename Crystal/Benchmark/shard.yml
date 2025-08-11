@@ -10,8 +10,8 @@ targets:
 
 dependencies:
   stumpy_png:
-    github: l3kn/stumpy_png
-    version: "~> 4.4"
+    github: stumpycr/stumpy_png
+    version: "~> 5.0"
 
 crystal: 0.28
 
