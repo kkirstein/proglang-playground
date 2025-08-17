@@ -12,8 +12,23 @@ module MyBenchmark
   extend self
 
   def run
-    puts "Fibonacci numbers"
+    puts "Crystal Benchmark"
     puts "================="
+    puts ""
+
+    # Perform calculations to check results
+    do_calculations
+
+    # Do the actual benchmarks
+    do_benchmarks
+
+    puts "Done."
+  end
+
+  # Actually perform calculations to check results
+  def do_calculations
+    puts "Fibonacci numbers"
+    puts "-----------------"
     puts "fib_naive(35)      = #{Fibonacci.fib_naive(35)}"
     puts "fib(35)            = #{Fibonacci.fib(35)}"
     puts "fib_big_int(35)    = #{Fibonacci.fib_big_int(35)}"
@@ -21,21 +36,23 @@ module MyBenchmark
     puts ""
 
     puts "Perfect numbers"
-    puts "==============="
+    puts "---------------"
     puts "perfect_numbers(10000) = #{PerfectNumber.perfect_numbers(10_000)}"
     puts "perfect_numbers_2(10000) = #{PerfectNumber.perfect_numbers_2(10_000)}"
     puts ""
 
     puts "Mandelbrot set"
-    puts "=============="
+    puts "--------------"
     puts "Mandelbrot::Image.new(1920, 1080, ..)"
     mandel_set = Mandelbrot::Image.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
     mandel_set.to_ppm("./test_data/mandelbrot.ppm")
     puts ""
+  end
 
-    # Actually do benchmarking now
+  # Actually do benchmarking
+  def do_benchmarks
     puts "Benchmarks"
-    puts "=========="
+    puts "----------"
     Benchmark.ips do |x|
       x.report("fib_naive") { Fibonacci.fib_naive(35) }
       x.report("fib") { Fibonacci.fib(35) }
@@ -53,21 +70,22 @@ module MyBenchmark
 
     Benchmark.ips do |x|
       x.report("Mandelbrot::Image (640x480)") {
-			 	Mandelbrot::Image.new(640, 480, -0.5f32, 0.0f32, 4.0f32 / 640)
-		 	}
+        Mandelbrot::Image.new(640, 480, -0.5f32, 0.0f32, 4.0f32 / 640)
+      }
       x.report("Mandelbrot::Image (1920x1080)") {
-			 	Mandelbrot::Image.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
-		 	}
-      #x.report("Mandelbrot::ImageAsync (1920x1080)") {
-			# 	Mandelbrot::ImageAsync.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
-		 	#}
+        Mandelbrot::Image.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
+      }
+      # x.report("Mandelbrot::ImageAsync (1920x1080)") {
+      # 	Mandelbrot::ImageAsync.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
+      # }
     end
 
     puts
 
+    mandel_set = Mandelbrot::Image.new(1920, 1080, -0.5f32, 0.0f32, 4.0f32 / 1920)
     Benchmark.ips do |x|
-			x.report("Write Mandelbrot as PPM") { mandel_set.to_ppm("test_data/mandelbrot.ppm") }
-			x.report("Write Mandelbrot as PNG") { mandel_set.to_png("test_data/mandelbrot.png") }
+      x.report("Write Mandelbrot as PPM") { mandel_set.to_ppm("test_data/mandelbrot.ppm") }
+      x.report("Write Mandelbrot as PNG") { mandel_set.to_png("test_data/mandelbrot.png") }
     end
   end
 end
