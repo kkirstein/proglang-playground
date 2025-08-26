@@ -139,32 +139,36 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
 
             const file = try std.fs.cwd().createFile(file_path, .{ .truncate = true });
             defer file.close();
-            const w = file.writer();
+            var buf: [1024]u8 = undefined;
+            var w = file.writer(&buf);
 
-            var line_buf = std.ArrayList(u8).init(self.allocator);
-            defer line_buf.deinit();
-            var buf_writer = line_buf.writer();
+            //var line_buf = std.ArrayList(u8).init(self.allocator);
+            //defer line_buf.deinit();
+            //var buf_writer = line_buf.writer();
 
-            try w.print("P3\n", .{});
-            try w.print("{} {} {}\n", .{ self.width, self.height, 255 });
+            try w.interface.print("P3\n", .{});
+            try w.interface.print("{} {} {}\n", .{ self.width, self.height, 255 });
 
             var idx: usize = 0;
             while (idx < self.width * self.height * self.channels) : (idx += self.channels) {
                 var ichan: usize = 0;
                 while (ichan < self.channels) : (ichan += 1) {
-                    try buf_writer.print("{} ", .{self.data[idx + ichan]});
+                    try w.interface.print("{} ", .{self.data[idx + ichan]});
+                    //    try buf_writer.print("{} ", .{self.data[idx + ichan]});
                 }
-                if (idx % 8 == 0) {
-                    _ = try buf_writer.write("\n");
-                    _ = try w.write(line_buf.items);
-                    line_buf.shrinkRetainingCapacity(0);
-                }
+                try w.interface.print("\n", .{});
+                //if (idx % 8 == 0) {
+                //    _ = try buf_writer.write("\n");
+                //    _ = try w.write(line_buf.items);
+                //    line_buf.shrinkRetainingCapacity(0);
+                //}
             }
             // make sure remaining pixels are written to file
-            if (line_buf.items.len > 0) {
-                _ = try buf_writer.write("\n");
-                _ = try w.write(line_buf.items);
-            }
+            //if (line_buf.items.len > 0) {
+            //    _ = try buf_writer.write("\n");
+            //    _ = try w.write(line_buf.items);
+            //}
+            try w.interface.flush();
         }
 
         /// write image data to binary image file
@@ -290,7 +294,9 @@ test "Image(RGB).writePPM" {
     const file = try std.fs.cwd().openFile("test_image.ppm", .{ .mode = .read_only });
     defer file.close();
 
-    const contents = try file.reader().readAllAlloc(
+    var buf: [1024]u8 = undefined;
+    var r = file.reader(&buf);
+    const contents = try r.interface.readAlloc(
         ta,
         120,
     );
