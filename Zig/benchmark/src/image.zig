@@ -142,10 +142,6 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
             var buf: [1024]u8 = undefined;
             var w = file.writer(&buf);
 
-            //var line_buf = std.ArrayList(u8).init(self.allocator);
-            //defer line_buf.deinit();
-            //var buf_writer = line_buf.writer();
-
             try w.interface.print("P3\n", .{});
             try w.interface.print("{} {} {}\n", .{ self.width, self.height, 255 });
 
@@ -154,20 +150,9 @@ pub fn Image(comptime TPixel: fn (type) type, comptime TData: type) type {
                 var ichan: usize = 0;
                 while (ichan < self.channels) : (ichan += 1) {
                     try w.interface.print("{} ", .{self.data[idx + ichan]});
-                    //    try buf_writer.print("{} ", .{self.data[idx + ichan]});
                 }
                 try w.interface.print("\n", .{});
-                //if (idx % 8 == 0) {
-                //    _ = try buf_writer.write("\n");
-                //    _ = try w.write(line_buf.items);
-                //    line_buf.shrinkRetainingCapacity(0);
-                //}
             }
-            // make sure remaining pixels are written to file
-            //if (line_buf.items.len > 0) {
-            //    _ = try buf_writer.write("\n");
-            //    _ = try w.write(line_buf.items);
-            //}
             try w.interface.flush();
         }
 
