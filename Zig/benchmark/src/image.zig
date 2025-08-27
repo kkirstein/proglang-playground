@@ -296,13 +296,14 @@ test "Image(RGB).writePPM" {
 
     var buf: [1024]u8 = undefined;
     var r = file.reader(&buf);
-    const contents = try r.interface.readAlloc(
+    const contents = try r.interface.allocRemaining(
         ta,
-        120,
+        .unlimited,
     );
     defer ta.free(contents);
 
-    try testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 \n128 0 0 255 0 0 0 0 0 0 128 0 0 255 0 0 0 0 0 0 128 0 0 255 \n"));
+    //std.debug.print("File content:\n{s}\n", .{contents});
+    try testing.expect(std.mem.eql(u8, contents, "P3\n3 3 255\n0 0 0 \n128 0 0 \n255 0 0 \n0 0 0 \n0 128 0 \n0 255 0 \n0 0 0 \n0 0 128 \n0 0 255 \n"));
 }
 
 test "Image(RGB).write" {
