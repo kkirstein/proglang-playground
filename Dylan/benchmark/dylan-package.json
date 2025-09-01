@@ -1,0 +1,12 @@
+{
+    "dependencies": [  ],
+    "dev-dependencies": [ "testworks" ],
+    "description": "YOUR DESCRIPTION HERE",
+    "name": "benchmark",
+    "version": "0.1.0",
+    "url": "https://github.com/#f/benchmark",
+    "keywords": [ ],
+    "contact": "https://github.com/Unknown/benchmark/issues",
+    "license": "",
+    "license-url": ""
+}

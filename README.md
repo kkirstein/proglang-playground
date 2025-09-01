@@ -31,6 +31,10 @@ A standardized version of LISP, containing an object system (CLOS) and many libr
 
 [Crystal](https://www.crystal-lang.org) is a compiled programming language with a static type system. It features a Ruby-like syntax and utilizes the LLVM toolchain for high performance of te built executables.
 
+# Dylan
+
+[Dylan](https://opendylan.org) is a object-oriented and functional programming language and a direct descendant of Scheme and Lisp. It supports dynamic and static semantics and compiles to efficient machine code.
+  
 # Elixir
 
 A functional programmig language for the Erlang virtual machine. It features macros, strong concurrency features (Erlang!) and an expressive syntax ala Ruby.

@@ -1,0 +1,12 @@
+{
+    "dependencies": [  ],
+    "dev-dependencies": [  ],
+    "description": "YOUR DESCRIPTION HERE",
+    "name": "hello-world",
+    "version": "0.1.0",
+    "url": "https://github.com/#f/hello-world",
+    "keywords": [ ],
+    "contact": "https://github.com/Unknown/hello-world/issues",
+    "license": "",
+    "license-url": ""
+}
