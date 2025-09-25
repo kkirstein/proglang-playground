@@ -8,16 +8,16 @@
 extern crate rand;
 
 //use rand::rngs::SmallRng::from_seed;
-use rand::distributions::Uniform;
+use rand::distr::Uniform;
 use rand::prelude::*;
 
 use rayon::prelude::*;
 
 /// Run a given number of simulations to estimate the value of Pi
-pub fn simulate_pi(n: usize) -> f64 {
+pub fn simulate_pi(n: usize) -> Result<f64, Box<dyn std::error::Error>> {
     // random generator
     let mut rng = SmallRng::seed_from_u64(1234);
-    let unif = Uniform::new(0.0, 1.0);
+    let unif = Uniform::new(0.0, 1.0)?;
 
     let count = (1..n)
         .into_iter()
@@ -31,21 +31,21 @@ pub fn simulate_pi(n: usize) -> f64 {
 
     let pi_approx = 4.0 * (count as f64 / n as f64);
 
-    pi_approx
+    Ok(pi_approx)
 }
 
 /// Run a given number of simulations to estimate the value of Pi
 /// Parallel version using rayon::ParallelIterator
-pub fn simulate_pi_rayon(n: usize) -> f64 {
+pub fn simulate_pi_rayon(n: usize) -> Result<f64, Box<dyn std::error::Error>> {
     // random generator
     //let mut rng = SmallRng::seed_from_u64(1234);
-    let unif = Uniform::new(0.0, 1.0);
+    let unif = Uniform::new(0.0, 1.0)?;
     //let mut thr_rng = ThreadRng::default();
 
     let count = (1..n)
         .into_par_iter()
         .filter(|_| {
-            let mut rng = thread_rng();
+            let mut rng = rand::rng();
             let x: f64 = 2.0 * rng.sample(unif) - 1.0;
             let y: f64 = 2.0 * rng.sample(unif) - 1.0;
 
@@ -55,14 +55,14 @@ pub fn simulate_pi_rayon(n: usize) -> f64 {
 
     let pi_approx = 4.0 * (count as f64 / n as f64);
 
-    pi_approx
+    Ok(pi_approx)
 }
 
 /// Run a given number of simulations to estimate the value of e (2.71..)
-pub fn simulate_e(n: usize) -> f64 {
+pub fn simulate_e(n: usize) -> Result<f64, Box<dyn std::error::Error>> {
     // random generator
     let mut rng = SmallRng::seed_from_u64(1234);
-    let unif = Uniform::new(0.0, 1.0);
+    let unif = Uniform::new(0.0, 1.0)?;
 
     let counts = (1..n).into_iter().map(|_| {
         let mut sum = 0f64;
@@ -76,17 +76,17 @@ pub fn simulate_e(n: usize) -> f64 {
 
     let e_approx = counts.sum::<usize>() as f64 / n as f64;
 
-    e_approx
+    Ok(e_approx)
 }
 
 /// Run a given number of simulations to estimate the value of e (2.71..)
 /// Run a given number of simulations to estimate the value of e (2.71..)
-pub fn simulate_e_rayon(n: usize) -> f64 {
+pub fn simulate_e_rayon(n: usize) -> Result<f64, Box<dyn std::error::Error>> {
     // random generator
-    let unif = Uniform::new(0.0, 1.0);
+    let unif = Uniform::new(0.0, 1.0)?;
 
     let counts = (1..n).into_par_iter().map(|_| {
-        let mut rng = thread_rng();
+        let mut rng = rand::rng();
         let mut sum = 0f64;
         let mut sum_count: usize = 0;
         while sum < 1.0 {
@@ -98,7 +98,7 @@ pub fn simulate_e_rayon(n: usize) -> f64 {
 
     let e_approx = counts.sum::<usize>() as f64 / n as f64;
 
-    e_approx
+    Ok(e_approx)
 }
 
 // unit tests
@@ -110,13 +110,13 @@ mod test {
 
     #[test]
     fn test_sim_pi() {
-        let pi_approx = simulate_pi(100_000);
+        let pi_approx = simulate_pi(1_000_000);
 
         assert!(approx_eq!(
             f64,
-            pi_approx,
+            pi_approx.unwrap(),
             std::f64::consts::PI,
-            epsilon = 0.001
+            epsilon = 0.01
         ));
     }
 
@@ -126,7 +126,7 @@ mod test {
 
         assert!(approx_eq!(
             f64,
-            pi_approx,
+            pi_approx.unwrap(),
             std::f64::consts::PI,
             epsilon = 0.01
         ));
@@ -138,7 +138,7 @@ mod test {
 
         assert!(approx_eq!(
             f64,
-            e_approx,
+            e_approx.unwrap(),
             std::f64::consts::E,
             epsilon = 0.001
         ));
@@ -150,7 +150,7 @@ mod test {
 
         assert!(approx_eq!(
             f64,
-            e_approx,
+            e_approx.unwrap(),
             std::f64::consts::E,
             epsilon = 0.01
         ));

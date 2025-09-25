@@ -123,16 +123,28 @@ fn main() {
 
     let mc_count = 100_000_000;
     let (res, elap) = time_it(|| montecarlo::simulate_pi(mc_count));
-    println!("simulate_pi({}) = {}\tElapsed: {}ms", mc_count, res, elap.as_millis());
+    match res {
+        Ok(v) => println!("simulate_pi({}) = {}\tElapsed: {}ms", mc_count, v, elap.as_millis()),
+        Err(e) => println!("simulate_pi({}) error: {}\tElapsed: {}ms", mc_count, e, elap.as_millis()),
+    }
 
     let (res, elap) = time_it(|| montecarlo::simulate_pi_rayon(mc_count));
-    println!("simulate_pi_rayon({}) = {}\tElapsed: {}ms", mc_count, res, elap.as_millis());
+    match res {
+        Ok(v) => println!("simulate_pi_rayon({}) = {}\tElapsed: {}ms", mc_count, v, elap.as_millis()),
+        Err(e) => println!("simulate_pi_rayon({}) error: {}\tElapsed: {}ms", mc_count, e, elap.as_millis()),
+    }
 
     let (res, elap) = time_it(|| montecarlo::simulate_e(mc_count));
-    println!("simulate_e({}) = {}\tElapsed: {}ms", mc_count, res, elap.as_millis());
+    match res {
+        Ok(v) => println!("simulate_e({}) = {}\tElapsed: {}ms", mc_count, v, elap.as_millis()),
+        Err(e) => println!("simulate_e({}) error: {}\tElapsed: {}ms", mc_count, e, elap.as_millis()),
+    }
 
     let (res, elap) = time_it(|| montecarlo::simulate_e_rayon(mc_count));
-    println!("simulate_e_rayon({}) = {}\tElapsed: {}ms", mc_count, res, elap.as_millis());
+    match res {
+        Ok(v) => println!("simulate_e_rayon({}) = {}\tElapsed: {}ms", mc_count, v, elap.as_millis()),
+        Err(e) => println!("simulate_e_rayon({}) error: {}\tElapsed: {}ms", mc_count, e, elap.as_millis()),
+    }
 
     println!();
 
