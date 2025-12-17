@@ -85,6 +85,10 @@ Haxe is statically typed and supports algebraic data types ala Haskell.
 
 [Kotlin](http://kotlinlang.org) is a statically-typed object-oriented programming language, targetting the Java Virtual Machine (JVM) and now also compiles to JavaScript. Its main goal is to reduce the complexity (aka boilerplate) and avoid some pitfalls, like null pointers, of the Java programming language.
 
+# Lean
+
+[Lean](https://lean-lang.org) is functional programming language and a proof assistent at the same time. Lean was initially developed by Microsoft Research and is now supported by the non-profit Lean Focused Research Organization (FRO).
+
 # Lua
 
 Lua is a small dynamically typed "scripting" language. Due to its size it is very well suited to be embedded into applications. It also features a very easy interface to native (C) code. LuaJIT is an alternative implementation with increased performance by LIT-compilation.

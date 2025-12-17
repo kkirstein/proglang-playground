@@ -45,8 +45,10 @@
    (defparameter png-file "mandelbrot_rgb.png")
    (format t "Mandelbrot sets:~%")
    (format t "----------------~%")
+   (format t "Calculating Mandelbrot set")
    (defvar *img*)
    (time (setf *img* (benchmark/mandelbrot:make-mandelbrot 1920 1600 -0.5 0.0 (/ 4.0 1920))))
+   (format t "Writing Mandelbrot set to file")
    (time (imago:write-png *img* png-file))
 
    (format t "~%")

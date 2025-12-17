@@ -10,3 +10,6 @@ website = ""
 tags = ["benchmark"]
 
 executables = ["benchmark"]
+
+[[depends-on]]
+gid = "^13.0.1"
