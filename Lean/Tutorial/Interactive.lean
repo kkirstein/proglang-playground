@@ -106,3 +106,12 @@ def even (n : Nat) : Bool :=
   match n with
   | Nat.zero => true
   | Nat.succ k => not (even k)
+
+-- 1.6 Polymorphism
+
+structure PPoint (α : Type) where
+  x : α
+  y : α
+
+def natOrigin : PPoint Nat :=
+  { x := Nat.zero, y := Nat.zero }
