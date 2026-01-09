@@ -93,7 +93,7 @@ Haxe is statically typed and supports algebraic data types ala Haskell.
 
 Lua is a small dynamically typed "scripting" language. Due to its size it is very well suited to be embedded into applications. It also features a very easy interface to native (C) code. LuaJIT is an alternative implementation with increased performance by LIT-compilation.
 
-# Mathematice
+# Mathematica
 
 Mathematica, nowadays also known as [Wolfram Language](https://www.wolfram.com/language) is a symbolic, functional programming langauge specialized for engineering and scientific calculations. It features a powerful symbolic algebra system. Mathematica was one of the first programming environments featuring the 'notebook-style' of literate programming.
 
@@ -104,6 +104,10 @@ Nim (formerly Nimrod) is an imperative programming language that compiles to nat
 # OCaml
 
 [OCaml](http://www.ocaml.org) is a functional programming language that also supports imperative and object-oriented style. It is statically typed and derived from the [ML](https://en.wikipedia.org/wiki/ML_%28programming_language%29) language.
+
+# Odin
+
+[Odin](https://odin-lang.org) Odin is a general-purpose programming language with distinct typing built for high performance, modern systems and data-oriented programming. It is meant to be a more joyful alternative to C.
 
 # Perl
 
