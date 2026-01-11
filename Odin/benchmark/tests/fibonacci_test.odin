@@ -27,39 +27,49 @@ fib_int_test :: proc(t: ^testing.T) {
 
 @(test)
 fib_big_int_test :: proc(t: ^testing.T) {
-	expected: big.Int
+	expected := new(big.Int)
 	actual: ^big.Int
+
 
 	actual = tasks.fib_big_int(0)
 	check, _ := big.eq(actual, big.INT_ZERO)
 	testing.expect(t, check)
+	big.destroy(actual)
 	free(actual)
 
 	actual = tasks.fib_big_int(1)
 	check, _ = big.eq(actual, big.INT_ONE)
 	testing.expect(t, check)
+	big.destroy(actual)
 	free(actual)
 
 	actual = tasks.fib_big_int(2)
 	check, _ = big.eq(actual, big.INT_ONE)
 	testing.expect(t, check)
+	big.destroy(actual)
 	free(actual)
 
-	big.int_set_from_integer(&expected, 2)
+	big.int_set_from_integer(expected, 2)
 	actual = tasks.fib_big_int(3)
-	check, _ = big.eq(actual, &expected)
+	check, _ = big.eq(actual, expected)
 	testing.expect(t, check)
+	big.destroy(actual)
 	free(actual)
 
-	big.int_set_from_integer(&expected, 3)
+	big.int_set_from_integer(expected, 3)
 	actual = tasks.fib_big_int(4)
-	check, _ = big.eq(actual, &expected)
+	check, _ = big.eq(actual, expected)
 	testing.expect(t, check)
+	big.destroy(actual)
 	free(actual)
 
-	big.int_set_from_integer(&expected, 55)
+	big.int_set_from_integer(expected, 55)
 	actual = tasks.fib_big_int(10)
-	check, _ = big.eq(actual, &expected)
+	check, _ = big.eq(actual, expected)
 	testing.expect(t, check)
+	big.destroy(actual)
 	free(actual)
+
+	big.destroy(expected)
+	free(expected)
 }

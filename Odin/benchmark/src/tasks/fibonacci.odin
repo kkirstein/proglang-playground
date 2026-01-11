@@ -26,6 +26,7 @@ fib_int :: proc(n: int) -> int {
 fib_big_int :: proc(n: int) -> ^big.Int {
 	fib_loop :: proc(n: int, a, b: ^big.Int) -> ^big.Int {
 		if n == 0 {
+			big.destroy(b)
 			free(b)
 			return a
 		} else {
