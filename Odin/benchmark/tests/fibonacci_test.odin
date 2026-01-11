@@ -1,7 +1,6 @@
 package tests
 
 import "../src/tasks"
-import "core:fmt"
 import "core:math/big"
 import "core:testing"
 
