@@ -16,3 +16,16 @@ test_is_perfect_number :: proc(t: ^testing.T) {
     testing.expect(t, !tasks.is_perfect_number(12))
     testing.expect(t, !tasks.is_perfect_number(97))
 }
+
+@(test)
+test_perfect_numbers :: proc(t: ^testing.T) {
+    perfects := tasks.perfect_numbers(10000)
+    defer delete(perfects)
+    expected := [?]int{6, 28, 496, 8128}
+
+    testing.expect(t, len(perfects) == len(expected))
+
+    for i in 0 ..<len(expected) {
+        testing.expect(t, perfects[i] == expected[i])
+    }
+}
