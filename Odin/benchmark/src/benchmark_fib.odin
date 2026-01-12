@@ -5,7 +5,7 @@ import "core:math/big"
 import "core:time"
 import "tasks"
 
-benchmark_fib :: proc () {
+benchmark_fib :: proc() {
 	sw := time.Stopwatch{}
 
 	fmt.println("Fibonacci Numbers")
@@ -25,8 +25,10 @@ benchmark_fib :: proc () {
 
 	time.stopwatch_start(&sw)
 	res_big_int := tasks.fib_big_int(35)
-	defer big.destroy(res_big_int)
-	defer free(res_big_int)
+	defer {
+		big.destroy(res_big_int)
+		free(res_big_int)
+	}
 	time.stopwatch_stop(&sw)
 	fmt.printfln(
 		"fib_big_int(35) = %s, elapsed time: %v",

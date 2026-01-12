@@ -27,8 +27,11 @@ fib_int_test :: proc(t: ^testing.T) {
 @(test)
 fib_big_int_test :: proc(t: ^testing.T) {
 	expected := new(big.Int)
+	defer {
+		big.destroy(expected)
+		free(expected)
+	}
 	actual: ^big.Int
-
 
 	actual = tasks.fib_big_int(0)
 	check, _ := big.eq(actual, big.INT_ZERO)
@@ -68,7 +71,4 @@ fib_big_int_test :: proc(t: ^testing.T) {
 	testing.expect(t, check)
 	big.destroy(actual)
 	free(actual)
-
-	big.destroy(expected)
-	free(expected)
 }
