@@ -11,10 +11,7 @@ main :: proc() {
 
 	benchmark_fib()
 
-	fmt.println("Perfect Numbers")
-	fmt.println("---------------")
-	fmt.println("todo..")
-	fmt.println()
+	benchmark_pn()
 
 	fmt.println("Prime Numbers")
 	fmt.println("-------------")
