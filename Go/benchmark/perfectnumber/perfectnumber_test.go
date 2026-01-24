@@ -8,7 +8,7 @@ package perfectnumber_test
 import (
 	. "benchmark/perfectnumber"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
