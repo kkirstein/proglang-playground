@@ -1,6 +1,7 @@
 # mandelbrot.py
 # Generate Mandelbrot set images in Python (V3)
 
+import array
 from PIL import Image
 
 
@@ -50,18 +51,29 @@ class Mandelbrot:
         """Generate the Mandelbrot set image."""
         for x in range(self.width):
             for y in range(self.height):
-                x_scaled = x
-                y_scaled = y
+                x_scaled = x * self.pixel_size + self.x_offset
+                y_scaled = y * self.pixel_size - self.y_offset
                 z = complex(x_scaled, y_scaled)
                 pix_val = self._pixel_value(z)
                 color = self._get_color(pix_val)
 
-                zx = (x / self.width) * 3.5 - 2.5
-                zy = (y / self.height) * 2.0 - 1.0
-                z0 = complex(zx, zy)
-                n = self._pixel_value(z0)
-                color = self._get_color(n)
                 self.image.putpixel((x, y), color)  # slow, alternative: 'paste' method
+
+    def generate2(self):
+        """Generate the Mandelbrot set image."""
+        pix_data = bytearray(self.width * self.height * 3)
+        for x in range(self.width):
+            for y in range(self.height):
+                x_scaled = x * self.pixel_size + self.x_offset
+                y_scaled = y * self.pixel_size - self.y_offset
+                z = complex(x_scaled, y_scaled)
+                pix_val = self._pixel_value(z)
+                color = self._get_color(pix_val)
+                pix_data[(y * self.width + x) * 3 + 0] = color[0]
+                pix_data[(y * self.width + x) * 3 + 1] = color[1]
+                pix_data[(y * self.width + x) * 3 + 2] = color[2]
+
+        self.image.frombytes(pix_data)
 
     def save(self, filename: str):
         """Save the generated image to a file."""
