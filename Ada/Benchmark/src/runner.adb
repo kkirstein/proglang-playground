@@ -8,7 +8,7 @@ with Perfect_Number;
 with Primes;
 with Aux_Image; use Aux_Image;
 
-procedure Benchmark is
+procedure Runner is
    package Fib renames Fibonacci;
    package Pn renames Perfect_Number;
 
@@ -57,4 +57,4 @@ begin
    Put_Elapsed (Tic);
    New_Line;
 
-end Benchmark;
+end Runner;

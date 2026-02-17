@@ -9,7 +9,7 @@ licenses = "MIT"
 website = ""
 tags = ["benchmark"]
 
-executables = ["benchmark"]
+executables = ["runner"]
 
 [[depends-on]]
 gid = "^13.0.1"
