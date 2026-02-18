@@ -21,7 +21,6 @@ package body Aux_Image is
 
    function Img (X : Pn_Vectors.Vector) return String is
       Res     : Unbounded_String := Null_Unbounded_String;
-      I       : Integer := 0;
       Omitted : Count_Type := 0;
    begin
       Res := Res & "[";
@@ -43,7 +42,6 @@ package body Aux_Image is
 
    function Img (X : Prime_Vectors.Vector) return String is
       Res     : Unbounded_String := Null_Unbounded_String;
-      I       : Integer := 0;
       Omitted : Count_Type := 0;
    begin
       Res := Res & "[";
@@ -66,7 +64,6 @@ package body Aux_Image is
 
    function Img (X : Big_Prime_Vectors.Vector) return String is
       Res     : Unbounded_String := Null_Unbounded_String;
-      I       : Integer := 0;
       Omitted : Count_Type := 0;
    begin
       Res := Res & "[";
