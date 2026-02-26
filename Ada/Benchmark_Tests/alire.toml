@@ -1,0 +1,17 @@
+name = "benchmark_tests"
+description = "Unit tests for Ada benchmark"
+version = "0.1.0-dev"
+
+authors = ["Kay-Uwe Kirstein"]
+maintainers = ["Kay-Uwe Kirstein <kay-uwe@kirsteinhome.ch>"]
+licenses = "MIT"
+website = ""
+tags = []
+
+executables = ["benchmark_tests"]
+
+[[depends-on]]
+aunit = "^26.0.0"
+
+[[depends-on]]
+benchmark = { path = "../Benchmark" }
