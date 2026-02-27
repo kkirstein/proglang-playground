@@ -14,5 +14,3 @@ executables = ["runner"]
 [[depends-on]]
 gid = "^13.0.1"
 
-[[depends-on]]
-aunit = "^26.0.0"
