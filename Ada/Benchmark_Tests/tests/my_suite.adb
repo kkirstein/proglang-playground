@@ -1,7 +1,7 @@
 with AUnit.Test_Suites; use AUnit.Test_Suites;
 with Fibonacci_Tests;
 
-package body Test_Suite is
+package body My_Suite is
 
    Result : aliased Test_Suite;
    Fib    : aliased Fibonacci_Tests.Test_Case;
@@ -12,4 +12,4 @@ package body Test_Suite is
       return Result'Access;
    end Suite;
 
-end Test_Suite;
+end My_Suite;

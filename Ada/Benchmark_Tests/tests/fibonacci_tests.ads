@@ -7,12 +7,12 @@ package Fibonacci_Tests is
    overriding
    procedure Register_Tests (T : in out Test_Case);
    overriding
-   function Name (T : Test_Case) return AUnit.Message.String;
+   function Name (T : Test_Case) return AUnit.Message_String;
 
    -- Optional fixture hooks:
-   overriding
-   procedure Set_Up (T : in out Test_Case);
-   overriding
-   procedure Tear_Down (T : in out Test_Case);
+   --overriding
+   --procedure Set_Up (T : in out Test_Case);
+   --overriding
+   --procedure Tear_Down (T : in out Test_Case);
 
 end Fibonacci_Tests;

@@ -17,16 +17,6 @@ package body Fibonacci_Tests is
       return "Fibonacci Tests";
    end Name;
 
-   procedure Set_Up (T : in out Test_Case) is
-   begin
-      -- No setup needed for these tests
-   end Set_Up;
-
-   procedure Tear_Down (T : in out Test_Case) is
-   begin
-      -- No teardown needed for these tests
-   end Tear_Down;
-
    procedure Test_Fibonacci_0 is
    begin
       Assert_Equals (Fibonacci.Fib (0), 0, "Fib(0) should be 0");

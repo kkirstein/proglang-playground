@@ -13,5 +13,8 @@ executables = ["benchmark_tests"]
 [[depends-on]]
 aunit = "^26.0.0"
 
-[[depends-on]]
+[[pins]]
 benchmark = { path = "../Benchmark" }
+
+[[depends-on]]
+gid = "^13.0.1"
