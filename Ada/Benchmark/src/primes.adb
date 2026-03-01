@@ -17,17 +17,17 @@ package body Primes is
    end Is_Prime;
 
    function Is_Prime (N : Big_Integer) return Boolean is
-      Limit : constant Big_Integer := N / To_Big_Integer (2);
-      I     : Big_Integer          := To_Big_Integer (2);
+      Limit : constant Big_Integer := (if N > 4 then N / 2 else N);
+      I     : Big_Integer := 2;
    begin
-      if N < To_Big_Integer (2) then
+      if N < 2 then
          return False;
       end if;
       while I < Limit loop
-         if N mod I = To_Big_Integer (0) then
+         if N mod I = 0 then
             return False;
          end if;
-         I := I + To_Big_Integer (1);
+         I := I + 1;
       end loop;
       return True;
    end Is_Prime;
@@ -44,15 +44,14 @@ package body Primes is
    end Get_Primes;
 
    function Get_Primes (Limit : Big_Integer) return Big_Prime_Vectors.Vector is
-      I      : Big_Integer := To_Big_Integer (2);
+      I      : Big_Integer := 2;
       Result : Big_Prime_Vectors.Vector;
    begin
       while I < Limit loop
-         null;
-         I := I + To_Big_Integer (1);
          if Is_Prime (I) then
             Result.Append (I);
          end if;
+         I := I + 1;
       end loop;
       return Result;
    end Get_Primes;

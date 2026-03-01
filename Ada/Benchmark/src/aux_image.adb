@@ -26,7 +26,7 @@ package body Aux_Image is
       Res := Res & "[";
       if X.Length > Count_Type (5) then
          Omitted := X.Length - Count_Type (4);
-         for I in 1 .. 3 loop
+         for I in X.First_Index .. X.First_Index + 2 loop
             Res := Res & Img (X (I)) & ",";
          end loop;
          Res := Res & " ...(" & Count_Type'Image (Omitted) & " omitted),";
@@ -47,7 +47,7 @@ package body Aux_Image is
       Res := Res & "[";
       if X.Length > Count_Type (5) then
          Omitted := X.Length - Count_Type (4);
-         for I in 1 .. 3 loop
+         for I in X.First_Index .. X.First_Index + 2 loop
             Res := Res & Img (X (I)) & ",";
          end loop;
          Res := Res & " ...(" & Count_Type'Image (Omitted) & " omitted),";
@@ -69,7 +69,7 @@ package body Aux_Image is
       Res := Res & "[";
       if X.Length > Count_Type (5) then
          Omitted := X.Length - Count_Type (4);
-         for I in 1 .. 3 loop
+         for I in X.First_Index .. X.First_Index + 2 loop
             Res := Res & Img (X (I)) & ",";
          end loop;
          Res := Res & " ...(" & Count_Type'Image (Omitted) & " omitted),";

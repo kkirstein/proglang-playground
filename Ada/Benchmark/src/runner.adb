@@ -1,5 +1,5 @@
-with Ada.Text_IO;  use Ada.Text_IO;
-with Ada.Calendar; use Ada.Calendar;
+with Ada.Text_IO;                           use Ada.Text_IO;
+with Ada.Calendar;                          use Ada.Calendar;
 with Ada.Numerics.Big_Numbers.Big_Integers;
 use Ada.Numerics.Big_Numbers.Big_Integers;
 
@@ -47,13 +47,15 @@ begin
    Put_Line ("-------------");
    Tic := Clock;
    Put
-     ("Get_Primes (10000): (" & Img (Primes.Get_Primes (Integer (10_000))) &
-      ")");
+     ("Get_Primes (10000): ("
+      & Img (Primes.Get_Primes (Integer (10_000)))
+      & ")");
    Put_Elapsed (Tic);
    Tic := Clock;
    Put
-     ("Get_Primes (10000): (" &
-      Img (Primes.Get_Primes (To_Big_Integer (10_000))) & ")");
+     ("Get_Primes (10000): ("
+      & Img (Primes.Get_Primes (To_Big_Integer (10_000)))
+      & ")");
    Put_Elapsed (Tic);
    New_Line;
 
