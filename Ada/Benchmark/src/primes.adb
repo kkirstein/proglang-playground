@@ -1,4 +1,5 @@
 with Ada.Numerics.Elementary_Functions; use Ada.Numerics.Elementary_Functions;
+with Heron_Estimation;
 
 package body Primes is
 
@@ -17,6 +18,8 @@ package body Primes is
    end Is_Prime;
 
    function Is_Prime (N : Big_Integer) return Boolean is
+      --Limit : constant Big_Integer :=
+      --  (if N > 4 then Heron_Estimation.Estimate_Sqrt (N, 1) / 2 else N);
       Limit : constant Big_Integer := (if N > 4 then N / 2 else N);
       I     : Big_Integer := 2;
    begin

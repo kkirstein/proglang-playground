@@ -47,6 +47,12 @@ begin
    Put_Line ("-------------");
    Tic := Clock;
    Put
+     ("Get_Primes (10_000): ("
+      & Img (Primes.Get_Primes (Integer (10_000)))
+      & ")");
+   Put_Elapsed (Tic);
+   Tic := Clock;
+   Put
      ("Get_Primes (1_000_000): ("
       & Img (Primes.Get_Primes (Integer (1_000_000)))
       & ")");
