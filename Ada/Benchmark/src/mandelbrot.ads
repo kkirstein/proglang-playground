@@ -1,20 +1,21 @@
+with Ada.Numerics.Complex_Types; use Ada.Numerics.Complex_Types;
+with Image_IO.Holders;
 
 package Mandelbrot is
 
--- color value range
-subtype Intensity is Integer range 0..255;
+   -- Generate Mandelbrot set image
+   procedure Generate_Image
+     (Width, Height      : Natural;
+      Center_X, Center_Y : Float;
+      Pixel_size         : Float;
+      Img                : out Image_IO.Holders.Handle);
 
--- RGB pixel values
-type Pixel is record
-R: Intensity;
-G: Intensity;
-B: Intensity;
-end record;
+private
 
--- Calculate pixel value for (complex) coordinates
-function Pixel_Value (Z: Complex) return Intensity;
+   -- Calculate pixel value for (complex) coordinates
+   function Pixel_Value (Z : Complex) return Image_IO.RGB_Value;
 
--- Convert pixel value to RGB
-function To_RGB (I: Intensity) return Pixel;
+   -- Convert pixel value to RGB
+   function To_RGB (I : Image_IO.RGB_Value) return Image_IO.Color_Info;
 
 end Mandelbrot;

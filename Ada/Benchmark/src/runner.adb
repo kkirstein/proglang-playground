@@ -6,7 +6,9 @@ use Ada.Numerics.Big_Numbers.Big_Integers;
 with Fibonacci;
 with Perfect_Number;
 with Primes;
-with Aux_Image; use Aux_Image;
+with Aux_Image;       use Aux_Image;
+with Mandelbrot;
+with Image_IO.Holders;
 
 procedure Runner is
    package Fib renames Fibonacci;
@@ -18,6 +20,7 @@ procedure Runner is
    end Put_Elapsed;
 
    Tic : Time;
+   Mandelbrot_Image : Image_IO.Holders.Handle;
 begin
    Put_Line ("Benchmark");
    Put_Line ("=========");
@@ -62,6 +65,14 @@ begin
      ("Get_Primes (10_000): ("
       & Img (Primes.Get_Primes (To_Big_Integer (10_000)))
       & ")");
+   Put_Elapsed (Tic);
+   New_Line;
+
+   Put_Line ("Mandelbrot Set");
+   Put_Line ("--------------");
+   Tic := Clock;
+   Mandelbrot.Generate_Image (1920, 1200, -0.5, 0.0, 0.005, Mandelbrot_Image);
+   Put ("Generate_Image (1920, 1200, -0.5, 0.0, 0.005): ");
    Put_Elapsed (Tic);
    New_Line;
 

@@ -14,3 +14,5 @@ executables = ["runner"]
 [[depends-on]]
 gid = "^13.0.1"
 
+[[depends-on]]
+image_io = "^20240725.0.0"
