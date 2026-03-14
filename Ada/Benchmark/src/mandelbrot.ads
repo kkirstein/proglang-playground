@@ -10,6 +10,9 @@ package Mandelbrot is
       Pixel_size         : Float;
       Img                : out Image_IO.Holders.Handle);
 
+   -- Write Image to file
+   procedure Write_Image (Img : in Image_IO.Holders.Handle; Filename : String);
+
 private
 
    -- Calculate pixel value for (complex) coordinates
