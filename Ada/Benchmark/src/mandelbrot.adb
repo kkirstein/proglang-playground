@@ -12,23 +12,7 @@ package body Mandelbrot is
 
       use type Image_IO.RGB_Value;
 
-      -- Rust version of the Mandelbrot calculation for reference:
-      -- fn pixel_value(x: f64, y: f64) -> u8 {
-      --     let z0 = Complex::new(x, y);
-      --     let mut z = Complex::new(x, y);
-      --     let mut n = N_MAX;
-      --
-      --     while z.norm() <= R_MAX && n > 0 {
-      --         z = z * z + z0;
-      --         n -= 1;
-      --     }
-      --
-      --     // return final "index"
-      --     n
-      -- }
-
    begin
-      -- TODO: Implementation for calculating pixel value
       while I > 0 and abs (ZI) <= R_MAX loop
          ZI := ZI * ZI + C;
          I := I - 1;
