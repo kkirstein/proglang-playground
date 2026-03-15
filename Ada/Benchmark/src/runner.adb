@@ -71,8 +71,8 @@ begin
    Put_Line ("Mandelbrot Set");
    Put_Line ("--------------");
    Tic := Clock;
-   Mandelbrot.Generate_Image (1920, 1200, -0.5, 0.0, 0.005, Mandelbrot_Image);
-   Put ("Generate_Image (1920, 1200, -0.5, 0.0, 0.005): ");
+   Mandelbrot.Generate_Image (1920, 1200, -0.5, 0.0, 4.0 / 1920.0, Mandelbrot_Image);
+   Put ("Generate_Image (1920, 1200, -0.5, 0.0, 4.0 / 1920.0): ");
    Put_Elapsed (Tic);
 
    Tic := Clock;
