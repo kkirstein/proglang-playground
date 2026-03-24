@@ -19,8 +19,7 @@ procedure Runner is
       Put_Line (" elapsed time: " & Duration'Image (Toc - Tic) & "s");
    end Put_Elapsed;
 
-   Tic              : Time;
-   Mandelbrot_Image : Image_IO.Holders.Handle;
+   Tic : Time;
 begin
    Put_Line ("Benchmark");
    Put_Line ("=========");
@@ -70,16 +69,30 @@ begin
 
    Put_Line ("Mandelbrot Set");
    Put_Line ("--------------");
-   Tic := Clock;
-   Mandelbrot.Generate_Image (1920, 1200, -0.5, 0.0, 4.0 / 1920.0, Mandelbrot_Image);
-   Put ("Generate_Image (1920, 1200, -0.5, 0.0, 4.0 / 1920.0): ");
-   Put_Elapsed (Tic);
+   declare
+      Mandelbrot_Image : Image_IO.Holders.Handle;
+      Width            : constant Natural := 1920;
+      Height           : constant Natural := 1600;
+   begin
+      Tic := Clock;
+      Mandelbrot.Generate_Image
+        (Width, Height, -0.5, 0.0, 4.0 / Float (Width), Mandelbrot_Image);
+      Put
+        ("Generate_Image ("
+         & Natural'Image (Width)
+         & ","
+         & Natural'Image (Height)
+         & ", -0.5, 0.0, 4.0 / "
+         & Natural'Image (Width)
+         & "): ");
+      Put_Elapsed (Tic);
 
-   Tic := Clock;
-   Mandelbrot.Write_Image (Mandelbrot_Image, "mandelbrot.png");
-   Put ("Write_Image (mandelbrot.png): ");
-   Put_Elapsed (Tic);
+      Tic := Clock;
+      Mandelbrot.Write_Image (Mandelbrot_Image, "mandelbrot.png");
+      Put ("Write_Image (mandelbrot.png): ");
+      Put_Elapsed (Tic);
 
-   New_Line;
+      New_Line;
+   end;
 
 end Runner;
