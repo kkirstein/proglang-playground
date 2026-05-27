@@ -25,6 +25,7 @@
                         :serial t
                         :components
                         ((:file "benchmark-tests")
-                         (:file "fibonacci-tests"))))
+                         (:file "fibonacci-tests")
+                         (:file "perfect-numbers-tests"))))
   :perform (test-op (op c)
                     (symbol-call :fiveam :run! (find-symbol* :benchmark-tests :benchmark/test))))
