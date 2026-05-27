@@ -15,4 +15,16 @@
                         ((:file "fibonacci")
                          (:file "perfect-numbers")
                          (:file "mandelbrot")
-                         (:file "benchmark")))))
+                         (:file "benchmark"))))
+  :in-order-to ((test-op (test-op #:benchmark/test))))
+
+(asdf:defsystem #:benchmark/test
+  :description "Tests for benchmark app"
+  :depends-on ("benchmark" "fiveam")
+  :components ((:module "test"
+                        :serial t
+                        :components
+                        ((:file "benchmark-tests")
+                         (:file "fibonacci-tests"))))
+  :perform (test-op (op c)
+                    (symbol-call :fiveam :run! (find-symbol* :benchmark-tests :benchmark/test))))
