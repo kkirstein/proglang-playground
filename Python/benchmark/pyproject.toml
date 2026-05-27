@@ -10,6 +10,7 @@ requires-python = ">=3.14"
 
 dependencies = [
     # Add runtime dependencies here
+    "pillow>=12.1.0",
 ]
 
 [dependency-groups]
