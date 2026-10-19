@@ -15,6 +15,10 @@ A playground for various programming languages.
 
 [Ballerina](https://ballerina.io/) is statically typed programming language with emphasis on implementing services. It has good support for concurrency and deployment in the cloud. Ballerina programs also feature a graphical representation with sequence diagrams and seamless conversion between them and textual representation.
 
+# C3
+
+[C3](https://c3-lang.org) C3 is a general-purpose programming language with systems-level performance, that scales from drivers and embedded software to games, desktop applications, servers, and developer tools. It is meant to be an evolution from C, like Zig.
+
 # Clojure
 
 Clojure is a LISP-style language for the Java Virtual Machine (JVM).
